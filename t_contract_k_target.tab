@@ -1,0 +1,9 @@
+create table T_CONTRACT_K_TARGET
+(
+  k    VARCHAR2(10),
+  st   NUMBER,
+  ht   NUMBER,
+  comm VARCHAR2(1000)
+)
+;
+

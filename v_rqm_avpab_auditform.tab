@@ -1,0 +1,23 @@
+create table V_RQM_AVPAB_AUDITFORM
+(
+  request_id                VARCHAR2(15 CHAR) not null,
+  benutzer                  VARCHAR2(254 CHAR),
+  erstellungsdatum          DATE,
+  zugewiesen_an             VARCHAR2(254 CHAR),
+  zuletzt_geaendert_von     VARCHAR2(254 CHAR),
+  aenderungsdatum           DATE,
+  status                    NUMBER,
+  kurzbeschreibung          VARCHAR2(254 CHAR),
+  zielsystemnr              VARCHAR2(50 CHAR),
+  lieferdatumneu            DATE,
+  zeititbewertungtage       VARCHAR2(50 CHAR),
+  timestampreadyfordecision DATE,
+  aktuellerzustand          VARCHAR2(50 CHAR),
+  anforderungsnr            VARCHAR2(50 CHAR),
+  vorigerzustand            VARCHAR2(50 CHAR),
+  letzterzustandswechsel    DATE,
+  t08abnahmebereit          DATE,
+  lieferdatum               DATE
+)
+;
+

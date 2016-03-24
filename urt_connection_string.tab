@@ -1,0 +1,10 @@
+create table URT_CONNECTION_STRING
+(
+  id     NUMBER not null,
+  name   VARCHAR2(20) not null,
+  string VARCHAR2(2000)
+)
+;
+alter table URT_CONNECTION_STRING
+  add constraint URT_CONNECTION_STRING_PK primary key (ID);
+

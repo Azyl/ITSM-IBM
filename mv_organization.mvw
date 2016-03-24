@@ -1,0 +1,49 @@
+CREATE MATERIALIZED VIEW MV_ORGANIZATION
+REFRESH FORCE ON DEMAND
+AS
+SELECT V.CONTRACT,
+       V.BUSINESS_CLUSTER,
+       V.ORGANIZATION,
+       V.SERVICE,
+       D.CLOSED_DATE,
+       B.INCIDENT_TYPE,
+       P.PRIORITY
+  FROM (SELECT DISTINCT K.CONTRACT,
+                        K.BUSINESS_CLUSTER,
+                        COALESCE(K.RESOLVED_GROUP_SUPP_ORG, K.SUPPORT_ORGANIZATION) AS ORGANIZATION,
+                        K.SERVICE
+          FROM V_KSL_2_11 K
+        UNION
+        SELECT T.CONTRACT, T.BUSINESS_CLUSTER, T.ORGANIZATION, T.SERVICE
+          FROM T_SERVICE_ADD_DEF T) V
+
+ CROSS JOIN (SELECT 'User Service Restoration' AS INCIDENT_TYPE
+               FROM DUAL
+             UNION
+             SELECT 'User Service Request' AS INCIDENT_TYPE
+               FROM DUAL
+             UNION
+             SELECT 'Infrastructure Restoration' AS INCIDENT_TYPE
+               FROM DUAL
+             UNION
+             SELECT 'Infrastructure Event' AS INCIDENT_TYPE
+               FROM DUAL) B
+ CROSS JOIN (SELECT 'Low' AS PRIORITY
+               FROM DUAL
+             UNION
+             SELECT 'Medium' AS PRIORITY
+               FROM DUAL
+             UNION
+             SELECT 'High' AS PRIORITY
+               FROM DUAL
+             UNION
+             SELECT 'Critical' AS PRIORITY
+               FROM DUAL) P
+ CROSS JOIN (SELECT TO_CHAR(ADD_MONTHS(TRUNC(SYSDATE), 1 - ROWNUM), 'YYYY_MM') CLOSED_DATE
+               FROM DUAL
+             CONNECT BY ROWNUM <=
+                        MONTHS_BETWEEN(TRUNC(SYSDATE, 'MM'), TO_DATE('2015_02', 'YYYY_MM'))) D
+
+ WHERE V.CONTRACT = 'CAEE II'
+   AND V.ORGANIZATION IN ('ao-caee:ibm', 'ab:ibm', 'mt-caee:ibm');
+

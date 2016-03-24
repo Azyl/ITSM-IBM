@@ -1,0 +1,14 @@
+create table URT_USER
+(
+  id           NUMBER not null,
+  corporate_id VARCHAR2(50) not null,
+  name         VARCHAR2(50) not null,
+  email        VARCHAR2(50) not null,
+  client_id    VARCHAR2(50),
+  role         VARCHAR2(20) default USER not null,
+  password     VARCHAR2(100)
+)
+;
+alter table URT_USER
+  add constraint URT_USER_PK primary key (ID);
+

@@ -1,0 +1,9 @@
+create table V_MEASURE_STEPS
+(
+  incident_number VARCHAR2(15) not null,
+  komment         VARCHAR2(4000),
+  komment_id      NUMBER,
+  comment_type    VARCHAR2(100)
+)
+;
+

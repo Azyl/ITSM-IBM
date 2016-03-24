@@ -1,0 +1,13 @@
+create table V_KNOWN_ERROR_RELATIONS
+(
+  request_id       VARCHAR2(50 CHAR) not null,
+  known_error_id   VARCHAR2(15 CHAR) not null,
+  association_type VARCHAR2(50 CHAR) not null,
+  description      VARCHAR2(255 CHAR),
+  request_type     VARCHAR2(50 CHAR),
+  status           VARCHAR2(15 CHAR),
+  closed_date      DATE,
+  submit_date      DATE
+)
+;
+

@@ -1,0 +1,11 @@
+CREATE MATERIALIZED VIEW MV_LOADSTATUS
+REFRESH FORCE ON DEMAND
+AS
+SELECT 'Incident MAX Date' AS MAXDATE,MAX(i.last_modified_date) AS Load_Date FROM v_incident_all_data i
+UNION
+SELECT 'Change MAX Date'  AS MAXDATE,MAX(c.last_modified_date) AS Load_Date FROM v_change_all_data c
+UNION
+SELECT 'Kwon Error MAX Date' AS MAXDATE,MAX(k.last_modified_date) AS Load_Date FROM v_known_error k
+UNION
+SELECT 'Problem MAX Date' AS MAXDATE,MAX(p.last_modified_date) AS Load_Date FROM v_problem_all_data p;
+

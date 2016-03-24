@@ -1,0 +1,26 @@
+create table V_RQM_AVBEW_SOLLISTSTD
+(
+  project_system                VARCHAR2(40 CHAR),
+  topic_process                 VARCHAR2(40 CHAR),
+  sub_project                   VARCHAR2(40 CHAR),
+  ticket_id                     VARCHAR2(15 CHAR) not null,
+  attribute_value_request_id    VARCHAR2(15 CHAR),
+  request_id                    VARCHAR2(31 CHAR) not null,
+  status                        VARCHAR2(69 CHAR),
+  target_system_id              VARCHAR2(25 CHAR),
+  requirement_type              VARCHAR2(30 CHAR),
+  requirement_type_english      VARCHAR2(30 CHAR),
+  requirement_type_long         VARCHAR2(255 CHAR),
+  requirement_type_long_english VARCHAR2(255 CHAR),
+  country_code                  VARCHAR2(40 CHAR),
+  planned_date                  DATE,
+  planned_date_year_month       VARCHAR2(7 CHAR),
+  complete_date                 DATE,
+  complete_date_year_month      VARCHAR2(7 CHAR),
+  closed_date                   DATE,
+  closed_date_year_month        VARCHAR2(7 CHAR),
+  estimated_hours               NUMBER(28,2),
+  effective_hours               NUMBER(28,2)
+)
+;
+

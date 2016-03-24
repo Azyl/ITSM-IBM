@@ -1,0 +1,40 @@
+create table URT_SUBREPORT
+(
+  id                          NUMBER not null,
+  name                        VARCHAR2(50) not null,
+  description                 VARCHAR2(4000) not null,
+  type                        VARCHAR2(20) not null,
+  id_user                     NUMBER not null,
+  id_connection_string        NUMBER not null,
+  table_querry                VARCHAR2(4000) not null,
+  cell_querry                 VARCHAR2(4000),
+  conf_table_column_sum       NUMBER not null,
+  conf_table_row_sum          NUMBER not null,
+  has_chart                   NUMBER,
+  conf_chart_width            NUMBER,
+  conf_chart_height           NUMBER,
+  conf_chart_has_legend       NUMBER,
+  conf_table_cell_size        NUMBER,
+  conf_table_header_size      NUMBER,
+  conf_table_cell_font_name   VARCHAR2(50),
+  conf_table_header_font_name VARCHAR2(50),
+  conf_chart_series_font_name VARCHAR2(50),
+  conf_chart_series_font_size NUMBER,
+  conf_chart_axis_x_font_name VARCHAR2(50),
+  conf_chart_axis_y_font_name VARCHAR2(50),
+  conf_chart_legend_font_name VARCHAR2(50),
+  conf_chart_legend_font_size NUMBER,
+  conf_chart_axis_x_font_size NUMBER,
+  conf_chart_axis_y_font_size NUMBER,
+  conf_chart_axis_x_angle     NUMBER
+)
+;
+alter table URT_SUBREPORT
+  add constraint URT_SUB_REPORT_PK primary key (ID);
+alter table URT_SUBREPORT
+  add constraint SUBREOPRT_USERS_FK foreign key (ID_USER)
+  references URT_USER (ID);
+alter table URT_SUBREPORT
+  add constraint SUBREPORT_CONNECTION_STRING_FK foreign key (ID_CONNECTION_STRING)
+  references URT_CONNECTION_STRING (ID);
+

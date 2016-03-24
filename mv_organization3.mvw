@@ -1,0 +1,19 @@
+CREATE MATERIALIZED VIEW MV_ORGANIZATION3
+REFRESH FORCE ON DEMAND
+AS
+SELECT DISTINCT v.CONTRACT,
+                v.BUSINESS_CLUSTER,
+                COALESCE(v.RESOLVED_GROUP_SUPP_ORG, v.SUPPORT_ORGANIZATION) AS ORGANIZATION,
+                v.SERVICE,v.INCIDENT_TYPE,p.priority
+  FROM V_KSL_2_11 v
+  CROSS JOIN
+   (
+  SELECT 'Low' AS priority FROM dual
+  UNION
+  SELECT 'Medium' AS priority FROM dual
+  UNION
+  SELECT 'High' AS priority FROM dual
+  UNION
+  SELECT 'Critical' AS priority FROM dual
+  ) p;
+

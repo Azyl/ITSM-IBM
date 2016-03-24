@@ -1,0 +1,22 @@
+create table V_BDP_CTM_SUPPORTGROUP
+(
+  support_group_status          VARCHAR2(20 CHAR),
+  support_organization          VARCHAR2(60 CHAR),
+  support_group                 VARCHAR2(60 CHAR),
+  support_group_description     VARCHAR2(255 CHAR),
+  support_group_form_url        VARCHAR2(254 CHAR),
+  assignment_cmco_count         NUMBER,
+  assignment_cmma_count         NUMBER,
+  assignment_pmco_count         NUMBER,
+  assignment_general_count      NUMBER,
+  chg_template_count            NUMBER,
+  task_template_count           NUMBER,
+  support_group_sga_count       NUMBER,
+  support_group_cmma_av_count   NUMBER,
+  support_group_cmco_av_count   NUMBER,
+  support_group_cmap_av_count   NUMBER,
+  support_group_pmco_av_count   NUMBER,
+  support_group_member_av_count NUMBER
+)
+;
+

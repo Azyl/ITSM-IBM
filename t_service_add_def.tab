@@ -1,0 +1,9 @@
+create table T_SERVICE_ADD_DEF
+(
+  contract         VARCHAR2(50 CHAR),
+  organization     VARCHAR2(60 CHAR),
+  business_cluster VARCHAR2(50 CHAR),
+  service          VARCHAR2(255 CHAR)
+)
+;
+

@@ -1,0 +1,17 @@
+create table URT_SERIES
+(
+  id             NUMBER not null,
+  name           VARCHAR2(40) not null,
+  column_name    VARCHAR2(40) not null,
+  type           NUMBER not null,
+  id_subreport   NUMBER not null,
+  color          VARCHAR2(40),
+  value_in_label NUMBER
+)
+;
+alter table URT_SERIES
+  add constraint URT_SERIES_PK primary key (ID);
+alter table URT_SERIES
+  add constraint URT_SERIES_SUBREPORT foreign key (ID_SUBREPORT)
+  references URT_SUBREPORT (ID);
+

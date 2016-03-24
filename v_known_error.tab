@@ -1,0 +1,36 @@
+create table V_KNOWN_ERROR
+(
+  known_error_id                VARCHAR2(15 CHAR) not null,
+  summary                       VARCHAR2(256 CHAR),
+  notes                         VARCHAR2(1200 CHAR),
+  priority                      VARCHAR2(20 CHAR),
+  impact                        VARCHAR2(20 CHAR),
+  urgency                       VARCHAR2(20 CHAR),
+  service                       VARCHAR2(255 CHAR),
+  prod_cat1                     VARCHAR2(60 CHAR),
+  prod_cat2                     VARCHAR2(60 CHAR),
+  prod_cat3                     VARCHAR2(60 CHAR),
+  status                        VARCHAR2(60 CHAR) not null,
+  status_reason                 VARCHAR2(60 CHAR),
+  assigned_group                VARCHAR2(60 CHAR),
+  assigned_support_organization VARCHAR2(60 CHAR),
+  coordinator_group             VARCHAR2(60 CHAR),
+  coordinator_support_org       VARCHAR2(60 CHAR),
+  service_deptgrp               VARCHAR2(50 CHAR),
+  submitter_deptgrp             VARCHAR2(20 CHAR),
+  pke_ci                        VARCHAR2(255 CHAR),
+  resolution                    VARCHAR2(1200 CHAR),
+  searchable                    VARCHAR2(4 CHAR),
+  vendor_ticket_number          VARCHAR2(50 CHAR),
+  view_access                   VARCHAR2(10 CHAR),
+  workaround                    VARCHAR2(1200 CHAR),
+  closed_date                   DATE,
+  corrective_action_determined  DATE,
+  last_corrected_date           DATE,
+  last_modified_date            DATE not null,
+  submit_date                   DATE not null,
+  target_date                   DATE,
+  known_error_link              VARCHAR2(1023 CHAR)
+)
+;
+

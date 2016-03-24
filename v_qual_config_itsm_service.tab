@@ -1,0 +1,31 @@
+create table V_QUAL_CONFIG_ITSM_SERVICE
+(
+  itsm_service_instance_id VARCHAR2(38 CHAR) not null,
+  itsm_service             VARCHAR2(254 CHAR),
+  mis_1_ns                 VARCHAR2(150 CHAR),
+  mis_2_ns                 VARCHAR2(150 CHAR),
+  mis_3_ns                 VARCHAR2(150 CHAR),
+  mis_4_ns                 VARCHAR2(150 CHAR),
+  mis_5_ns                 VARCHAR2(150 CHAR),
+  mis_6_ns                 VARCHAR2(150 CHAR),
+  mis_7_ns                 VARCHAR2(150 CHAR),
+  mis_8_ns                 VARCHAR2(150 CHAR),
+  mis_9_ns                 VARCHAR2(150 CHAR),
+  mis_10_ns                VARCHAR2(150 CHAR),
+  mis_1_ns_id              NUMBER(3),
+  mis_2_ns_id              NUMBER(3),
+  mis_3_ns_id              NUMBER(3),
+  mis_4_ns_id              NUMBER(3),
+  mis_5_ns_id              NUMBER(4),
+  mis_6_ns_id              NUMBER(4),
+  mis_7_ns_id              NUMBER(4),
+  mis_8_ns_id              NUMBER(4),
+  mis_9_ns_id              NUMBER(4),
+  mis_10_ns_id             NUMBER(4),
+  tower_ns                 VARCHAR2(60 CHAR),
+  service_dept_ns          VARCHAR2(15 CHAR),
+  service_maindept_ns      VARCHAR2(12 CHAR),
+  service_deptgrp_ns       VARCHAR2(18 CHAR)
+)
+;
+

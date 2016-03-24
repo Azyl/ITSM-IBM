@@ -1,0 +1,10 @@
+create table URT_INPUT_PARAMETER
+(
+  id             NUMBER not null,
+  name           VARCHAR2(20) not null,
+  default_values VARCHAR2(1000) not null
+)
+;
+alter table URT_INPUT_PARAMETER
+  add constraint URT_INPUT_PARAMETER_PK primary key (ID);
+

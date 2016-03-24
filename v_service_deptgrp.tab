@@ -1,0 +1,10 @@
+create table V_SERVICE_DEPTGRP
+(
+  service          VARCHAR2(255 CHAR) not null,
+  status           VARCHAR2(60 CHAR),
+  department_group VARCHAR2(50 CHAR),
+  department       VARCHAR2(50 CHAR),
+  main_department  VARCHAR2(50 CHAR)
+)
+;
+

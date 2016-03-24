@@ -1,0 +1,11 @@
+create table URT_NOTE
+(
+  id         NUMBER not null,
+  element_id VARCHAR2(30) not null,
+  text       VARCHAR2(150) not null,
+  type       VARCHAR2(20) not null
+)
+;
+alter table URT_NOTE
+  add constraint URT__PK primary key (ID);
+

@@ -1,0 +1,2185 @@
+
+Creating table T_CONTRACT_K_TARGET
+==================================
+
+
+create table T_CONTRACT_K_TARGET
+(
+  k    VARCHAR2(10),
+  st   NUMBER,
+  ht   NUMBER,
+  comm VARCHAR2(1000)
+)
+
+ORA-00955: name is already used by an existing object
+
+Creating table T_SERVICE_ADD_DEF
+================================
+
+
+create table T_SERVICE_ADD_DEF
+(
+  contract         VARCHAR2(50 CHAR),
+  organization     VARCHAR2(60 CHAR),
+  business_cluster VARCHAR2(50 CHAR),
+  service          VARCHAR2(255 CHAR)
+)
+
+ORA-00955: name is already used by an existing object
+
+Creating table URT_USER
+=======================
+
+
+create table URT_USER
+(
+  id           NUMBER not null,
+  corporate_id VARCHAR2(50) not null,
+  name         VARCHAR2(50) not null,
+  email        VARCHAR2(50) not null,
+  client_id    VARCHAR2(50),
+  role         VARCHAR2(20) default USER not null,
+  password     VARCHAR2(100)
+)
+
+ORA-00955: name is already used by an existing object
+
+alter table URT_USER
+  add constraint URT_USER_PK primary key (ID)
+
+ORA-02260: table can have only one primary key
+
+Creating table URT_CONNECTION_STRING
+====================================
+
+
+create table URT_CONNECTION_STRING
+(
+  id     NUMBER not null,
+  name   VARCHAR2(20) not null,
+  string VARCHAR2(2000)
+)
+
+ORA-00955: name is already used by an existing object
+
+alter table URT_CONNECTION_STRING
+  add constraint URT_CONNECTION_STRING_PK primary key (ID)
+
+ORA-02260: table can have only one primary key
+
+Creating table URT_SUBREPORT
+============================
+
+
+create table URT_SUBREPORT
+(
+  id                          NUMBER not null,
+  name                        VARCHAR2(50) not null,
+  description                 VARCHAR2(4000) not null,
+  type                        VARCHAR2(20) not null,
+  id_user                     NUMBER not null,
+  id_connection_string        NUMBER not null,
+  table_querry                VARCHAR2(4000) not null,
+  cell_querry                 VARCHAR2(4000),
+  conf_table_column_sum       NUMBER not null,
+  conf_table_row_sum          NUMBER not null,
+  has_chart                   NUMBER,
+  conf_chart_width            NUMBER,
+  conf_chart_height           NUMBER,
+  conf_chart_has_legend       NUMBER,
+  conf_table_cell_size        NUMBER,
+  conf_table_header_size      NUMBER,
+  conf_table_cell_font_name   VARCHAR2(50),
+  conf_table_header_font_name VARCHAR2(50),
+  conf_chart_series_font_name VARCHAR2(50),
+  conf_chart_series_font_size NUMBER,
+  conf_chart_axis_x_font_name VARCHAR2(50),
+  conf_chart_axis_y_font_name VARCHAR2(50),
+  conf_chart_legend_font_name VARCHAR2(50),
+  conf_chart_legend_font_size NUMBER,
+  conf_chart_axis_x_font_size NUMBER,
+  conf_chart_axis_y_font_size NUMBER,
+  conf_chart_axis_x_angle     NUMBER
+)
+
+ORA-00955: name is already used by an existing object
+
+alter table URT_SUBREPORT
+  add constraint URT_SUB_REPORT_PK primary key (ID)
+
+ORA-02260: table can have only one primary key
+
+alter table URT_SUBREPORT
+  add constraint SUBREOPRT_USERS_FK foreign key (ID_USER)
+  references URT_USER (ID)
+
+ORA-02275: such a referential constraint already exists in the table
+
+alter table URT_SUBREPORT
+  add constraint SUBREPORT_CONNECTION_STRING_FK foreign key (ID_CONNECTION_STRING)
+  references URT_CONNECTION_STRING (ID)
+
+ORA-02275: such a referential constraint already exists in the table
+
+Creating table URT_CELL_PARAMETER
+=================================
+
+
+create table URT_CELL_PARAMETER
+(
+  id           NUMBER not null,
+  name         VARCHAR2(20) not null,
+  query        VARCHAR2(4000) not null,
+  id_subreport NUMBER not null
+)
+
+ORA-00955: name is already used by an existing object
+
+alter table URT_CELL_PARAMETER
+  add constraint URT_CELL_PARAMETER_PK primary key (ID)
+
+ORA-02260: table can have only one primary key
+
+alter table URT_CELL_PARAMETER
+  add constraint CELL_PARAMETER_SUBREPORT foreign key (ID_SUBREPORT)
+  references URT_SUBREPORT (ID)
+
+ORA-02275: such a referential constraint already exists in the table
+
+Creating table URT_INPUT_PARAMETER
+==================================
+
+
+create table URT_INPUT_PARAMETER
+(
+  id             NUMBER not null,
+  name           VARCHAR2(20) not null,
+  default_values VARCHAR2(1000) not null
+)
+
+ORA-00955: name is already used by an existing object
+
+alter table URT_INPUT_PARAMETER
+  add constraint URT_INPUT_PARAMETER_PK primary key (ID)
+
+ORA-02260: table can have only one primary key
+
+Creating table URT_NOTE
+=======================
+
+
+create table URT_NOTE
+(
+  id         NUMBER not null,
+  element_id VARCHAR2(30) not null,
+  text       VARCHAR2(150) not null,
+  type       VARCHAR2(20) not null
+)
+
+ORA-00955: name is already used by an existing object
+
+alter table URT_NOTE
+  add constraint URT__PK primary key (ID)
+
+ORA-02260: table can have only one primary key
+
+Creating table URT_SERIES
+=========================
+
+
+create table URT_SERIES
+(
+  id             NUMBER not null,
+  name           VARCHAR2(40) not null,
+  column_name    VARCHAR2(40) not null,
+  type           NUMBER not null,
+  id_subreport   NUMBER not null,
+  color          VARCHAR2(40),
+  value_in_label NUMBER
+)
+
+ORA-00955: name is already used by an existing object
+
+alter table URT_SERIES
+  add constraint URT_SERIES_PK primary key (ID)
+
+ORA-02260: table can have only one primary key
+
+alter table URT_SERIES
+  add constraint URT_SERIES_SUBREPORT foreign key (ID_SUBREPORT)
+  references URT_SUBREPORT (ID)
+
+ORA-02275: such a referential constraint already exists in the table
+
+Creating table V_BDP_CTM_SUPPORTGROUP
+=====================================
+
+
+create table V_BDP_CTM_SUPPORTGROUP
+(
+  support_group_status          VARCHAR2(20 CHAR),
+  support_organization          VARCHAR2(60 CHAR),
+  support_group                 VARCHAR2(60 CHAR),
+  support_group_description     VARCHAR2(255 CHAR),
+  support_group_form_url        VARCHAR2(254 CHAR),
+  assignment_cmco_count         NUMBER,
+  assignment_cmma_count         NUMBER,
+  assignment_pmco_count         NUMBER,
+  assignment_general_count      NUMBER,
+  chg_template_count            NUMBER,
+  task_template_count           NUMBER,
+  support_group_sga_count       NUMBER,
+  support_group_cmma_av_count   NUMBER,
+  support_group_cmco_av_count   NUMBER,
+  support_group_cmap_av_count   NUMBER,
+  support_group_pmco_av_count   NUMBER,
+  support_group_member_av_count NUMBER
+)
+
+ORA-00955: name is already used by an existing object
+
+Creating table V_CHANGE_ALL_DATA
+================================
+
+
+create table V_CHANGE_ALL_DATA
+(
+  change_id                  VARCHAR2(15 CHAR) not null,
+  change_location            VARCHAR2(500 CHAR),
+  change_location_site       VARCHAR2(60 CHAR),
+  coordinator_group          VARCHAR2(60 CHAR),
+  coordinator_group_supp_org VARCHAR2(60 CHAR),
+  coordinator_deptgrp        VARCHAR2(60 CHAR),
+  manager_group              VARCHAR2(60 CHAR),
+  manager_group_supp_org     VARCHAR2(60 CHAR),
+  manager_deptgrp            VARCHAR2(60 CHAR),
+  service                    VARCHAR2(255 CHAR),
+  service_maindept           VARCHAR2(50 CHAR),
+  service_dept               VARCHAR2(50 CHAR),
+  service_deptgrp            VARCHAR2(50 CHAR),
+  prod_cat1                  VARCHAR2(60 CHAR),
+  prod_cat2                  VARCHAR2(60 CHAR),
+  prod_cat3                  VARCHAR2(60 CHAR),
+  prod_cat4                  VARCHAR2(254 CHAR),
+  ops_cat1                   VARCHAR2(60 CHAR),
+  ops_cat2                   VARCHAR2(60 CHAR),
+  ops_cat3                   VARCHAR2(60 CHAR),
+  summary                    VARCHAR2(128 CHAR),
+  notes                      VARCHAR2(1200 CHAR),
+  change_type                VARCHAR2(50 CHAR),
+  class                      VARCHAR2(9 CHAR),
+  change_class_real          VARCHAR2(20 CHAR),
+  change_class_correct       VARCHAR2(20 CHAR),
+  impact                     VARCHAR2(30 CHAR),
+  urgency                    VARCHAR2(20 CHAR),
+  priority                   VARCHAR2(20 CHAR),
+  risk_level                 VARCHAR2(20 CHAR),
+  status                     VARCHAR2(40 CHAR),
+  status_reason              VARCHAR2(40 CHAR),
+  change_reason              VARCHAR2(17 CHAR),
+  template                   VARCHAR2(200 CHAR),
+  copied_from_original_id    VARCHAR2(45 CHAR),
+  submit_date                DATE,
+  target_date                DATE,
+  rfa_date                   DATE,
+  requested_start_date       DATE,
+  requested_end_date         DATE,
+  scheduled_start_date       DATE,
+  scheduled_end_date         DATE,
+  earliest_start_date        DATE,
+  actual_start_date          DATE,
+  actual_end_date            DATE,
+  sfr_date                   DATE,
+  sfa_date                   DATE,
+  scheduled_date             DATE,
+  completed_date             DATE,
+  closed_date                DATE,
+  last_modified_date         DATE,
+  last_modified_by_deptgrp   VARCHAR2(60 CHAR),
+  leadtime_achievement       VARCHAR2(20 CHAR),
+  leadtime_seconds           VARCHAR2(40 CHAR),
+  ontime_achievement_flag    VARCHAR2(20 CHAR),
+  overdue_flag               VARCHAR2(20 CHAR),
+  uc_acknowledgment_end_date DATE,
+  uc_resolution_end_date     DATE,
+  timing_reason              VARCHAR2(60 CHAR),
+  related_ci_flag            VARCHAR2(20 CHAR),
+  impacted_area_flag         VARCHAR2(20 CHAR),
+  related_task_flag          VARCHAR2(20 CHAR),
+  vendor_ticket_number       VARCHAR2(50 CHAR),
+  vendor_group               VARCHAR2(60 CHAR),
+  z1d_datetime01             DATE,
+  z1d_datetime02             DATE,
+  zd_nextduedate_time        DATE,
+  change_link                VARCHAR2(1024 CHAR)
+)
+
+ORA-00955: name is already used by an existing object
+
+Creating table V_INCIDENT_ALL_DATA
+==================================
+
+
+Table created
+
+Creating table V_INCIDENT_LIVE_MONITOR
+======================================
+
+
+create table V_INCIDENT_LIVE_MONITOR
+(
+  incident_number        VARCHAR2(15 CHAR) not null,
+  submit_date            DATE,
+  last_modified_date     DATE,
+  service                VARCHAR2(255 CHAR),
+  assigned_group         VARCHAR2(60 CHAR),
+  owner_group            VARCHAR2(60 CHAR),
+  status                 VARCHAR2(60 CHAR),
+  status_reason          VARCHAR2(60 CHAR),
+  slt_status             VARCHAR2(60 CHAR),
+  incident_type          VARCHAR2(60 CHAR),
+  priority               VARCHAR2(60 CHAR),
+  impact                 VARCHAR2(60 CHAR),
+  urgency                VARCHAR2(60 CHAR),
+  summary                VARCHAR2(100 CHAR),
+  technical_ci           VARCHAR2(60 CHAR),
+  vendor_ticket_number   VARCHAR2(100 CHAR),
+  bmw_business_time      VARCHAR2(100 CHAR),
+  bmw_slt_profile_name   VARCHAR2(100 CHAR),
+  bmw_solutiontimetarget NUMBER(15),
+  reported_source        VARCHAR2(60 CHAR),
+  target_date            DATE,
+  request_number         VARCHAR2(15 CHAR),
+  incident_link          VARCHAR2(1024 CHAR)
+)
+
+ORA-00955: name is already used by an existing object
+
+Creating table V_KNOWN_ERROR
+============================
+
+
+create table V_KNOWN_ERROR
+(
+  known_error_id                VARCHAR2(15 CHAR) not null,
+  summary                       VARCHAR2(256 CHAR),
+  notes                         VARCHAR2(1200 CHAR),
+  priority                      VARCHAR2(20 CHAR),
+  impact                        VARCHAR2(20 CHAR),
+  urgency                       VARCHAR2(20 CHAR),
+  service                       VARCHAR2(255 CHAR),
+  prod_cat1                     VARCHAR2(60 CHAR),
+  prod_cat2                     VARCHAR2(60 CHAR),
+  prod_cat3                     VARCHAR2(60 CHAR),
+  status                        VARCHAR2(60 CHAR) not null,
+  status_reason                 VARCHAR2(60 CHAR),
+  assigned_group                VARCHAR2(60 CHAR),
+  assigned_support_organization VARCHAR2(60 CHAR),
+  coordinator_group             VARCHAR2(60 CHAR),
+  coordinator_support_org       VARCHAR2(60 CHAR),
+  service_deptgrp               VARCHAR2(50 CHAR),
+  submitter_deptgrp             VARCHAR2(20 CHAR),
+  pke_ci                        VARCHAR2(255 CHAR),
+  resolution                    VARCHAR2(1200 CHAR),
+  searchable                    VARCHAR2(4 CHAR),
+  vendor_ticket_number          VARCHAR2(50 CHAR),
+  view_access                   VARCHAR2(10 CHAR),
+  workaround                    VARCHAR2(1200 CHAR),
+  closed_date                   DATE,
+  corrective_action_determined  DATE,
+  last_corrected_date           DATE,
+  last_modified_date            DATE not null,
+  submit_date                   DATE not null,
+  target_date                   DATE,
+  known_error_link              VARCHAR2(1023 CHAR)
+)
+
+ORA-00955: name is already used by an existing object
+
+Creating table V_KNOWN_ERROR_RELATIONS
+======================================
+
+
+create table V_KNOWN_ERROR_RELATIONS
+(
+  request_id       VARCHAR2(50 CHAR) not null,
+  known_error_id   VARCHAR2(15 CHAR) not null,
+  association_type VARCHAR2(50 CHAR) not null,
+  description      VARCHAR2(255 CHAR),
+  request_type     VARCHAR2(50 CHAR),
+  status           VARCHAR2(15 CHAR),
+  closed_date      DATE,
+  submit_date      DATE
+)
+
+ORA-00955: name is already used by an existing object
+
+Creating table V_MEASURE_STEPS
+==============================
+
+
+create table V_MEASURE_STEPS
+(
+  incident_number VARCHAR2(15) not null,
+  komment         VARCHAR2(4000),
+  komment_id      NUMBER,
+  comment_type    VARCHAR2(100)
+)
+
+ORA-00955: name is already used by an existing object
+
+Creating table V_PROBLEM_ALL_DATA
+=================================
+
+
+create table V_PROBLEM_ALL_DATA
+(
+  problem_investigation_id      VARCHAR2(15 CHAR) not null,
+  summary                       VARCHAR2(256 CHAR),
+  notes                         VARCHAR2(1200 CHAR),
+  priority                      VARCHAR2(20 CHAR),
+  impact                        VARCHAR2(20 CHAR),
+  urgency                       VARCHAR2(20 CHAR),
+  service                       VARCHAR2(255 CHAR),
+  prod_cat1                     VARCHAR2(60 CHAR),
+  prod_cat2                     VARCHAR2(60 CHAR),
+  prod_cat3                     VARCHAR2(60 CHAR),
+  prod_cat4                     VARCHAR2(254 CHAR),
+  status                        VARCHAR2(50 CHAR),
+  status_reason                 VARCHAR2(40 CHAR),
+  assigned_group                VARCHAR2(60 CHAR),
+  assigned_support_organization VARCHAR2(60 CHAR),
+  coordinator_group             VARCHAR2(60 CHAR),
+  coordinator_support_org       VARCHAR2(60 CHAR),
+  service_deptgrp               VARCHAR2(50 CHAR),
+  submitter_deptgrp             VARCHAR2(20 CHAR),
+  pbi_ci                        VARCHAR2(255 CHAR),
+  investigation_driver          VARCHAR2(30 CHAR),
+  problem_link                  VARCHAR2(1024 CHAR),
+  problem_location              VARCHAR2(60 CHAR),
+  resolution                    VARCHAR2(1200 CHAR),
+  vendor_ticket_number          VARCHAR2(50 CHAR),
+  workaround                    VARCHAR2(1200 CHAR),
+  closed_date                   DATE,
+  known_error_created_date      DATE,
+  last_completed_date           DATE,
+  last_modified_date            DATE,
+  submit_date                   DATE,
+  target_date                   DATE,
+  workaround_determined_on_date DATE
+)
+
+ORA-00955: name is already used by an existing object
+
+Creating table V_PROBLEM_WORKLOG
+================================
+
+
+create table V_PROBLEM_WORKLOG
+(
+  worklog_id               VARCHAR2(15 CHAR) not null,
+  problem_investigation_id VARCHAR2(15 CHAR),
+  summary                  VARCHAR2(4000 CHAR),
+  notes                    VARCHAR2(4000 CHAR),
+  view_access              VARCHAR2(50 CHAR),
+  worklog_type             VARCHAR2(50 CHAR),
+  last_modified_date       DATE,
+  worklog_date             DATE
+)
+
+ORA-00955: name is already used by an existing object
+
+Creating table V_QUAL_CONFIG_ITSM_SERVICE
+=========================================
+
+
+create table V_QUAL_CONFIG_ITSM_SERVICE
+(
+  itsm_service_instance_id VARCHAR2(38 CHAR) not null,
+  itsm_service             VARCHAR2(254 CHAR),
+  mis_1_ns                 VARCHAR2(150 CHAR),
+  mis_2_ns                 VARCHAR2(150 CHAR),
+  mis_3_ns                 VARCHAR2(150 CHAR),
+  mis_4_ns                 VARCHAR2(150 CHAR),
+  mis_5_ns                 VARCHAR2(150 CHAR),
+  mis_6_ns                 VARCHAR2(150 CHAR),
+  mis_7_ns                 VARCHAR2(150 CHAR),
+  mis_8_ns                 VARCHAR2(150 CHAR),
+  mis_9_ns                 VARCHAR2(150 CHAR),
+  mis_10_ns                VARCHAR2(150 CHAR),
+  mis_1_ns_id              NUMBER(3),
+  mis_2_ns_id              NUMBER(3),
+  mis_3_ns_id              NUMBER(3),
+  mis_4_ns_id              NUMBER(3),
+  mis_5_ns_id              NUMBER(4),
+  mis_6_ns_id              NUMBER(4),
+  mis_7_ns_id              NUMBER(4),
+  mis_8_ns_id              NUMBER(4),
+  mis_9_ns_id              NUMBER(4),
+  mis_10_ns_id             NUMBER(4),
+  tower_ns                 VARCHAR2(60 CHAR),
+  service_dept_ns          VARCHAR2(15 CHAR),
+  service_maindept_ns      VARCHAR2(12 CHAR),
+  service_deptgrp_ns       VARCHAR2(18 CHAR)
+)
+
+ORA-00955: name is already used by an existing object
+
+Creating table V_RQM_AVBEW_SOLLISTSTD
+=====================================
+
+
+create table V_RQM_AVBEW_SOLLISTSTD
+(
+  project_system                VARCHAR2(40 CHAR),
+  topic_process                 VARCHAR2(40 CHAR),
+  sub_project                   VARCHAR2(40 CHAR),
+  ticket_id                     VARCHAR2(15 CHAR) not null,
+  attribute_value_request_id    VARCHAR2(15 CHAR),
+  request_id                    VARCHAR2(31 CHAR) not null,
+  status                        VARCHAR2(69 CHAR),
+  target_system_id              VARCHAR2(25 CHAR),
+  requirement_type              VARCHAR2(30 CHAR),
+  requirement_type_english      VARCHAR2(30 CHAR),
+  requirement_type_long         VARCHAR2(255 CHAR),
+  requirement_type_long_english VARCHAR2(255 CHAR),
+  country_code                  VARCHAR2(40 CHAR),
+  planned_date                  DATE,
+  planned_date_year_month       VARCHAR2(7 CHAR),
+  complete_date                 DATE,
+  complete_date_year_month      VARCHAR2(7 CHAR),
+  closed_date                   DATE,
+  closed_date_year_month        VARCHAR2(7 CHAR),
+  estimated_hours               NUMBER(28,2),
+  effective_hours               NUMBER(28,2)
+)
+
+ORA-00955: name is already used by an existing object
+
+Creating table V_RQM_AVPAB_AUDITFORM
+====================================
+
+
+create table V_RQM_AVPAB_AUDITFORM
+(
+  request_id                VARCHAR2(15 CHAR) not null,
+  benutzer                  VARCHAR2(254 CHAR),
+  erstellungsdatum          DATE,
+  zugewiesen_an             VARCHAR2(254 CHAR),
+  zuletzt_geaendert_von     VARCHAR2(254 CHAR),
+  aenderungsdatum           DATE,
+  status                    NUMBER,
+  kurzbeschreibung          VARCHAR2(254 CHAR),
+  zielsystemnr              VARCHAR2(50 CHAR),
+  lieferdatumneu            DATE,
+  zeititbewertungtage       VARCHAR2(50 CHAR),
+  timestampreadyfordecision DATE,
+  aktuellerzustand          VARCHAR2(50 CHAR),
+  anforderungsnr            VARCHAR2(50 CHAR),
+  vorigerzustand            VARCHAR2(50 CHAR),
+  letzterzustandswechsel    DATE,
+  t08abnahmebereit          DATE,
+  lieferdatum               DATE
+)
+
+ORA-00955: name is already used by an existing object
+
+Creating table V_RQM_BI_TICKETS
+===============================
+
+
+create table V_RQM_BI_TICKETS
+(
+  anforderungsnr                 VARCHAR2(15 CHAR) not null,
+  prozkette_sysverbund           VARCHAR2(40 CHAR),
+  projekt_system                 VARCHAR2(40 CHAR),
+  teilprojekt_teilsystem         VARCHAR2(40 CHAR),
+  thema                          VARCHAR2(40 CHAR),
+  kurzform                       VARCHAR2(20 CHAR),
+  zielsystemnr                   VARCHAR2(40 CHAR),
+  rqm_quadruple                  VARCHAR2(160 CHAR) not null,
+  kurzbeschreibung               VARCHAR2(100 CHAR),
+  beschreibung_problemmeldung    VARCHAR2(4000 CHAR),
+  worklog                        CLOB,
+  abschlusskommentar             VARCHAR2(3999 CHAR),
+  initiator_anforderungsart      VARCHAR2(30 CHAR),
+  initiator_prioritaet2          VARCHAR2(32 CHAR),
+  initiator_nutzen               VARCHAR2(3999 CHAR),
+  initiator_wunschtermin         DATE,
+  aktueller_zustand              VARCHAR2(69 CHAR),
+  bewerter_klassifizierung       VARCHAR2(30 CHAR),
+  bewerter_prioritaet            VARCHAR2(30 CHAR),
+  bewerter_massnahme             VARCHAR2(30 CHAR),
+  bewerter_aufwand_geplant       NUMBER(28,2),
+  grobgeschaetzt                 NUMBER(15),
+  bewerter_auswirkung            VARCHAR2(3999 CHAR),
+  bewerter_stichworte            VARCHAR2(3999 CHAR),
+  bewerter_keine_kapazitaet_vorh NUMBER(15),
+  bewerter_aufwand_intern        NUMBER(28,2),
+  bewerter_aufwand_extern        NUMBER(28,2),
+  bewerter_aufwand_nutzen        NUMBER(28,2),
+  bewerter_aufwand_rendite       NUMBER(28,2),
+  admin__advisory_service_       NUMBER(15),
+  info_unvollstaendig            NUMBER(15),
+  bewerter_anforderungsverweis   VARCHAR2(15 CHAR),
+  assessor_ref_type              VARCHAR2(50 CHAR),
+  bewerter_abteilung             VARCHAR2(50 CHAR),
+  entscheider_begruendung        VARCHAR2(3999 CHAR),
+  entscheider_soll_termin        DATE,
+  entscheider_abteilung          VARCHAR2(50 CHAR),
+  entscheider_entscheidergrem002 VARCHAR2(255 CHAR),
+  decision_board_date            DATE,
+  entscheider_prioritaet         VARCHAR2(40 CHAR),
+  entscheider_auftrag            VARCHAR2(3999 CHAR),
+  entscheider_release_nr2        VARCHAR2(40 CHAR),
+  entscheider_referenz_doku      VARCHAR2(3999 CHAR),
+  entscheider_einsatz_termin     DATE,
+  entscheider_datum              DATE,
+  entscheider_durchgefuehrt      NUMBER(15),
+  ztmp_zugeordnetzumplr          VARCHAR2(15 CHAR),
+  assigned_to_plr_name           VARCHAR2(50 CHAR),
+  loeser_loesungsansatz          VARCHAR2(3999 CHAR),
+  loeser_betroffene_sw_komp      VARCHAR2(3999 CHAR),
+  loeser_geaenderte_sw_komp      VARCHAR2(3999 CHAR),
+  loeser_phase_loesung           VARCHAR2(40 CHAR),
+  loeser_abteilung               VARCHAR2(50 CHAR),
+  loeser_ist_intern              NUMBER(28,2),
+  loeser_ist_extern              NUMBER(28,2),
+  loeser_fertigstellung          DATE,
+  attachments                    NUMBER(15),
+  t00_erfasst                    DATE,
+  t01_voreingegangen             DATE,
+  t02_in_vorbereitung            DATE,
+  t03_eingegangen                DATE,
+  t04_entscheidungsreif          DATE,
+  t05_angenommen                 DATE,
+  t06_zugeordnet                 DATE,
+  t07_in_arbeit                  DATE,
+  t08_abnahmebereit              DATE,
+  t09_abgenommen                 DATE,
+  t10_eingesetzt                 DATE,
+  t11_geloest                    DATE,
+  t12_dso_weitergeleitet         DATE,
+  t13_weitergeleitet             DATE,
+  t14_bereits_existierend        DATE,
+  t15_abgelehnt                  DATE,
+  t16_nicht_realisiert           DATE,
+  t17_zurueckgestellt            DATE,
+  t18_unterbrochen               DATE,
+  zielsystem_menue01_en          VARCHAR2(30 CHAR),
+  zielsystem_menue02_en          VARCHAR2(30 CHAR),
+  zielsystem_menue03_en          VARCHAR2(30 CHAR),
+  zielsystem_menue04_en          VARCHAR2(30 CHAR),
+  zielsystem_menue05_en          VARCHAR2(30 CHAR),
+  zielsystem_menue06_en          VARCHAR2(30 CHAR),
+  zielsystem_menue07_en          VARCHAR2(30 CHAR),
+  zielsystem_menue08_en          VARCHAR2(30 CHAR),
+  zielsystem_menue09_en          VARCHAR2(30 CHAR),
+  zielsystem_menue10_en          VARCHAR2(30 CHAR),
+  zielsystem_menue11_en          VARCHAR2(30 CHAR),
+  zielsystem_menue12_en          VARCHAR2(30 CHAR),
+  zielsystem_menue13_en          VARCHAR2(30 CHAR),
+  zielsystem_menue14_en          VARCHAR2(30 CHAR),
+  zielsystem_menue15_en          VARCHAR2(30 CHAR),
+  zielsystem_menue16_en          VARCHAR2(30 CHAR),
+  zielsystem_menue17_en          VARCHAR2(30 CHAR),
+  zielsystem_menue18_en          VARCHAR2(30 CHAR),
+  zielsystem_menue19_en          VARCHAR2(30 CHAR),
+  zielsystem_menue20_en          VARCHAR2(30 CHAR),
+  gruppierung_status             VARCHAR2(20 CHAR),
+  gesamtzeit_entscheidung        VARCHAR2(20 CHAR),
+  ticket_mind_zugeordnet         VARCHAR2(4 CHAR),
+  zeit_fachliche_bewertung       VARCHAR2(20 CHAR),
+  ticket_mind_eingegangen        VARCHAR2(4 CHAR),
+  zeit_it_bewertung              VARCHAR2(20 CHAR),
+  ticket_mind_entscheidungsreif  VARCHAR2(4 CHAR),
+  zeit_entscheidung              VARCHAR2(20 CHAR),
+  gesamtzeit_entwicklung         VARCHAR2(20 CHAR),
+  ticket_mind_abnahmebereit      VARCHAR2(4 CHAR),
+  gesamtzeit_produktivsetzung    VARCHAR2(20 CHAR),
+  ticket_mind_eingesetzt         VARCHAR2(4 CHAR),
+  gesamtzeit_erf_bis_abnahme     VARCHAR2(20 CHAR),
+  zeit_it_bewertung_70           NUMBER(3,1),
+  gesamtzeit_entscheidung_70     NUMBER(3,1),
+  gesamtzeit_entwicklung_70      NUMBER(3,1),
+  gesamtzeit_produktivsetzung_70 NUMBER(3,1),
+  gesamtzeit_abnahme_70          NUMBER(3,1),
+  it_bewertung_95                VARCHAR2(4 CHAR),
+  it_bewertung_70                VARCHAR2(4 CHAR),
+  entscheidung_95                VARCHAR2(4 CHAR),
+  entscheidung_70                VARCHAR2(4 CHAR),
+  entwicklung_95                 VARCHAR2(4 CHAR),
+  entwicklung_70                 VARCHAR2(4 CHAR),
+  produktivsetzung_95            VARCHAR2(4 CHAR),
+  produktivsetzung_70            VARCHAR2(4 CHAR),
+  gesamtdauer_95                 VARCHAR2(4 CHAR),
+  gesamtdauer_70                 VARCHAR2(4 CHAR),
+  einsatztermin_wunschtermin     VARCHAR2(30 CHAR),
+  einsatz_wunschtermin_vorhanden VARCHAR2(4 CHAR),
+  einsatztermin_solltermin       VARCHAR2(30 CHAR),
+  einsatz_solltermin_vorhanden   VARCHAR2(4 CHAR),
+  langlaeufer                    NUMBER(3),
+  notfall_ticket                 VARCHAR2(4 CHAR),
+  beratungs_ticket               VARCHAR2(4 CHAR),
+  bewerter_klassifizierung_grp   VARCHAR2(50 CHAR),
+  bewerter_prioritaet_grp        VARCHAR2(60 CHAR),
+  bewerter_massnahme_grp         VARCHAR2(30 CHAR),
+  nutzen_einmal_std_zahl         NUMBER(8),
+  nutzen_jaehrlich_std_zahl      NUMBER(8),
+  bewerter_aufwand_geplant_grp   VARCHAR2(15 CHAR),
+  system                         VARCHAR2(25 CHAR),
+  mis_betreibergruppe            VARCHAR2(50 CHAR),
+  mis_systemverbund              VARCHAR2(50 CHAR),
+  mis_betriebsverbund            VARCHAR2(50 CHAR),
+  deployment_run_hauptabt        VARCHAR2(15 CHAR),
+  deployment_run_abteilung       VARCHAR2(15 CHAR),
+  deployment_run_grp             VARCHAR2(15 CHAR),
+  deployment_build_hauptabt      VARCHAR2(15 CHAR),
+  deployment_build_abt           VARCHAR2(15 CHAR),
+  deployment_build_grp           VARCHAR2(15 CHAR),
+  mis_app_rel_cluster            VARCHAR2(50 CHAR),
+  in_plan_release                VARCHAR2(4 CHAR),
+  ladedatum                      DATE,
+  create_date_year               VARCHAR2(4 CHAR),
+  create_date_year_month         VARCHAR2(7 CHAR),
+  closed_date                    DATE,
+  closed_date_year               VARCHAR2(4 CHAR),
+  closed_date_year_month         VARCHAR2(7 CHAR),
+  costs_type                     VARCHAR2(9 CHAR),
+  costs_date_year                VARCHAR2(4 CHAR),
+  costs_date_year_month          VARCHAR2(7 CHAR),
+  gripps_ticket_id               VARCHAR2(12 CHAR),
+  workflowtyp                    VARCHAR2(25 CHAR),
+  gesamtzeit_entscheidung_tage   VARCHAR2(20 CHAR),
+  gesamtzeit_entscheidung_wochen VARCHAR2(20 CHAR),
+  zeit_fachliche_bewertung_tage  VARCHAR2(20 CHAR),
+  zeit_fachliche_bewertung_woche VARCHAR2(20 CHAR),
+  zeit_it_bewertung_tage         VARCHAR2(20 CHAR),
+  zeit_it_bewertung_wochen       VARCHAR2(20 CHAR),
+  zeit_entscheidung_tage         VARCHAR2(20 CHAR),
+  zeit_entscheidung_wochen       VARCHAR2(20 CHAR),
+  gesamtzeit_entwicklung_tage    VARCHAR2(20 CHAR),
+  gesamtzeit_entwicklung_wochen  VARCHAR2(20 CHAR),
+  gesamtzeit_prodsetzung_tage    VARCHAR2(20 CHAR),
+  gesamtzeit_prodsetzung_wochen  VARCHAR2(20 CHAR),
+  gesamtzeit_erf_bis_abn_tage    VARCHAR2(20 CHAR),
+  gesamtzeit_erf_bis_abn_wochen  VARCHAR2(20 CHAR),
+  initiator_dept                 VARCHAR2(5 CHAR),
+  initiator_maindept             VARCHAR2(4 CHAR),
+  initiator_deptgrp              VARCHAR2(6 CHAR)
+)
+
+ORA-00955: name is already used by an existing object
+
+Creating table V_RQM_KPI4_ALL_DATA
+==================================
+
+
+create table V_RQM_KPI4_ALL_DATA
+(
+  requirement_id                 VARCHAR2(15 CHAR) not null,
+  category_1                     VARCHAR2(40 CHAR),
+  category_2                     VARCHAR2(40 CHAR),
+  category_3                     VARCHAR2(40 CHAR),
+  category_4                     VARCHAR2(40 CHAR),
+  shortform                      VARCHAR2(20 CHAR),
+  rqm_service_id                 VARCHAR2(40 CHAR),
+  rqm_quadruple                  VARCHAR2(160 CHAR) not null,
+  summary                        VARCHAR2(100 CHAR),
+  description                    VARCHAR2(4000 CHAR),
+  worklog                        CLOB,
+  final_comment                  VARCHAR2(3999 CHAR),
+  initiator_req_type             VARCHAR2(30 CHAR),
+  initiator_priority             VARCHAR2(32 CHAR),
+  initiator_benefit              VARCHAR2(3999 CHAR),
+  initiator_required_date        DATE,
+  status                         VARCHAR2(69 CHAR),
+  assessor_req_type              VARCHAR2(30 CHAR),
+  assessor_priority              VARCHAR2(30 CHAR),
+  assessor_measure               VARCHAR2(30 CHAR),
+  assessor_estim_effort_hours    NUMBER(28,2),
+  assessor_rough_est_effort      NUMBER(15),
+  assessor_consequences          VARCHAR2(3999 CHAR),
+  assessor_keywords              VARCHAR2(3999 CHAR),
+  assessor_no_resource           NUMBER(15),
+  assessor_effort_int_hours      NUMBER(28,2),
+  assessor_effort_ext_hours      NUMBER(28,2),
+  assessor_effort_benefit_hours  NUMBER(28,2),
+  assessor_effort_roi_percent    NUMBER(28,2),
+  assessor_admin_adv_srv         NUMBER(15),
+  assessor_info_incomplete       NUMBER(15),
+  assessor_ref_ticket            VARCHAR2(15 CHAR),
+  assessor_ref_type              VARCHAR2(50 CHAR),
+  assessor_dept                  VARCHAR2(50 CHAR),
+  decision_reason                VARCHAR2(3999 CHAR),
+  decision_planned_impl_date     DATE,
+  decision_maker_dept            VARCHAR2(50 CHAR),
+  decision_board                 VARCHAR2(255 CHAR),
+  decision_board_date            DATE,
+  decision_priority              VARCHAR2(40 CHAR),
+  decision_order_commercial      VARCHAR2(3999 CHAR),
+  decision_planrelease_name      VARCHAR2(40 CHAR),
+  decision_ref_doc               VARCHAR2(3999 CHAR),
+  implementation_date            DATE,
+  commission_date                DATE,
+  decision_release_done          NUMBER(15),
+  assigned_to_plr_id             VARCHAR2(15 CHAR),
+  assigned_to_plr_name           VARCHAR2(50 CHAR),
+  solution_possible_sol          VARCHAR2(3999 CHAR),
+  solution_rel_sw_comps          VARCHAR2(3999 CHAR),
+  solution_mod_sw_comps          VARCHAR2(3999 CHAR),
+  solution_phase                 VARCHAR2(40 CHAR),
+  solution_solver_dept           VARCHAR2(50 CHAR),
+  solution_effort_int_hours      NUMBER(28,2),
+  solution_effort_ext_hours      NUMBER(28,2),
+  dev_complete_date              DATE,
+  attachments                    NUMBER(15),
+  engaged_date                   DATE,
+  t01_voreingegangen             DATE,
+  prepared_date                  DATE,
+  create_date                    DATE,
+  ready_for_decision_date        DATE,
+  rfd_date_year_month            VARCHAR2(7 CHAR),
+  passed_date                    DATE,
+  assigned_date                  DATE,
+  assigned_date_year_month       VARCHAR2(7 CHAR),
+  wip_date                       DATE,
+  ready_for_accept_date          DATE,
+  rfa_date_year_month            VARCHAR2(7 CHAR),
+  accepted_date                  DATE,
+  deployed_date                  DATE,
+  solved_date                    DATE,
+  sms_transferred_date           DATE,
+  transferred_date               DATE,
+  already_existent_date          DATE,
+  rejected_date                  DATE,
+  not_realized_date              DATE,
+  deferred_date                  DATE,
+  interrupted_date               DATE,
+  answer_01                      VARCHAR2(30 CHAR),
+  answer_02                      VARCHAR2(30 CHAR),
+  answer_03                      VARCHAR2(30 CHAR),
+  answer_04                      VARCHAR2(30 CHAR),
+  answer_05                      VARCHAR2(30 CHAR),
+  answer_06                      VARCHAR2(30 CHAR),
+  answer_07                      VARCHAR2(30 CHAR),
+  answer_08                      VARCHAR2(30 CHAR),
+  answer_09                      VARCHAR2(30 CHAR),
+  answer_10                      VARCHAR2(30 CHAR),
+  answer_11                      VARCHAR2(30 CHAR),
+  answer_12                      VARCHAR2(30 CHAR),
+  answer_13                      VARCHAR2(30 CHAR),
+  answer_14                      VARCHAR2(30 CHAR),
+  answer_15                      VARCHAR2(30 CHAR),
+  answer_16                      VARCHAR2(30 CHAR),
+  answer_17                      VARCHAR2(30 CHAR),
+  answer_18                      VARCHAR2(30 CHAR),
+  answer_19                      VARCHAR2(30 CHAR),
+  answer_20                      VARCHAR2(30 CHAR),
+  status_grouped                 VARCHAR2(20 CHAR),
+  total_decision_time_months     VARCHAR2(20 CHAR),
+  ticket_at_least_assigned       VARCHAR2(4 CHAR),
+  business_asses_time_months     VARCHAR2(20 CHAR),
+  ticket_at_least_created        VARCHAR2(4 CHAR),
+  it_assesment_time_months       VARCHAR2(20 CHAR),
+  ticket_at_least_rfd            VARCHAR2(4 CHAR),
+  decision_time_months           VARCHAR2(20 CHAR),
+  total_development_time_months  VARCHAR2(20 CHAR),
+  ticket_at_least_rfa            VARCHAR2(4 CHAR),
+  prod_set_time_months           VARCHAR2(20 CHAR),
+  ticket_at_least_deployed       VARCHAR2(4 CHAR),
+  total_delivery_time_months     VARCHAR2(20 CHAR),
+  it_asses_70_threshold          NUMBER(3,1),
+  total_decision_70_threshold    NUMBER(3,1),
+  total_develop_70_threshold     NUMBER(3,1),
+  total_prod_set_70_threshold    NUMBER(3,1),
+  total_delivery_70_threshold    NUMBER(3,1),
+  it_asses_95_flag               VARCHAR2(4 CHAR),
+  it_asses_70_flag               VARCHAR2(4 CHAR),
+  decision_95_flag               VARCHAR2(4 CHAR),
+  decision_70_flag               VARCHAR2(4 CHAR),
+  develop_95_flag                VARCHAR2(4 CHAR),
+  develop_70_flag                VARCHAR2(4 CHAR),
+  prod_set_95_flag               VARCHAR2(4 CHAR),
+  prod_set_70_flag               VARCHAR2(4 CHAR),
+  delivery_95_flag               VARCHAR2(4 CHAR),
+  delivery_70_flag               VARCHAR2(4 CHAR),
+  deployed_required_diff         VARCHAR2(30 CHAR),
+  deployed_required_data         VARCHAR2(4 CHAR),
+  deployed_planned_diff          VARCHAR2(30 CHAR),
+  deployed_planned_data          VARCHAR2(4 CHAR),
+  slow_ticket                    NUMBER(3),
+  emergency_ticket               VARCHAR2(4 CHAR),
+  consult_ticket                 VARCHAR2(4 CHAR),
+  assessor_req_type_group        VARCHAR2(50 CHAR),
+  assessor_priority_group        VARCHAR2(60 CHAR),
+  assessor_measure_group         VARCHAR2(30 CHAR),
+  benefit_oneoff_hours_numeric   NUMBER(8),
+  benefit_yearly_hours_numeric   NUMBER(8),
+  assessor_estim_eff_hours_grp   VARCHAR2(15 CHAR),
+  systemname                     VARCHAR2(25 CHAR),
+  mis_1                          VARCHAR2(50 CHAR),
+  mis_2                          VARCHAR2(50 CHAR),
+  mis_3                          VARCHAR2(50 CHAR),
+  sys_maindept                   VARCHAR2(15 CHAR),
+  sys_dept                       VARCHAR2(15 CHAR),
+  sys_deptgrp                    VARCHAR2(15 CHAR),
+  sys_build_maindept             VARCHAR2(15 CHAR),
+  sys_build_dept                 VARCHAR2(15 CHAR),
+  sys_build_deptgrp              VARCHAR2(15 CHAR),
+  mis_4                          VARCHAR2(50 CHAR),
+  in_plan_release                VARCHAR2(4 CHAR),
+  load_date                      DATE,
+  create_date_year               VARCHAR2(4 CHAR),
+  create_date_year_month         VARCHAR2(7 CHAR),
+  closed_date                    DATE,
+  closed_date_year               VARCHAR2(4 CHAR),
+  closed_date_year_month         VARCHAR2(7 CHAR),
+  costs_type                     VARCHAR2(9 CHAR),
+  costs_date_year                VARCHAR2(4 CHAR),
+  costs_date_year_month          VARCHAR2(7 CHAR),
+  gripps_ticket_id               VARCHAR2(12 CHAR),
+  workflowtyp                    VARCHAR2(25 CHAR),
+  gesamtzeit_entscheidung_tage   VARCHAR2(20 CHAR),
+  gesamtzeit_entscheidung_wochen VARCHAR2(20 CHAR),
+  zeit_fachliche_bewertung_tage  VARCHAR2(20 CHAR),
+  zeit_fachliche_bewertung_woche VARCHAR2(20 CHAR),
+  zeit_it_bewertung_tage         VARCHAR2(20 CHAR),
+  zeit_it_bewertung_wochen       VARCHAR2(20 CHAR),
+  zeit_entscheidung_tage         VARCHAR2(20 CHAR),
+  zeit_entscheidung_wochen       VARCHAR2(20 CHAR),
+  gesamtzeit_entwicklung_tage    VARCHAR2(20 CHAR),
+  gesamtzeit_entwicklung_wochen  VARCHAR2(20 CHAR),
+  gesamtzeit_prodsetzung_tage    VARCHAR2(20 CHAR),
+  gesamtzeit_prodsetzung_wochen  VARCHAR2(20 CHAR),
+  gesamtzeit_erf_bis_abn_tage    VARCHAR2(20 CHAR),
+  gesamtzeit_erf_bis_abn_wochen  VARCHAR2(20 CHAR),
+  initiator_maindept             VARCHAR2(4 CHAR),
+  initiator_dept                 VARCHAR2(5 CHAR),
+  initiator_deptgrp              VARCHAR2(6 CHAR)
+)
+
+ORA-00955: name is already used by an existing object
+
+Creating table V_SERVICE_DEPTGRP
+================================
+
+
+create table V_SERVICE_DEPTGRP
+(
+  service          VARCHAR2(255 CHAR) not null,
+  status           VARCHAR2(60 CHAR),
+  department_group VARCHAR2(50 CHAR),
+  department       VARCHAR2(50 CHAR),
+  main_department  VARCHAR2(50 CHAR)
+)
+
+ORA-00955: name is already used by an existing object
+
+Creating view V_KSL_2_11
+========================
+
+
+(V_INCIDENT_ALL_DATA.RESOLVED_GROUP_SUPP_ORG IN ('ao-caee:ibm', 'ab:ibm', 'mt-caee:ibm') OR
+         (V_INCIDENT_ALL_DATA.RESOLVED_GROUP_SUPP_ORG IS NULL AND
+         V_INCIDENT_ALL_DATA.SUPPORT_ORGANIZATION IN ('ao-caee:ibm', 'ab:ibm', 'mt-caee:ibm')))
+  --AND V_INCIDENT_ALL_DATA.INCIDENT_TYPE = 'User Service Restoration'
+
+ORA-00928: missing SELECT keyword
+
+) v
+ -- WHERE v.COC_STATUS='Current'
+
+ORA-00900: invalid SQL statement
+
+Creating view V_INCIDENT_KSL
+============================
+
+
+GROUP BY ROLLUP(CONTRACT,
+                         BUSINESS_CLUSTER,
+                         SERVICE,
+                         TO_CHAR("CLOSED_DATE", 'YYYY_MM'),
+                         INCIDENT_TYPE,
+                         PRIORITY)
+ )
+GROUP BY
+CONTRACT,
+BUSINESS_CLUSTER,
+SERVICE,
+CLOSED_DATE,
+INCIDENT_TYPE,
+priority
+
+ORA-00900: invalid SQL statement
+
+Creating view V_KM4_7
+=====================
+
+
+ORDER BY BUSINESS_CLUSTER, PRIORITY
+
+ORA-00900: invalid SQL statement
+
+Creating view V_KM_13
+=====================
+
+
+SELECT SUB_V_PROBLEM_ALL_DATA.*,
+                CASE
+                  WHEN SUB_V_PROBLEM_ALL_DATA.INVESTIGATION_TIME_TARGET >=
+                       SUB_V_PROBLEM_ALL_DATA.INVESTIGATION_TIME THEN
+                   'passed'
+                  ELSE
+                   'missed'
+                END AS INVESTIGATION_TIME_ACHIEVED
+          FROM (SELECT TO_CHAR(V_PROBLEM_ALL_DATA.LAST_COMPLETED_DATE, 'YYYY_MM') AS COMPLETED_DATE_YEAR_MONTH,
+                        TO_CHAR(V_PROBLEM_ALL_DATA.LAST_COMPLETED_DATE, 'YYYY') AS COMPLETED_DATE_YEAR,
+                        V_PROBLEM_ALL_DATA.LAST_COMPLETED_DATE,
+                        V_PROBLEM_ALL_DATA.PROBLEM_INVESTIGATION_ID,
+                        V_PROBLEM_ALL_DATA.PRIORITY,
+                        V_PROBLEM_ALL_DATA.IMPACT,
+                        V_PROBLEM_ALL_DATA.URGENCY,
+                        V_PROBLEM_ALL_DATA.SERVICE,
+                        V_PROBLEM_ALL_DATA.PROD_CAT1,
+                        V_PROBLEM_ALL_DATA.PROD_CAT2,
+                        V_PROBLEM_ALL_DATA.PROD_CAT3,
+                        V_PROBLEM_ALL_DATA.STATUS,
+                        V_PROBLEM_ALL_DATA.STATUS_REASON,
+                        V_PROBLEM_ALL_DATA.ASSIGNED_GROUP,
+                       -- V_PROBLEM_ALL_DATA.ASSIGNED_SUPPORT_ORGANIZATION,
+                        V_PROBLEM_ALL_DATA.COORDINATOR_GROUP,
+                        V_PROBLEM_ALL_DATA.COORDINATOR_SUPPORT_ORG,
+                        v_problem_all_data.ASSIGNED_SUPPORT_ORGANIZATION,
+                        CASE
+                          WHEN V_PROBLEM_ALL_DATA.COORDINATOR_SUPPORT_ORG = 'ao:bmw' THEN
+                           'Yes'
+                          ELSE
+                           'No'
+                        END AS COORDINATED_BY_BMW,
+                        CASE
+                          WHEN V_PROBLEM_ALL_DATA.COORDINATOR_SUPPORT_ORG IN
+                               ('ao-caee:ibm', 'ab:ibm', 'mt-caee:ibm') THEN
+                           'Yes'
+                          ELSE
+                           'No'
+                        END AS COORDINATED_BY_PROVIDER,
+                        V_PROBLEM_ALL_DATA.SERVICE_DEPTGRP,
+                        V_PROBLEM_ALL_DATA.SUBMITTER_DEPTGRP,
+                        V_PROBLEM_ALL_DATA.PBI_CI,
+                        V_PROBLEM_ALL_DATA.INVESTIGATION_DRIVER,
+                        V_PROBLEM_ALL_DATA.PROBLEM_LINK,
+                        V_PROBLEM_ALL_DATA.PROBLEM_LOCATION,
+                        V_PROBLEM_ALL_DATA.VENDOR_TICKET_NUMBER,
+                        V_PROBLEM_ALL_DATA.CLOSED_DATE,
+                        V_PROBLEM_ALL_DATA.KNOWN_ERROR_CREATED_DATE,
+                        V_PROBLEM_ALL_DATA.SUBMIT_DATE,
+                        V_PROBLEM_ALL_DATA.LAST_MODIFIED_DATE,
+                        V_PROBLEM_ALL_DATA.WORKAROUND_DETERMINED_ON_DATE,
+                        V_PROBLEM_ALL_DATA.TARGET_DATE,
+                        V_QUAL_CONFIG_ITSM_SERVICE.MIS_3_NS AS CONTRACT,
+                        V_QUAL_CONFIG_ITSM_SERVICE.MIS_5_NS AS BUSINESS_CLUSTER,
+                        V_QUAL_CONFIG_ITSM_SERVICE.MIS_6_NS AS REPORTED_TOWER,
+                        V_QUAL_CONFIG_ITSM_SERVICE.MIS_10_NS AS COC_DATE,
+                        CASE
+                          WHEN NOT V_PROBLEM_ALL_DATA.LAST_COMPLETED_DATE IS NULL THEN
+                           TRUNC(V_PROBLEM_ALL_DATA.LAST_COMPLETED_DATE) -
+                           TRUNC(V_PROBLEM_ALL_DATA.SUBMIT_DATE) + 1
+                          WHEN V_PROBLEM_ALL_DATA.LAST_COMPLETED_DATE IS NULL AND
+                               V_PROBLEM_ALL_DATA.STATUS = 'Closed' THEN
+                           TRUNC(V_PROBLEM_ALL_DATA.CLOSED_DATE) - TRUNC(V_PROBLEM_ALL_DATA.SUBMIT_DATE) + 1
+                        --    ELSE TRUNC(SYSDATE) -  TRUNC(V_PROBLEM_ALL_DATA.SUBMIT_DATE) + 1
+                        END AS INVESTIGATION_TIME,
+                        CASE V_PROBLEM_ALL_DATA.PRIORITY
+                          WHEN 'Critical' THEN
+                           15
+                          WHEN 'High' THEN
+                           30
+                          WHEN 'Low' THEN
+                           90
+                        END AS INVESTIGATION_TIME_TARGET,
+                        TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_9_NS, 'DD.MM.YYYY') AS EOC_DATE,
+                        CASE
+                          WHEN TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_10_NS, 'DD.MM.YY') IS NULL THEN
+                           'Current'
+                          WHEN TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_10_NS, 'DD.MM.YY') <=
+                               TRUNC(V_PROBLEM_ALL_DATA."SUBMIT_DATE") AND
+                               (TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_9_NS, 'DD.MM.YY') >
+                                TRUNC(V_PROBLEM_ALL_DATA."SUBMIT_DATE") OR
+                                TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_9_NS, 'DD.MM.YY') IS NULL) THEN
+                           'Current'
+                          WHEN TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_9_NS, 'DD.MM.YY') <=
+                               TRUNC(V_PROBLEM_ALL_DATA."SUBMIT_DATE") THEN
+                           'Obsolete'
+                          ELSE
+                           'Planned'
+                        END COC_STATUS,
+                        V_QUAL_CONFIG_ITSM_SERVICE.MIS_7_NS AS "ITOM_SCOPE",
+                        V_QUAL_CONFIG_ITSM_SERVICE.MIS_8_NS AS "ITOM_COC_DATE",
+                        CASE
+                          WHEN TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_8_NS, 'DD.MM.YY') IS NULL THEN
+                           'n/a'
+                          WHEN TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_8_NS, 'DD.MM.YY') <=
+                               V_PROBLEM_ALL_DATA."SUBMIT_DATE" THEN
+                           'Current'
+                          ELSE
+                           'Planned'
+                        END "ITOM_COC_STATUS"
+                   FROM V_PROBLEM_ALL_DATA V_PROBLEM_ALL_DATA
+                   LEFT JOIN V_QUAL_CONFIG_ITSM_SERVICE V_QUAL_CONFIG_ITSM_SERVICE
+                     ON V_PROBLEM_ALL_DATA."SERVICE" = V_QUAL_CONFIG_ITSM_SERVICE."ITSM_SERVICE") SUB_V_PROBLEM_ALL_DATA) V
+                 WHERE
+                   contract = 'CAEE II'
+                   AND
+                  ASSIGNED_SUPPORT_ORGANIZATION IN
+                  ('ao-caee:ibm', 'ab:ibm', 'mt-caee:ibm')
+
+ORA-00933: SQL command not properly ended
+
+Creating view V_KM_9
+====================
+
+
+CREATE OR REPLACE FORCE VIEW V_KM_9 AS
+SELECT
+  V_CHANGE_ALL_DATA.CHANGE_ID,
+  V_CHANGE_ALL_DATA.COORDINATOR_GROUP,
+  V_CHANGE_ALL_DATA.COORDINATOR_GROUP_SUPP_ORG,
+  V_CHANGE_ALL_DATA.MANAGER_GROUP,
+  V_CHANGE_ALL_DATA.MANAGER_GROUP_SUPP_ORG,
+  V_CHANGE_ALL_DATA.CHANGE_LOCATION_SITE,
+  V_CHANGE_ALL_DATA.SERVICE,
+  V_CHANGE_ALL_DATA.PROD_CAT1,
+  V_CHANGE_ALL_DATA.PROD_CAT2,
+  V_CHANGE_ALL_DATA.PROD_CAT3,
+  V_CHANGE_ALL_DATA.OPS_CAT1,
+  V_CHANGE_ALL_DATA.OPS_CAT2,
+  V_CHANGE_ALL_DATA.OPS_CAT3,
+  V_CHANGE_ALL_DATA.TEMPLATE,
+--  V_CHANGE_ALL_DATA.SUMMARY,
+  V_CHANGE_ALL_DATA.CLASS,
+  V_CHANGE_ALL_DATA.CHANGE_REASON,
+  V_CHANGE_ALL_DATA.IMPACT,
+  V_CHANGE_ALL_DATA.URGENCY,
+  V_CHANGE_ALL_DATA.PRIORITY,
+  V_CHANGE_ALL_DATA.RISK_LEVEL,
+  V_CHANGE_ALL_DATA.STATUS,
+  V_CHANGE_ALL_DATA.STATUS_REASON,
+  V_CHANGE_ALL_DATA.VENDOR_TICKET_NUMBER,
+  V_CHANGE_ALL_DATA.SCHEDULED_START_DATE,
+  V_CHANGE_ALL_DATA.SCHEDULED_END_DATE,
+  V_CHANGE_ALL_DATA.ACTUAL_START_DATE,
+  V_CHANGE_ALL_DATA.ACTUAL_END_DATE,
+  V_CHANGE_ALL_DATA.COMPLETED_DATE,
+  TO_CHAR(V_CHANGE_ALL_DATA.COMPLETED_DATE, 'YYYY_MM') AS COMPLETED_DATE_YEAR_MONTH,
+  TO_CHAR(V_CHANGE_ALL_DATA.COMPLETED_DATE, 'YYYY')    AS COMPLETED_DATE_YEAR,
+  V_CHANGE_ALL_DATA.EARLIEST_START_DATE,
+  V_CHANGE_ALL_DATA.REQUESTED_START_DATE,
+  V_CHANGE_ALL_DATA.REQUESTED_END_DATE,
+  V_CHANGE_ALL_DATA.TARGET_DATE,
+  V_CHANGE_ALL_DATA.SUBMIT_DATE,
+  TO_CHAR(V_CHANGE_ALL_DATA.SUBMIT_DATE, 'YYYY_MM') AS SUBMIT_DATE_YEAR_MONTH,
+  TO_CHAR(V_CHANGE_ALL_DATA.SUBMIT_DATE, 'YYYY')    AS SUBMIT_DATE_YEAR,
+  V_CHANGE_ALL_DATA.LAST_MODIFIED_DATE,
+  V_CHANGE_ALL_DATA.CLOSED_DATE,
+  TO_CHAR(V_CHANGE_ALL_DATA.CLOSED_DATE, 'YYYY_MM') AS CLOSED_DATE_YEAR_MONTH,
+  TO_CHAR(V_CHANGE_ALL_DATA.CLOSED_DATE, 'YYYY')    AS CLOSED_DATE_YEAR,
+  V_CHANGE_ALL_DATA.CHANGE_CLASS_REAL,
+  V_CHANGE_ALL_DATA.LEADTIME_ACHIEVEMENT,
+  V_CHANGE_ALL_DATA.LEADTIME_SECONDS,
+  V_CHANGE_ALL_DATA.RELATED_CI_FLAG,
+  V_CHANGE_ALL_DATA.IMPACTED_AREA_FLAG,
+  V_CHANGE_ALL_DATA.RELATED_TASK_FLAG,
+  V_CHANGE_ALL_DATA.ONTIME_ACHIEVEMENT_FLAG,
+  V_CHANGE_ALL_DATA.OVERDUE_FLAG,
+  V_CHANGE_ALL_DATA.SERVICE_MAINDEPT,
+  V_CHANGE_ALL_DATA.SERVICE_DEPT,
+  V_CHANGE_ALL_DATA.SERVICE_DEPTGRP,
+  V_CHANGE_ALL_DATA.RFA_DATE,
+  V_CHANGE_ALL_DATA.SCHEDULED_DATE,
+  V_CHANGE_ALL_DATA.SFA_DATE,
+  V_CHANGE_ALL_DATA.SFR_DATE,
+  V_CHANGE_ALL_DATA.CHANGE_CLASS_CORRECT,
+  V_CHANGE_ALL_DATA.VENDOR_GROUP,
+  V_CHANGE_ALL_DATA.COPIED_FROM_ORIGINAL_ID,
+  V_CHANGE_ALL_DATA.LAST_MODIFIED_BY_DEPTGRP,
+  V_CHANGE_ALL_DATA.COORDINATOR_DEPTGRP,
+  V_CHANGE_ALL_DATA.MANAGER_DEPTGRP,
+  V_CHANGE_ALL_DATA.CHANGE_LOCATION,
+  V_CHANGE_ALL_DATA.TIMING_REASON,
+  V_QUAL_CONFIG_ITSM_SERVICE.MIS_3_NS  AS CONTRACT,
+  V_QUAL_CONFIG_ITSM_SERVICE.MIS_5_NS  AS BUSINESS_CLUSTER,
+  V_QUAL_CONFIG_ITSM_SERVICE.MIS_6_NS AS REPORTED_TOWER,
+   TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_10_NS, 'DD.MM.YYYY') AS COC_DATE,
+   TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_9_NS, 'DD.MM.YYYY') AS EOC_DATE,
+    case
+      when TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_10_NS, 'DD.MM.YY') is NULL then 'Current'
+      when TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_10_NS, 'DD.MM.YY') <= TRUNC(V_CHANGE_ALL_DATA."SUBMIT_DATE")
+        AND (TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_9_NS, 'DD.MM.YY') > TRUNC(V_CHANGE_ALL_DATA."SUBMIT_DATE")
+        OR TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_9_NS, 'DD.MM.YY') IS NULL)
+        then 'Current'
+      when TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_9_NS, 'DD.MM.YY') <= TRUNC(V_CHANGE_ALL_DATA."SUBMIT_DATE")
+        then 'Obsolete'
+      else 'Planned'
+    end COC_STATUS,
+  V_QUAL_CONFIG_ITSM_SERVICE.MIS_7_NS AS "ITOM_SCOPE",
+  V_QUAL_CONFIG_ITSM_SERVICE.MIS_8_NS AS "ITOM_COC_DATE",
+  CASE
+      WHEN TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_8_NS, 'DD.MM.YY') is NULL then 'n/a'
+      WHEN TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_8_NS, 'DD.MM.YY') <= V_CHANGE_ALL_DATA."SUBMIT_DATE" then 'Current'
+      ELSE 'Planned'
+  END "ITOM_COC_STATUS"
+FROM  "V_CHANGE_ALL_DATA" V_CHANGE_ALL_DATA
+    left join
+      "V_QUAL_CONFIG_ITSM_SERVICE" V_QUAL_CONFIG_ITSM_SERVICE
+    on
+      V_CHANGE_ALL_DATA."SERVICE" = V_QUAL_CONFIG_ITSM_SERVICE."ITSM_SERVICE"
+WHERE
+     V_CHANGE_ALL_DATA.STATUS IN ('Closed', 'Completed')
+
+ORA-01031: insufficient privileges
+
+Creating view V_KSL_11B
+=======================
+
+
+Creating view V_KSL_11_CLOSED
+=============================
+
+
+CREATE OR REPLACE FORCE VIEW V_KSL_11_CLOSED AS
+SELECT
+    V_INCIDENT_ALL_DATA.INCIDENT_NUMBER,
+    V_INCIDENT_ALL_DATA.CUSTOMER_DEPTGRP,
+    V_INCIDENT_ALL_DATA.CONTACT_DEPTGRP,
+    V_BDP_CTM_SUPPORTGROUP.SUPPORT_ORGANIZATION as ASSIGNED_GROUP_SUPP_ORG,
+    V_INCIDENT_ALL_DATA.ASSIGNED_GROUP_NAME,
+    V_INCIDENT_ALL_DATA.OWNER_GROUP,
+    V_INCIDENT_ALL_DATA.LAST_MODIFIED_BY_DEPTGRP,
+    V_INCIDENT_ALL_DATA.FIRST_OWNER_GROUP,
+    V_INCIDENT_ALL_DATA.RESOLVED_GROUP_SUPP_ORG,
+    V_INCIDENT_ALL_DATA.RESOLVED_GROUP,
+    V_INCIDENT_ALL_DATA.RESOLVED_GROUP_LEVEL,
+    V_INCIDENT_ALL_DATA.SERVICE,
+    V_INCIDENT_ALL_DATA.PROD_CAT1,
+    V_INCIDENT_ALL_DATA.PROD_CAT2,
+    V_INCIDENT_ALL_DATA.PROD_CAT3,
+    V_INCIDENT_ALL_DATA.SERVICE_MAINDEPT,
+    V_INCIDENT_ALL_DATA.SERVICE_DEPT,
+    V_INCIDENT_ALL_DATA.SERVICE_DEPTGRP,
+    V_INCIDENT_ALL_DATA.STATUS,
+    V_INCIDENT_ALL_DATA.STATUS_REASON,
+    V_INCIDENT_ALL_DATA.PRIORITY,
+    V_INCIDENT_ALL_DATA.IMPACT,
+    V_INCIDENT_ALL_DATA.URGENCY,
+    V_INCIDENT_ALL_DATA.INCIDENT_TYPE,
+    V_INCIDENT_ALL_DATA.REPORTED_SOURCE,
+--    V_INCIDENT_ALL_DATA.SUMMARY,
+    V_INCIDENT_ALL_DATA.VENDOR_TICKET_NUMBER,
+    V_INCIDENT_ALL_DATA.CLOSED_DATE,
+        to_char(V_INCIDENT_ALL_DATA."CLOSED_DATE", 'YYYY_MM') AS "CLOSED_DATE_YEAR_MONTH",
+        to_char(V_INCIDENT_ALL_DATA."CLOSED_DATE", 'YYYY') AS "CLOSED_DATE_YEAR",
+    V_INCIDENT_ALL_DATA.REPORTED_DATE,
+    V_INCIDENT_ALL_DATA.SUBMIT_DATE,
+       to_char(V_INCIDENT_ALL_DATA."SUBMIT_DATE", 'YYYY_MM') AS "SUBMIT_DATE_YEAR_MONTH",
+       to_char(V_INCIDENT_ALL_DATA."SUBMIT_DATE", 'YYYY') AS "SUBMIT_DATE_YEAR",
+    V_INCIDENT_ALL_DATA.LAST_MODIFIED_DATE,
+    V_INCIDENT_ALL_DATA.LAST_RESOLVED_DATE,
+    V_INCIDENT_ALL_DATA.SLT_PROFILE,
+    V_INCIDENT_ALL_DATA.BUSINESS_TIME,
+    V_INCIDENT_ALL_DATA.SOLUTION_TIME,
+    V_INCIDENT_ALL_DATA.SOLUTION_TIME_TARGET,
+    CASE
+      when V_INCIDENT_ALL_DATA.SOLUTION_TIME_TARGET is  NULL then 'n/a'
+      when V_INCIDENT_ALL_DATA.SOLUTION_TIME_TARGET > V_INCIDENT_ALL_DATA.SOLUTION_TIME then 'Yes'
+      when (V_INCIDENT_ALL_DATA.SOLUTION_TIME is NULL
+        AND NOT V_INCIDENT_ALL_DATA.BUSINESS_TIME IN (NULL, '_none_'))
+        then 'Yes'
+      else 'No'
+    END AS "SOLUTION_TIME_ACHIEVED",
+    CASE
+      when V_INCIDENT_ALL_DATA.SOLUTION_TIME_TARGET is  NULL then 'n/a'
+      when V_INCIDENT_ALL_DATA.STATUS  != 'Closed' and V_INCIDENT_ALL_DATA.STATUS != 'Cancelled' then NULL
+      when(3*V_INCIDENT_ALL_DATA."SOLUTION_TIME_TARGET">V_INCIDENT_ALL_DATA."SOLUTION_TIME") then 'passed'
+      when (V_INCIDENT_ALL_DATA.SOLUTION_TIME is NULL
+        AND NOT V_INCIDENT_ALL_DATA.BUSINESS_TIME IN (NULL, '_none_'))
+        then 'passed'
+      else 'missed'
+    END AS "BOUNDARY_FLAG",
+    V_INCIDENT_ALL_DATA.IMPACTED_AREAS,
+    V_INCIDENT_ALL_DATA.SLT_STATUS,
+    V_INCIDENT_ALL_DATA.ASSIGNED_GROUP_CHANGED,
+    V_INCIDENT_ALL_DATA.OWNER_GROUP_CHANGED,
+    V_INCIDENT_ALL_DATA.SERVICE_CHANGED,
+    V_INCIDENT_ALL_DATA.IMPACT_CHANGED,
+    V_INCIDENT_ALL_DATA.URGENCY_CHANGED,
+    V_INCIDENT_ALL_DATA.REOPEN_COUNT,
+    case when(V_INCIDENT_ALL_DATA."REOPEN_COUNT">0) then 'missed' else 'passed' end  as "REOPEN_FLAG",
+    V_INCIDENT_ALL_DATA.OPS_CAT1,
+    V_INCIDENT_ALL_DATA.OPS_CAT2,
+    V_INCIDENT_ALL_DATA.OPS_CAT3,
+    V_QUAL_CONFIG_ITSM_SERVICE.MIS_3_NS AS CONTRACT,
+    V_QUAL_CONFIG_ITSM_SERVICE.MIS_5_NS AS BUSINESS_CLUSTER,
+    V_QUAL_CONFIG_ITSM_SERVICE.MIS_6_NS AS REPORTED_TOWER,
+    TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_10_NS, 'DD.MM.YYYY') AS COC_DATE,
+    TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_9_NS, 'DD.MM.YYYY') AS EOC_DATE,
+    case
+      when TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_10_NS, 'DD.MM.YY') is NULL then 'Current'
+      when TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_10_NS, 'DD.MM.YY') <= TRUNC(V_INCIDENT_ALL_DATA."SUBMIT_DATE")
+        AND (TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_9_NS, 'DD.MM.YY') > TRUNC(V_INCIDENT_ALL_DATA."SUBMIT_DATE")
+        OR TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_9_NS, 'DD.MM.YY') IS NULL)
+        then 'Current'
+      when TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_9_NS, 'DD.MM.YY') <= TRUNC(V_INCIDENT_ALL_DATA."SUBMIT_DATE")
+        then 'Obsolete'
+      else 'Planned'
+    end COC_STATUS,
+   V_QUAL_CONFIG_ITSM_SERVICE.MIS_7_NS AS "ITOM_SCOPE",
+   V_QUAL_CONFIG_ITSM_SERVICE.MIS_8_NS AS "ITOM_COC_DATE",
+   CASE
+       WHEN TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_8_NS, 'DD.MM.YY') is NULL then 'n/a'
+       WHEN TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_8_NS, 'DD.MM.YY') <= V_INCIDENT_ALL_DATA."SUBMIT_DATE" then 'Current'
+       ELSE 'Planned'
+   END "ITOM_COC_STATUS"
+FROM  ((V_INCIDENT_ALL_DATA V_INCIDENT_ALL_DATA
+    left  join
+      V_QUAL_CONFIG_ITSM_SERVICE V_QUAL_CONFIG_ITSM_SERVICE
+    on
+      V_INCIDENT_ALL_DATA."SERVICE" = V_QUAL_CONFIG_ITSM_SERVICE."ITSM_SERVICE")
+    left join
+      V_BDP_CTM_SUPPORTGROUP V_BDP_CTM_SUPPORTGROUP
+    on
+      V_BDP_CTM_SUPPORTGROUP."SUPPORT_GROUP" = V_INCIDENT_ALL_DATA."ASSIGNED_GROUP_NAME")
+WHERE
+      --V_INCIDENT_ALL_DATA.STATUS IN ('Closed', 'Cancelled')
+     -- and to_char(V_INCIDENT_ALL_DATA.CLOSED_DATE, 'YYYY_MM') = '2015_12'
+ -- AND
+    V_QUAL_CONFIG_ITSM_SERVICE.MIS_3_NS = 'CAEE II'
+  AND
+    (V_INCIDENT_ALL_DATA.RESOLVED_GROUP_SUPP_ORG IN ('ao-caee:ibm','ab:ibm','mt-caee:ibm')
+  OR (V_INCIDENT_ALL_DATA.RESOLVED_GROUP_SUPP_ORG IS NULL AND V_BDP_CTM_SUPPORTGROUP.SUPPORT_ORGANIZATION IN ('ao-caee:ibm','ab:ibm','mt-caee:ibm')))
+  --and V_QUAL_CONFIG_ITSM_SERVICE.MIS_5_NS='GG_CAD'
+
+ORA-01031: insufficient privileges
+
+Creating view V_KSL_12
+======================
+
+
+SELECT SUB_V_PROBLEM_ALL_DATA.*,
+                CASE
+                  WHEN SUB_V_PROBLEM_ALL_DATA.INVESTIGATION_TIME_TARGET >=
+                       SUB_V_PROBLEM_ALL_DATA.INVESTIGATION_TIME THEN
+                   'passed'
+                  ELSE
+                   'missed'
+                END AS INVESTIGATION_TIME_ACHIEVED
+          FROM (SELECT TO_CHAR(V_PROBLEM_ALL_DATA.LAST_COMPLETED_DATE, 'YYYY_MM') AS COMPLETED_DATE_YEAR_MONTH,
+                        TO_CHAR(V_PROBLEM_ALL_DATA.LAST_COMPLETED_DATE, 'YYYY') AS COMPLETED_DATE_YEAR,
+                        V_PROBLEM_ALL_DATA.LAST_COMPLETED_DATE,
+                        V_PROBLEM_ALL_DATA.PROBLEM_INVESTIGATION_ID,
+                        V_PROBLEM_ALL_DATA.PRIORITY,
+                        V_PROBLEM_ALL_DATA.IMPACT,
+                        V_PROBLEM_ALL_DATA.URGENCY,
+                        V_PROBLEM_ALL_DATA.SERVICE,
+                        V_PROBLEM_ALL_DATA.PROD_CAT1,
+                        V_PROBLEM_ALL_DATA.PROD_CAT2,
+                        V_PROBLEM_ALL_DATA.PROD_CAT3,
+                        V_PROBLEM_ALL_DATA.STATUS,
+                        V_PROBLEM_ALL_DATA.STATUS_REASON,
+                        V_PROBLEM_ALL_DATA.ASSIGNED_GROUP,
+                        V_PROBLEM_ALL_DATA.ASSIGNED_SUPPORT_ORGANIZATION,
+                        V_PROBLEM_ALL_DATA.COORDINATOR_GROUP,
+                        V_PROBLEM_ALL_DATA.COORDINATOR_SUPPORT_ORG,
+                        CASE
+                          WHEN V_PROBLEM_ALL_DATA.COORDINATOR_SUPPORT_ORG = 'ao:bmw' THEN
+                           'Yes'
+                          ELSE
+                           'No'
+                        END AS COORDINATED_BY_BMW,
+                        CASE
+                          WHEN V_PROBLEM_ALL_DATA.COORDINATOR_SUPPORT_ORG IN
+                               ('ao-caee:ibm', 'ab:ibm', 'mt-caee:ibm') THEN
+                           'Yes'
+                          ELSE
+                           'No'
+                        END AS COORDINATED_BY_PROVIDER,
+                        V_PROBLEM_ALL_DATA.SERVICE_DEPTGRP,
+                        V_PROBLEM_ALL_DATA.SUBMITTER_DEPTGRP,
+                        V_PROBLEM_ALL_DATA.PBI_CI,
+                        V_PROBLEM_ALL_DATA.INVESTIGATION_DRIVER,
+                        V_PROBLEM_ALL_DATA.PROBLEM_LINK,
+                        V_PROBLEM_ALL_DATA.PROBLEM_LOCATION,
+                        V_PROBLEM_ALL_DATA.VENDOR_TICKET_NUMBER,
+                        V_PROBLEM_ALL_DATA.CLOSED_DATE,
+                        V_PROBLEM_ALL_DATA.KNOWN_ERROR_CREATED_DATE,
+                        V_PROBLEM_ALL_DATA.SUBMIT_DATE,
+                        V_PROBLEM_ALL_DATA.LAST_MODIFIED_DATE,
+                        V_PROBLEM_ALL_DATA.WORKAROUND_DETERMINED_ON_DATE,
+                        V_PROBLEM_ALL_DATA.TARGET_DATE,
+                        V_QUAL_CONFIG_ITSM_SERVICE.MIS_3_NS AS CONTRACT,
+                        V_QUAL_CONFIG_ITSM_SERVICE.MIS_5_NS AS BUSINESS_CLUSTER,
+                        V_QUAL_CONFIG_ITSM_SERVICE.MIS_6_NS AS REPORTED_TOWER,
+                        V_QUAL_CONFIG_ITSM_SERVICE.MIS_10_NS AS COC_DATE,
+                        CASE
+                          WHEN NOT V_PROBLEM_ALL_DATA.LAST_COMPLETED_DATE IS NULL THEN
+                           TRUNC(V_PROBLEM_ALL_DATA.LAST_COMPLETED_DATE) -
+                           TRUNC(V_PROBLEM_ALL_DATA.SUBMIT_DATE) + 1
+                          WHEN V_PROBLEM_ALL_DATA.LAST_COMPLETED_DATE IS NULL AND
+                               V_PROBLEM_ALL_DATA.STATUS = 'Closed' THEN
+                           TRUNC(V_PROBLEM_ALL_DATA.CLOSED_DATE) - TRUNC(V_PROBLEM_ALL_DATA.SUBMIT_DATE) + 1
+                        --    ELSE TRUNC(SYSDATE) -  TRUNC(V_PROBLEM_ALL_DATA.SUBMIT_DATE) + 1
+                        END AS INVESTIGATION_TIME,
+                        CASE V_PROBLEM_ALL_DATA.PRIORITY
+                          WHEN 'Critical' THEN
+                           15
+                          WHEN 'High' THEN
+                           30
+                          WHEN 'Low' THEN
+                           90
+                        END AS INVESTIGATION_TIME_TARGET,
+                        TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_9_NS, 'DD.MM.YYYY') AS EOC_DATE,
+                        CASE
+                          WHEN TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_10_NS, 'DD.MM.YY') IS NULL THEN
+                           'Current'
+                          WHEN TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_10_NS, 'DD.MM.YY') <=
+                               TRUNC(V_PROBLEM_ALL_DATA."SUBMIT_DATE") AND
+                               (TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_9_NS, 'DD.MM.YY') >
+                                TRUNC(V_PROBLEM_ALL_DATA."SUBMIT_DATE") OR
+                                TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_9_NS, 'DD.MM.YY') IS NULL) THEN
+                           'Current'
+                          WHEN TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_9_NS, 'DD.MM.YY') <=
+                               TRUNC(V_PROBLEM_ALL_DATA."SUBMIT_DATE") THEN
+                           'Obsolete'
+                          ELSE
+                           'Planned'
+                        END COC_STATUS,
+                        V_QUAL_CONFIG_ITSM_SERVICE.MIS_7_NS AS "ITOM_SCOPE",
+                        V_QUAL_CONFIG_ITSM_SERVICE.MIS_8_NS AS "ITOM_COC_DATE",
+                        CASE
+                          WHEN TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_8_NS, 'DD.MM.YY') IS NULL THEN
+                           'n/a'
+                          WHEN TO_DATE(V_QUAL_CONFIG_ITSM_SERVICE.MIS_8_NS, 'DD.MM.YY') <=
+                               V_PROBLEM_ALL_DATA."SUBMIT_DATE" THEN
+                           'Current'
+                          ELSE
+                           'Planned'
+                        END "ITOM_COC_STATUS"
+                   FROM V_PROBLEM_ALL_DATA V_PROBLEM_ALL_DATA
+                   LEFT JOIN V_QUAL_CONFIG_ITSM_SERVICE V_QUAL_CONFIG_ITSM_SERVICE
+                     ON V_PROBLEM_ALL_DATA."SERVICE" = V_QUAL_CONFIG_ITSM_SERVICE."ITSM_SERVICE"
+                  WHERE
+                 /*   V_PROBLEM_ALL_DATA.STATUS IN ('Closed', 'Completed')
+                 AND
+                   (TO_CHAR(V_PROBLEM_ALL_DATA.LAST_COMPLETED_DATE, 'YYYY_MM') = '2016_01'
+                   OR
+                       (V_PROBLEM_ALL_DATA.LAST_COMPLETED_DATE IS NULL
+                     AND
+                       TO_CHAR(V_PROBLEM_ALL_DATA.CLOSED_DATE, 'YYYY_MM') = '2016_01'))
+                 AND
+                   V_QUAL_CONFIG_ITSM_SERVICE.MIS_3_NS = 'CAEE II'
+                 AND*/
+                  V_PROBLEM_ALL_DATA.ASSIGNED_SUPPORT_ORGANIZATION IN
+                  ('ao-caee:ibm', 'ab:ibm', 'mt-caee:ibm')) SUB_V_PROBLEM_ALL_DATA) V
+
+ORA-00933: SQL command not properly ended
+
+Creating view V_KSL_12_KM_3_4
+=============================
+
+
+) SUB_V_PROBLEM_ALL_DATA
+
+ORA-00900: invalid SQL statement
+
+Creating view V_KSL_12_KM_3_4B
+==============================
+
+
+Creating view V_KSL_2_11B
+=========================
+
+
+Creating view V_KSL_2_11C
+=========================
+
+
+Creating view V_KSL_2_11D
+=========================
+
+
+Creating view V_TABLE_EXTDATA_110
+=================================
+
+
+CREATE OR REPLACE FORCE VIEW V_TABLE_EXTDATA_110
+(p_id, name, status, application, responsible_provider, responsible, deliverydate, create_date, category_3, category_1, shortform, rqm_quadruple, category_2, category_4, rqm_service_id, summary, worklog, final_comment, initiator_req_type, initiator_priority, initiator_benefit, initiator_required_date, assessor_req_type, assessor_priority, assessor_measure, assessor_estim_effort_hours, assessor_rough_est_effort, assessor_consequences, assessor_keywords, assessor_no_resource, assessor_effort_int_hours, assessor_effort_ext_hours, assessor_effort_benefit_hours, assessor_effort_roi_percent, assessor_admin_adv_srv, assessor_info_incomplete, assessor_ref_ticket, assessor_ref_type, assessor_dept, decision_reason, decision_planned_impl_date, decision_maker_dept, decision_board, decision_board_date, decision_priority, decision_order_commercial, decision_planrelease_name, decision_ref_doc, implementation_date, commission_date, decision_release_done, assigned_to_plr_id, assigned_to_plr_name, solution_possible_sol, solution_rel_sw_comps, solution_mod_sw_comps, solution_phase, solution_solver_dept, solution_effort_int_hours, solution_effort_ext_hours, dev_complete_date, attachments, engaged_date, t01_voreingegangen, prepared_date, ready_for_decision_date, rfd_date_year_month, passed_date, assigned_date, assigned_date_year_month, wip_date, ready_for_accept_date, rfa_date_year_month, accepted_date, deployed_date, solved_date, sms_transferred_date, transferred_date, already_existent_date, rejected_date, not_realized_date, deferred_date, interrupted_date, fixprice, answer_03, binding_period, costcenter, answer_07, answer_08, answer_09, answer_10, testcases, failed_testcases, deliverydate_testcases, defects_uat, defects_fat, answer_16, answer_17, answer_18, answer_19, answer_20, status_grouped, total_decision_time_months, ticket_at_least_assigned, business_asses_time_months, ticket_at_least_created, it_assesment_time_months, ticket_at_least_rfd, decision_time_months, total_development_time_months, ticket_at_least_rfa, prod_set_time_months, ticket_at_least_deployed, total_delivery_time_months, it_asses_70_threshold, total_decision_70_threshold, total_develop_70_threshold, total_prod_set_70_threshold, total_delivery_70_threshold, it_asses_95_flag, it_asses_70_flag, decision_95_flag, decision_70_flag, develop_95_flag, develop_70_flag, prod_set_95_flag, prod_set_70_flag, delivery_95_flag, delivery_70_flag, deployed_required_diff, deployed_required_data, deployed_planned_diff, deployed_planned_data, slow_ticket, emergency_ticket, consult_ticket, assessor_req_type_group, assessor_priority_group, assessor_measure_group, benefit_oneoff_hours_numeric, benefit_yearly_hours_numeric, assessor_estim_eff_hours_grp, systemname, mis_1, mis_2, mis_3, sys_maindept, sys_dept, sys_deptgrp, sys_build_maindept, sys_build_dept, sys_build_deptgrp, mis_4, in_plan_release, load_date, create_date_year, create_date_year_month, closed_date, closed_date_year, closed_date_year_month, costs_type, costs_date_year, costs_date_year_month, gripps_ticket_id, workflowtyp, gesamtzeit_entscheidung_tage, gesamtzeit_entscheidung_wochen, zeit_fachliche_bewertung_tage, zeit_fachliche_bewertung_woche, zeit_it_bewertung_tage, zeit_it_bewertung_wochen, zeit_entscheidung_tage, zeit_entscheidung_wochen, gesamtzeit_entwicklung_tage, gesamtzeit_entwicklung_wochen, gesamtzeit_prodsetzung_tage, gesamtzeit_prodsetzung_wochen, gesamtzeit_erf_bis_abn_tage, gesamtzeit_erf_bis_abn_wochen, initiator_maindept, initiator_dept, initiator_deptgrp)
+AS
+SELECT
+  V_RQM_KPI4_ALL_DATA.REQUIREMENT_ID as P_ID,
+  V_RQM_KPI4_ALL_DATA.DESCRIPTION as description,
+  V_RQM_KPI4_ALL_DATA.STATUS,
+  V_RQM_KPI4_ALL_DATA.ANSWER_02 AS APPLICATION,
+  '' as Responsible_provider,
+  '' as Responsible,
+    V_RQM_KPI4_ALL_DATA.ANSWER_04 AS DELIVERYDATE,
+  V_RQM_KPI4_ALL_DATA.CREATE_DATE,
+  V_RQM_KPI4_ALL_DATA.CATEGORY_3,
+  V_RQM_KPI4_ALL_DATA.CATEGORY_1,
+  V_RQM_KPI4_ALL_DATA.SHORTFORM,
+  V_RQM_KPI4_ALL_DATA.RQM_QUADRUPLE,
+  V_RQM_KPI4_ALL_DATA.CATEGORY_2,
+  V_RQM_KPI4_ALL_DATA.CATEGORY_4,
+  V_RQM_KPI4_ALL_DATA.RQM_SERVICE_ID,
+  V_RQM_KPI4_ALL_DATA.SUMMARY as name,
+  V_RQM_KPI4_ALL_DATA.WORKLOG,
+  V_RQM_KPI4_ALL_DATA.FINAL_COMMENT,
+  V_RQM_KPI4_ALL_DATA.INITIATOR_REQ_TYPE,
+  V_RQM_KPI4_ALL_DATA.INITIATOR_PRIORITY,
+  V_RQM_KPI4_ALL_DATA.INITIATOR_BENEFIT,
+  V_RQM_KPI4_ALL_DATA.INITIATOR_REQUIRED_DATE,
+  V_RQM_KPI4_ALL_DATA.ASSESSOR_REQ_TYPE,
+  V_RQM_KPI4_ALL_DATA.ASSESSOR_PRIORITY,
+  V_RQM_KPI4_ALL_DATA.ASSESSOR_MEASURE,
+  V_RQM_KPI4_ALL_DATA.ASSESSOR_ESTIM_EFFORT_HOURS,
+  V_RQM_KPI4_ALL_DATA.ASSESSOR_ROUGH_EST_EFFORT,
+  V_RQM_KPI4_ALL_DATA.ASSESSOR_CONSEQUENCES,
+  V_RQM_KPI4_ALL_DATA.ASSESSOR_KEYWORDS,
+  V_RQM_KPI4_ALL_DATA.ASSESSOR_NO_RESOURCE,
+  V_RQM_KPI4_ALL_DATA.ASSESSOR_EFFORT_INT_HOURS,
+  V_RQM_KPI4_ALL_DATA.ASSESSOR_EFFORT_EXT_HOURS,
+  V_RQM_KPI4_ALL_DATA.ASSESSOR_EFFORT_BENEFIT_HOURS,
+  V_RQM_KPI4_ALL_DATA.ASSESSOR_EFFORT_ROI_PERCENT,
+  V_RQM_KPI4_ALL_DATA.ASSESSOR_ADMIN_ADV_SRV,
+  V_RQM_KPI4_ALL_DATA.ASSESSOR_INFO_INCOMPLETE,
+  V_RQM_KPI4_ALL_DATA.ASSESSOR_REF_TICKET,
+  V_RQM_KPI4_ALL_DATA.ASSESSOR_REF_TYPE,
+  V_RQM_KPI4_ALL_DATA.ASSESSOR_DEPT,
+  V_RQM_KPI4_ALL_DATA.DECISION_REASON,
+  V_RQM_KPI4_ALL_DATA.DECISION_PLANNED_IMPL_DATE,
+  V_RQM_KPI4_ALL_DATA.DECISION_MAKER_DEPT,
+  V_RQM_KPI4_ALL_DATA.DECISION_BOARD,
+  V_RQM_KPI4_ALL_DATA.DECISION_BOARD_DATE,
+  V_RQM_KPI4_ALL_DATA.DECISION_PRIORITY,
+  V_RQM_KPI4_ALL_DATA.DECISION_ORDER_COMMERCIAL,
+  V_RQM_KPI4_ALL_DATA.DECISION_PLANRELEASE_NAME,
+  V_RQM_KPI4_ALL_DATA.DECISION_REF_DOC,
+  V_RQM_KPI4_ALL_DATA.IMPLEMENTATION_DATE,
+  V_RQM_KPI4_ALL_DATA.COMMISSION_DATE,
+  V_RQM_KPI4_ALL_DATA.DECISION_RELEASE_DONE,
+  V_RQM_KPI4_ALL_DATA.ASSIGNED_TO_PLR_ID,
+  V_RQM_KPI4_ALL_DATA.ASSIGNED_TO_PLR_NAME,
+  V_RQM_KPI4_ALL_DATA.SOLUTION_POSSIBLE_SOL,
+  V_RQM_KPI4_ALL_DATA.SOLUTION_REL_SW_COMPS,
+  V_RQM_KPI4_ALL_DATA.SOLUTION_MOD_SW_COMPS,
+  V_RQM_KPI4_ALL_DATA.SOLUTION_PHASE,
+  V_RQM_KPI4_ALL_DATA.SOLUTION_SOLVER_DEPT,
+  V_RQM_KPI4_ALL_DATA.SOLUTION_EFFORT_INT_HOURS,
+  V_RQM_KPI4_ALL_DATA.SOLUTION_EFFORT_EXT_HOURS,
+  V_RQM_KPI4_ALL_DATA.DEV_COMPLETE_DATE,
+  V_RQM_KPI4_ALL_DATA.ATTACHMENTS,
+  V_RQM_KPI4_ALL_DATA.ENGAGED_DATE,
+  V_RQM_KPI4_ALL_DATA.T01_VOREINGEGANGEN,
+  V_RQM_KPI4_ALL_DATA.PREPARED_DATE,
+  V_RQM_KPI4_ALL_DATA.READY_FOR_DECISION_DATE,
+  V_RQM_KPI4_ALL_DATA.RFD_DATE_YEAR_MONTH,
+  V_RQM_KPI4_ALL_DATA.PASSED_DATE,
+  V_RQM_KPI4_ALL_DATA.ASSIGNED_DATE,
+  V_RQM_KPI4_ALL_DATA.ASSIGNED_DATE_YEAR_MONTH,
+  V_RQM_KPI4_ALL_DATA.WIP_DATE,
+  V_RQM_KPI4_ALL_DATA.READY_FOR_ACCEPT_DATE,
+  V_RQM_KPI4_ALL_DATA.RFA_DATE_YEAR_MONTH,
+  V_RQM_KPI4_ALL_DATA.ACCEPTED_DATE,
+  V_RQM_KPI4_ALL_DATA.DEPLOYED_DATE,
+  V_RQM_KPI4_ALL_DATA.SOLVED_DATE,
+  V_RQM_KPI4_ALL_DATA.SMS_TRANSFERRED_DATE,
+  V_RQM_KPI4_ALL_DATA.TRANSFERRED_DATE,
+  V_RQM_KPI4_ALL_DATA.ALREADY_EXISTENT_DATE,
+  V_RQM_KPI4_ALL_DATA.REJECTED_DATE,
+  V_RQM_KPI4_ALL_DATA.NOT_REALIZED_DATE,
+  V_RQM_KPI4_ALL_DATA.DEFERRED_DATE,
+  V_RQM_KPI4_ALL_DATA.INTERRUPTED_DATE,
+  V_RQM_KPI4_ALL_DATA.ANSWER_01 AS FIXPRICE,
+  V_RQM_KPI4_ALL_DATA.ANSWER_03,
+  V_RQM_KPI4_ALL_DATA.ANSWER_05 AS BINDING_PERIOD,
+  V_RQM_KPI4_ALL_DATA.ANSWER_06 AS COSTCENTER,
+  V_RQM_KPI4_ALL_DATA.ANSWER_07,
+  V_RQM_KPI4_ALL_DATA.ANSWER_08,
+  V_RQM_KPI4_ALL_DATA.ANSWER_09,
+  V_RQM_KPI4_ALL_DATA.ANSWER_10,
+  V_RQM_KPI4_ALL_DATA.ANSWER_11 AS TESTCASES,
+  V_RQM_KPI4_ALL_DATA.ANSWER_12 AS FAILED_TESTCASES,
+  V_RQM_KPI4_ALL_DATA.ANSWER_13 AS DELIVERYDATE_TESTCASES,
+  V_RQM_KPI4_ALL_DATA.ANSWER_14 AS DEFECTS_UAT,
+  V_RQM_KPI4_ALL_DATA.ANSWER_15 AS DEFECTS_FAT,
+  V_RQM_KPI4_ALL_DATA.ANSWER_16,
+  V_RQM_KPI4_ALL_DATA.ANSWER_17,
+  V_RQM_KPI4_ALL_DATA.ANSWER_18,
+  V_RQM_KPI4_ALL_DATA.ANSWER_19,
+  V_RQM_KPI4_ALL_DATA.ANSWER_20,
+  V_RQM_KPI4_ALL_DATA.STATUS_GROUPED,
+  V_RQM_KPI4_ALL_DATA.TOTAL_DECISION_TIME_MONTHS,
+  V_RQM_KPI4_ALL_DATA.TICKET_AT_LEAST_ASSIGNED,
+  V_RQM_KPI4_ALL_DATA.BUSINESS_ASSES_TIME_MONTHS,
+  V_RQM_KPI4_ALL_DATA.TICKET_AT_LEAST_CREATED,
+  V_RQM_KPI4_ALL_DATA.IT_ASSESMENT_TIME_MONTHS,
+  V_RQM_KPI4_ALL_DATA.TICKET_AT_LEAST_RFD,
+  V_RQM_KPI4_ALL_DATA.DECISION_TIME_MONTHS,
+  V_RQM_KPI4_ALL_DATA.TOTAL_DEVELOPMENT_TIME_MONTHS,
+  V_RQM_KPI4_ALL_DATA.TICKET_AT_LEAST_RFA,
+  V_RQM_KPI4_ALL_DATA.PROD_SET_TIME_MONTHS,
+  V_RQM_KPI4_ALL_DATA.TICKET_AT_LEAST_DEPLOYED,
+  V_RQM_KPI4_ALL_DATA.TOTAL_DELIVERY_TIME_MONTHS,
+  V_RQM_KPI4_ALL_DATA.IT_ASSES_70_THRESHOLD,
+  V_RQM_KPI4_ALL_DATA.TOTAL_DECISION_70_THRESHOLD,
+  V_RQM_KPI4_ALL_DATA.TOTAL_DEVELOP_70_THRESHOLD,
+  V_RQM_KPI4_ALL_DATA.TOTAL_PROD_SET_70_THRESHOLD,
+  V_RQM_KPI4_ALL_DATA.TOTAL_DELIVERY_70_THRESHOLD,
+  V_RQM_KPI4_ALL_DATA.IT_ASSES_95_FLAG,
+  V_RQM_KPI4_ALL_DATA.IT_ASSES_70_FLAG,
+  V_RQM_KPI4_ALL_DATA.DECISION_95_FLAG,
+  V_RQM_KPI4_ALL_DATA.DECISION_70_FLAG,
+  V_RQM_KPI4_ALL_DATA.DEVELOP_95_FLAG,
+  V_RQM_KPI4_ALL_DATA.DEVELOP_70_FLAG,
+  V_RQM_KPI4_ALL_DATA.PROD_SET_95_FLAG,
+  V_RQM_KPI4_ALL_DATA.PROD_SET_70_FLAG,
+  V_RQM_KPI4_ALL_DATA.DELIVERY_95_FLAG,
+  V_RQM_KPI4_ALL_DATA.DELIVERY_70_FLAG,
+  V_RQM_KPI4_ALL_DATA.DEPLOYED_REQUIRED_DIFF,
+  V_RQM_KPI4_ALL_DATA.DEPLOYED_REQUIRED_DATA,
+  V_RQM_KPI4_ALL_DATA.DEPLOYED_PLANNED_DIFF,
+  V_RQM_KPI4_ALL_DATA.DEPLOYED_PLANNED_DATA,
+  V_RQM_KPI4_ALL_DATA.SLOW_TICKET,
+  V_RQM_KPI4_ALL_DATA.EMERGENCY_TICKET,
+  V_RQM_KPI4_ALL_DATA.CONSULT_TICKET,
+  V_RQM_KPI4_ALL_DATA.ASSESSOR_REQ_TYPE_GROUP,
+  V_RQM_KPI4_ALL_DATA.ASSESSOR_PRIORITY_GROUP,
+  V_RQM_KPI4_ALL_DATA.ASSESSOR_MEASURE_GROUP,
+  V_RQM_KPI4_ALL_DATA.BENEFIT_ONEOFF_HOURS_NUMERIC,
+  V_RQM_KPI4_ALL_DATA.BENEFIT_YEARLY_HOURS_NUMERIC,
+  V_RQM_KPI4_ALL_DATA.ASSESSOR_ESTIM_EFF_HOURS_GRP,
+  V_RQM_KPI4_ALL_DATA.SYSTEMNAME,
+  V_RQM_KPI4_ALL_DATA.MIS_1,
+  V_RQM_KPI4_ALL_DATA.MIS_2,
+  V_RQM_KPI4_ALL_DATA.MIS_3,
+  V_RQM_KPI4_ALL_DATA.SYS_MAINDEPT,
+  V_RQM_KPI4_ALL_DATA.SYS_DEPT,
+  V_RQM_KPI4_ALL_DATA.SYS_DEPTGRP,
+  V_RQM_KPI4_ALL_DATA.SYS_BUILD_MAINDEPT,
+  V_RQM_KPI4_ALL_DATA.SYS_BUILD_DEPT,
+  V_RQM_KPI4_ALL_DATA.SYS_BUILD_DEPTGRP,
+  V_RQM_KPI4_ALL_DATA.MIS_4,
+  V_RQM_KPI4_ALL_DATA.IN_PLAN_RELEASE,
+  V_RQM_KPI4_ALL_DATA.LOAD_DATE,
+  V_RQM_KPI4_ALL_DATA.CREATE_DATE_YEAR,
+  V_RQM_KPI4_ALL_DATA.CREATE_DATE_YEAR_MONTH,
+  V_RQM_KPI4_ALL_DATA.CLOSED_DATE,
+  V_RQM_KPI4_ALL_DATA.CLOSED_DATE_YEAR,
+  V_RQM_KPI4_ALL_DATA.CLOSED_DATE_YEAR_MONTH,
+  V_RQM_KPI4_ALL_DATA.COSTS_TYPE,
+  V_RQM_KPI4_ALL_DATA.COSTS_DATE_YEAR,
+  V_RQM_KPI4_ALL_DATA.COSTS_DATE_YEAR_MONTH,
+  V_RQM_KPI4_ALL_DATA.GRIPPS_TICKET_ID,
+  V_RQM_KPI4_ALL_DATA.WORKFLOWTYP,
+  V_RQM_KPI4_ALL_DATA.GESAMTZEIT_ENTSCHEIDUNG_TAGE,
+  V_RQM_KPI4_ALL_DATA.GESAMTZEIT_ENTSCHEIDUNG_WOCHEN,
+  V_RQM_KPI4_ALL_DATA.ZEIT_FACHLICHE_BEWERTUNG_TAGE,
+  V_RQM_KPI4_ALL_DATA.ZEIT_FACHLICHE_BEWERTUNG_WOCHE,
+  V_RQM_KPI4_ALL_DATA.ZEIT_IT_BEWERTUNG_TAGE,
+  V_RQM_KPI4_ALL_DATA.ZEIT_IT_BEWERTUNG_WOCHEN,
+  V_RQM_KPI4_ALL_DATA.ZEIT_ENTSCHEIDUNG_TAGE,
+  V_RQM_KPI4_ALL_DATA.ZEIT_ENTSCHEIDUNG_WOCHEN,
+  V_RQM_KPI4_ALL_DATA.GESAMTZEIT_ENTWICKLUNG_TAGE,
+  V_RQM_KPI4_ALL_DATA.GESAMTZEIT_ENTWICKLUNG_WOCHEN,
+  V_RQM_KPI4_ALL_DATA.GESAMTZEIT_PRODSETZUNG_TAGE,
+  V_RQM_KPI4_ALL_DATA.GESAMTZEIT_PRODSETZUNG_WOCHEN,
+  V_RQM_KPI4_ALL_DATA.GESAMTZEIT_ERF_BIS_ABN_TAGE,
+  V_RQM_KPI4_ALL_DATA.GESAMTZEIT_ERF_BIS_ABN_WOCHEN,
+  V_RQM_KPI4_ALL_DATA.INITIATOR_MAINDEPT,
+  V_RQM_KPI4_ALL_DATA.INITIATOR_DEPT,
+  V_RQM_KPI4_ALL_DATA.INITIATOR_DEPTGRP
+FROM V_RQM_KPI4_ALL_DATA V_RQM_KPI4_ALL_DATA
+WHERE V_RQM_KPI4_ALL_DATA.CREATE_DATE >=  to_date('01.10.2013','DD.MM.YYYY')
+AND V_RQM_KPI4_ALL_DATA.CATEGORY_3= 'CAEE II'
+AND (V_RQM_KPI4_ALL_DATA.CATEGORY_2='Build' OR V_RQM_KPI4_ALL_DATA.CATEGORY_2='Design')
+AND (V_RQM_KPI4_ALL_DATA.STATUS='created' OR V_RQM_KPI4_ALL_DATA.STATUS='ready for decision' OR V_RQM_KPI4_ALL_DATA.STATUS='passed' OR V_RQM_KPI4_ALL_DATA.STATUS='assigned' OR V_RQM_KPI4_ALL_DATA.STATUS='work in progress' OR V_RQM_KPI4_ALL_DATA.STATUS='ready for acceptance' OR V_RQM_KPI4_ALL_DATA.STATUS='accepted')
+
+ORA-01031: insufficient privileges
+
+Creating view V_TABLE_EXTERNALDATA_11012_B
+==========================================
+
+
+CREATE OR REPLACE FORCE VIEW V_TABLE_EXTERNALDATA_11012_b AS
+SELECT V_RQM_KPI4_ALL_DATA.REQUIREMENT_ID AS P_ID,
+       V_RQM_KPI4_ALL_DATA.DESCRIPTION AS description,
+       V_RQM_KPI4_ALL_DATA.STATUS,
+       V_RQM_KPI4_ALL_DATA.ANSWER_02 AS APPLICATION,
+       '' AS RESPONSIBLE_PROVIDER,
+       '' AS RESPONSIBLE,
+       V_RQM_KPI4_ALL_DATA.ANSWER_04 AS DELIVERYDATE,
+       V_RQM_KPI4_ALL_DATA.CREATE_DATE,
+       V_RQM_KPI4_ALL_DATA.CATEGORY_3,
+       V_RQM_KPI4_ALL_DATA.CATEGORY_1,
+       V_RQM_KPI4_ALL_DATA.SHORTFORM,
+       V_RQM_KPI4_ALL_DATA.RQM_QUADRUPLE,
+       V_RQM_KPI4_ALL_DATA.CATEGORY_2,
+       V_RQM_KPI4_ALL_DATA.CATEGORY_4,
+       V_RQM_KPI4_ALL_DATA.RQM_SERVICE_ID,
+       V_RQM_KPI4_ALL_DATA.SUMMARY as name,
+       V_RQM_KPI4_ALL_DATA.WORKLOG,
+       V_RQM_KPI4_ALL_DATA.FINAL_COMMENT,
+       V_RQM_KPI4_ALL_DATA.INITIATOR_REQ_TYPE,
+       V_RQM_KPI4_ALL_DATA.INITIATOR_PRIORITY,
+       V_RQM_KPI4_ALL_DATA.INITIATOR_BENEFIT,
+       V_RQM_KPI4_ALL_DATA.INITIATOR_REQUIRED_DATE,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_REQ_TYPE,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_PRIORITY,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_MEASURE,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_ESTIM_EFFORT_HOURS,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_ROUGH_EST_EFFORT,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_CONSEQUENCES,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_KEYWORDS,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_NO_RESOURCE,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_EFFORT_INT_HOURS,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_EFFORT_EXT_HOURS,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_EFFORT_BENEFIT_HOURS,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_EFFORT_ROI_PERCENT,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_ADMIN_ADV_SRV,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_INFO_INCOMPLETE,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_REF_TICKET,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_REF_TYPE,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_DEPT,
+       V_RQM_KPI4_ALL_DATA.DECISION_REASON,
+       V_RQM_KPI4_ALL_DATA.DECISION_PLANNED_IMPL_DATE,
+       V_RQM_KPI4_ALL_DATA.DECISION_MAKER_DEPT,
+       V_RQM_KPI4_ALL_DATA.DECISION_BOARD,
+       V_RQM_KPI4_ALL_DATA.DECISION_BOARD_DATE,
+       V_RQM_KPI4_ALL_DATA.DECISION_PRIORITY,
+       V_RQM_KPI4_ALL_DATA.DECISION_ORDER_COMMERCIAL,
+       V_RQM_KPI4_ALL_DATA.DECISION_PLANRELEASE_NAME,
+       V_RQM_KPI4_ALL_DATA.DECISION_REF_DOC,
+       V_RQM_KPI4_ALL_DATA.IMPLEMENTATION_DATE,
+       V_RQM_KPI4_ALL_DATA.COMMISSION_DATE,
+       V_RQM_KPI4_ALL_DATA.DECISION_RELEASE_DONE,
+       V_RQM_KPI4_ALL_DATA.ASSIGNED_TO_PLR_ID,
+       V_RQM_KPI4_ALL_DATA.ASSIGNED_TO_PLR_NAME,
+       V_RQM_KPI4_ALL_DATA.SOLUTION_POSSIBLE_SOL,
+       V_RQM_KPI4_ALL_DATA.SOLUTION_REL_SW_COMPS,
+       V_RQM_KPI4_ALL_DATA.SOLUTION_MOD_SW_COMPS,
+       V_RQM_KPI4_ALL_DATA.SOLUTION_PHASE,
+       V_RQM_KPI4_ALL_DATA.SOLUTION_SOLVER_DEPT,
+       V_RQM_KPI4_ALL_DATA.SOLUTION_EFFORT_INT_HOURS,
+       V_RQM_KPI4_ALL_DATA.SOLUTION_EFFORT_EXT_HOURS,
+       V_RQM_KPI4_ALL_DATA.DEV_COMPLETE_DATE,
+       V_RQM_KPI4_ALL_DATA.ATTACHMENTS,
+       V_RQM_KPI4_ALL_DATA.ENGAGED_DATE,
+       V_RQM_KPI4_ALL_DATA.T01_VOREINGEGANGEN,
+       V_RQM_KPI4_ALL_DATA.PREPARED_DATE,
+       V_RQM_KPI4_ALL_DATA.READY_FOR_DECISION_DATE,
+       V_RQM_KPI4_ALL_DATA.RFD_DATE_YEAR_MONTH,
+       V_RQM_KPI4_ALL_DATA.PASSED_DATE,
+       V_RQM_KPI4_ALL_DATA.ASSIGNED_DATE,
+       V_RQM_KPI4_ALL_DATA.ASSIGNED_DATE_YEAR_MONTH,
+       V_RQM_KPI4_ALL_DATA.WIP_DATE,
+       V_RQM_KPI4_ALL_DATA.READY_FOR_ACCEPT_DATE,
+       V_RQM_KPI4_ALL_DATA.RFA_DATE_YEAR_MONTH,
+       V_RQM_KPI4_ALL_DATA.ACCEPTED_DATE,
+       V_RQM_KPI4_ALL_DATA.DEPLOYED_DATE,
+       V_RQM_KPI4_ALL_DATA.SOLVED_DATE,
+       V_RQM_KPI4_ALL_DATA.SMS_TRANSFERRED_DATE,
+       V_RQM_KPI4_ALL_DATA.TRANSFERRED_DATE,
+       V_RQM_KPI4_ALL_DATA.ALREADY_EXISTENT_DATE,
+       V_RQM_KPI4_ALL_DATA.REJECTED_DATE,
+       V_RQM_KPI4_ALL_DATA.NOT_REALIZED_DATE,
+       V_RQM_KPI4_ALL_DATA.DEFERRED_DATE,
+       V_RQM_KPI4_ALL_DATA.INTERRUPTED_DATE,
+       V_RQM_KPI4_ALL_DATA.ANSWER_01 AS FIXPRICE,
+       V_RQM_KPI4_ALL_DATA.ANSWER_03,
+       V_RQM_KPI4_ALL_DATA.ANSWER_05 AS BINDING_PERIOD,
+       V_RQM_KPI4_ALL_DATA.ANSWER_06 AS COSTCENTER,
+       V_RQM_KPI4_ALL_DATA.ANSWER_07,
+       V_RQM_KPI4_ALL_DATA.ANSWER_08,
+       V_RQM_KPI4_ALL_DATA.ANSWER_09,
+       V_RQM_KPI4_ALL_DATA.ANSWER_10,
+       V_RQM_KPI4_ALL_DATA.ANSWER_11 AS TESTCASES,
+       V_RQM_KPI4_ALL_DATA.ANSWER_12 AS FAILED_TESTCASES,
+       V_RQM_KPI4_ALL_DATA.ANSWER_13 AS DELIVERYDATE_TESTCASES,
+       V_RQM_KPI4_ALL_DATA.ANSWER_14 AS DEFECTS_UAT,
+       V_RQM_KPI4_ALL_DATA.ANSWER_15 AS DEFECTS_FAT,
+       V_RQM_KPI4_ALL_DATA.ANSWER_16,
+       V_RQM_KPI4_ALL_DATA.ANSWER_17,
+       V_RQM_KPI4_ALL_DATA.ANSWER_18,
+       V_RQM_KPI4_ALL_DATA.ANSWER_19,
+       V_RQM_KPI4_ALL_DATA.ANSWER_20,
+       V_RQM_KPI4_ALL_DATA.STATUS_GROUPED,
+       V_RQM_KPI4_ALL_DATA.TOTAL_DECISION_TIME_MONTHS,
+       V_RQM_KPI4_ALL_DATA.TICKET_AT_LEAST_ASSIGNED,
+       V_RQM_KPI4_ALL_DATA.BUSINESS_ASSES_TIME_MONTHS,
+       V_RQM_KPI4_ALL_DATA.TICKET_AT_LEAST_CREATED,
+       V_RQM_KPI4_ALL_DATA.IT_ASSESMENT_TIME_MONTHS,
+       V_RQM_KPI4_ALL_DATA.TICKET_AT_LEAST_RFD,
+       V_RQM_KPI4_ALL_DATA.DECISION_TIME_MONTHS,
+       V_RQM_KPI4_ALL_DATA.TOTAL_DEVELOPMENT_TIME_MONTHS,
+       V_RQM_KPI4_ALL_DATA.TICKET_AT_LEAST_RFA,
+       V_RQM_KPI4_ALL_DATA.PROD_SET_TIME_MONTHS,
+       V_RQM_KPI4_ALL_DATA.TICKET_AT_LEAST_DEPLOYED,
+       V_RQM_KPI4_ALL_DATA.TOTAL_DELIVERY_TIME_MONTHS,
+       V_RQM_KPI4_ALL_DATA.IT_ASSES_70_THRESHOLD,
+       V_RQM_KPI4_ALL_DATA.TOTAL_DECISION_70_THRESHOLD,
+       V_RQM_KPI4_ALL_DATA.TOTAL_DEVELOP_70_THRESHOLD,
+       V_RQM_KPI4_ALL_DATA.TOTAL_PROD_SET_70_THRESHOLD,
+       V_RQM_KPI4_ALL_DATA.TOTAL_DELIVERY_70_THRESHOLD,
+       V_RQM_KPI4_ALL_DATA.IT_ASSES_95_FLAG,
+       V_RQM_KPI4_ALL_DATA.IT_ASSES_70_FLAG,
+       V_RQM_KPI4_ALL_DATA.DECISION_95_FLAG,
+       V_RQM_KPI4_ALL_DATA.DECISION_70_FLAG,
+       V_RQM_KPI4_ALL_DATA.DEVELOP_95_FLAG,
+       V_RQM_KPI4_ALL_DATA.DEVELOP_70_FLAG,
+       V_RQM_KPI4_ALL_DATA.PROD_SET_95_FLAG,
+       V_RQM_KPI4_ALL_DATA.PROD_SET_70_FLAG,
+       V_RQM_KPI4_ALL_DATA.DELIVERY_95_FLAG,
+       V_RQM_KPI4_ALL_DATA.DELIVERY_70_FLAG,
+       V_RQM_KPI4_ALL_DATA.DEPLOYED_REQUIRED_DIFF,
+       V_RQM_KPI4_ALL_DATA.DEPLOYED_REQUIRED_DATA,
+       V_RQM_KPI4_ALL_DATA.DEPLOYED_PLANNED_DIFF,
+       V_RQM_KPI4_ALL_DATA.DEPLOYED_PLANNED_DATA,
+       V_RQM_KPI4_ALL_DATA.SLOW_TICKET,
+       V_RQM_KPI4_ALL_DATA.EMERGENCY_TICKET,
+       V_RQM_KPI4_ALL_DATA.CONSULT_TICKET,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_REQ_TYPE_GROUP,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_PRIORITY_GROUP,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_MEASURE_GROUP,
+       V_RQM_KPI4_ALL_DATA.BENEFIT_ONEOFF_HOURS_NUMERIC,
+       V_RQM_KPI4_ALL_DATA.BENEFIT_YEARLY_HOURS_NUMERIC,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_ESTIM_EFF_HOURS_GRP,
+       V_RQM_KPI4_ALL_DATA.SYSTEMNAME,
+       V_RQM_KPI4_ALL_DATA.MIS_1,
+       V_RQM_KPI4_ALL_DATA.MIS_2,
+       V_RQM_KPI4_ALL_DATA.MIS_3,
+       V_RQM_KPI4_ALL_DATA.SYS_MAINDEPT,
+       V_RQM_KPI4_ALL_DATA.SYS_DEPT,
+       V_RQM_KPI4_ALL_DATA.SYS_DEPTGRP,
+       V_RQM_KPI4_ALL_DATA.SYS_BUILD_MAINDEPT,
+       V_RQM_KPI4_ALL_DATA.SYS_BUILD_DEPT,
+       V_RQM_KPI4_ALL_DATA.SYS_BUILD_DEPTGRP,
+       V_RQM_KPI4_ALL_DATA.MIS_4,
+       V_RQM_KPI4_ALL_DATA.IN_PLAN_RELEASE,
+       V_RQM_KPI4_ALL_DATA.LOAD_DATE,
+       V_RQM_KPI4_ALL_DATA.CREATE_DATE_YEAR,
+       V_RQM_KPI4_ALL_DATA.CREATE_DATE_YEAR_MONTH,
+       V_RQM_KPI4_ALL_DATA.CLOSED_DATE,
+       V_RQM_KPI4_ALL_DATA.CLOSED_DATE_YEAR,
+       V_RQM_KPI4_ALL_DATA.CLOSED_DATE_YEAR_MONTH,
+       V_RQM_KPI4_ALL_DATA.COSTS_TYPE,
+       V_RQM_KPI4_ALL_DATA.COSTS_DATE_YEAR,
+       V_RQM_KPI4_ALL_DATA.COSTS_DATE_YEAR_MONTH,
+       V_RQM_KPI4_ALL_DATA.GRIPPS_TICKET_ID,
+       V_RQM_KPI4_ALL_DATA.WORKFLOWTYP,
+       V_RQM_KPI4_ALL_DATA.GESAMTZEIT_ENTSCHEIDUNG_TAGE,
+       V_RQM_KPI4_ALL_DATA.GESAMTZEIT_ENTSCHEIDUNG_WOCHEN,
+       V_RQM_KPI4_ALL_DATA.ZEIT_FACHLICHE_BEWERTUNG_TAGE,
+       V_RQM_KPI4_ALL_DATA.ZEIT_FACHLICHE_BEWERTUNG_WOCHE,
+       V_RQM_KPI4_ALL_DATA.ZEIT_IT_BEWERTUNG_TAGE,
+       V_RQM_KPI4_ALL_DATA.ZEIT_IT_BEWERTUNG_WOCHEN,
+       V_RQM_KPI4_ALL_DATA.ZEIT_ENTSCHEIDUNG_TAGE,
+       V_RQM_KPI4_ALL_DATA.ZEIT_ENTSCHEIDUNG_WOCHEN,
+       V_RQM_KPI4_ALL_DATA.GESAMTZEIT_ENTWICKLUNG_TAGE,
+       V_RQM_KPI4_ALL_DATA.GESAMTZEIT_ENTWICKLUNG_WOCHEN,
+       V_RQM_KPI4_ALL_DATA.GESAMTZEIT_PRODSETZUNG_TAGE,
+       V_RQM_KPI4_ALL_DATA.GESAMTZEIT_PRODSETZUNG_WOCHEN,
+       V_RQM_KPI4_ALL_DATA.GESAMTZEIT_ERF_BIS_ABN_TAGE,
+       V_RQM_KPI4_ALL_DATA.GESAMTZEIT_ERF_BIS_ABN_WOCHEN,
+       V_RQM_KPI4_ALL_DATA.INITIATOR_MAINDEPT,
+       V_RQM_KPI4_ALL_DATA.INITIATOR_DEPT,
+       V_RQM_KPI4_ALL_DATA.INITIATOR_DEPTGRP
+  FROM V_RQM_KPI4_ALL_DATA V_RQM_KPI4_ALL_DATA
+ WHERE V_RQM_KPI4_ALL_DATA.CREATE_DATE >= TO_DATE('01.10.2013', 'DD.MM.YYYY')
+   AND V_RQM_KPI4_ALL_DATA.CATEGORY_3 = 'CAEE II'
+   AND (V_RQM_KPI4_ALL_DATA.CATEGORY_2 = 'Operation')
+   AND (V_RQM_KPI4_ALL_DATA.STATUS = 'created' OR V_RQM_KPI4_ALL_DATA.STATUS = 'ready for decision' OR
+       V_RQM_KPI4_ALL_DATA.STATUS = 'passed' OR V_RQM_KPI4_ALL_DATA.STATUS = 'assigned' OR
+       V_RQM_KPI4_ALL_DATA.STATUS = 'work in progress' OR
+       V_RQM_KPI4_ALL_DATA.STATUS = 'ready for acceptance' OR
+       V_RQM_KPI4_ALL_DATA.STATUS = 'accepted')
+
+ORA-01031: insufficient privileges
+
+Creating view V_TABLE_EXTERNALDATA_11012_b
+==========================================
+
+
+CREATE OR REPLACE FORCE VIEW V_TABLE_EXTERNALDATA_11012_b AS
+SELECT V_RQM_KPI4_ALL_DATA.REQUIREMENT_ID AS P_ID,
+       V_RQM_KPI4_ALL_DATA.DESCRIPTION AS description,
+       V_RQM_KPI4_ALL_DATA.STATUS,
+       V_RQM_KPI4_ALL_DATA.ANSWER_02 AS APPLICATION,
+       '' AS RESPONSIBLE_PROVIDER,
+       '' AS RESPONSIBLE,
+       V_RQM_KPI4_ALL_DATA.ANSWER_04 AS DELIVERYDATE,
+       V_RQM_KPI4_ALL_DATA.CREATE_DATE,
+       V_RQM_KPI4_ALL_DATA.CATEGORY_3,
+       V_RQM_KPI4_ALL_DATA.CATEGORY_1,
+       V_RQM_KPI4_ALL_DATA.SHORTFORM,
+       V_RQM_KPI4_ALL_DATA.RQM_QUADRUPLE,
+       V_RQM_KPI4_ALL_DATA.CATEGORY_2,
+       V_RQM_KPI4_ALL_DATA.CATEGORY_4,
+       V_RQM_KPI4_ALL_DATA.RQM_SERVICE_ID,
+       V_RQM_KPI4_ALL_DATA.SUMMARY as name,
+       V_RQM_KPI4_ALL_DATA.WORKLOG,
+       V_RQM_KPI4_ALL_DATA.FINAL_COMMENT,
+       V_RQM_KPI4_ALL_DATA.INITIATOR_REQ_TYPE,
+       V_RQM_KPI4_ALL_DATA.INITIATOR_PRIORITY,
+       V_RQM_KPI4_ALL_DATA.INITIATOR_BENEFIT,
+       V_RQM_KPI4_ALL_DATA.INITIATOR_REQUIRED_DATE,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_REQ_TYPE,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_PRIORITY,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_MEASURE,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_ESTIM_EFFORT_HOURS,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_ROUGH_EST_EFFORT,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_CONSEQUENCES,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_KEYWORDS,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_NO_RESOURCE,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_EFFORT_INT_HOURS,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_EFFORT_EXT_HOURS,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_EFFORT_BENEFIT_HOURS,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_EFFORT_ROI_PERCENT,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_ADMIN_ADV_SRV,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_INFO_INCOMPLETE,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_REF_TICKET,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_REF_TYPE,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_DEPT,
+       V_RQM_KPI4_ALL_DATA.DECISION_REASON,
+       V_RQM_KPI4_ALL_DATA.DECISION_PLANNED_IMPL_DATE,
+       V_RQM_KPI4_ALL_DATA.DECISION_MAKER_DEPT,
+       V_RQM_KPI4_ALL_DATA.DECISION_BOARD,
+       V_RQM_KPI4_ALL_DATA.DECISION_BOARD_DATE,
+       V_RQM_KPI4_ALL_DATA.DECISION_PRIORITY,
+       V_RQM_KPI4_ALL_DATA.DECISION_ORDER_COMMERCIAL,
+       V_RQM_KPI4_ALL_DATA.DECISION_PLANRELEASE_NAME,
+       V_RQM_KPI4_ALL_DATA.DECISION_REF_DOC,
+       V_RQM_KPI4_ALL_DATA.IMPLEMENTATION_DATE,
+       V_RQM_KPI4_ALL_DATA.COMMISSION_DATE,
+       V_RQM_KPI4_ALL_DATA.DECISION_RELEASE_DONE,
+       V_RQM_KPI4_ALL_DATA.ASSIGNED_TO_PLR_ID,
+       V_RQM_KPI4_ALL_DATA.ASSIGNED_TO_PLR_NAME,
+       V_RQM_KPI4_ALL_DATA.SOLUTION_POSSIBLE_SOL,
+       V_RQM_KPI4_ALL_DATA.SOLUTION_REL_SW_COMPS,
+       V_RQM_KPI4_ALL_DATA.SOLUTION_MOD_SW_COMPS,
+       V_RQM_KPI4_ALL_DATA.SOLUTION_PHASE,
+       V_RQM_KPI4_ALL_DATA.SOLUTION_SOLVER_DEPT,
+       V_RQM_KPI4_ALL_DATA.SOLUTION_EFFORT_INT_HOURS,
+       V_RQM_KPI4_ALL_DATA.SOLUTION_EFFORT_EXT_HOURS,
+       V_RQM_KPI4_ALL_DATA.DEV_COMPLETE_DATE,
+       V_RQM_KPI4_ALL_DATA.ATTACHMENTS,
+       V_RQM_KPI4_ALL_DATA.ENGAGED_DATE,
+       V_RQM_KPI4_ALL_DATA.T01_VOREINGEGANGEN,
+       V_RQM_KPI4_ALL_DATA.PREPARED_DATE,
+       V_RQM_KPI4_ALL_DATA.READY_FOR_DECISION_DATE,
+       V_RQM_KPI4_ALL_DATA.RFD_DATE_YEAR_MONTH,
+       V_RQM_KPI4_ALL_DATA.PASSED_DATE,
+       V_RQM_KPI4_ALL_DATA.ASSIGNED_DATE,
+       V_RQM_KPI4_ALL_DATA.ASSIGNED_DATE_YEAR_MONTH,
+       V_RQM_KPI4_ALL_DATA.WIP_DATE,
+       V_RQM_KPI4_ALL_DATA.READY_FOR_ACCEPT_DATE,
+       V_RQM_KPI4_ALL_DATA.RFA_DATE_YEAR_MONTH,
+       V_RQM_KPI4_ALL_DATA.ACCEPTED_DATE,
+       V_RQM_KPI4_ALL_DATA.DEPLOYED_DATE,
+       V_RQM_KPI4_ALL_DATA.SOLVED_DATE,
+       V_RQM_KPI4_ALL_DATA.SMS_TRANSFERRED_DATE,
+       V_RQM_KPI4_ALL_DATA.TRANSFERRED_DATE,
+       V_RQM_KPI4_ALL_DATA.ALREADY_EXISTENT_DATE,
+       V_RQM_KPI4_ALL_DATA.REJECTED_DATE,
+       V_RQM_KPI4_ALL_DATA.NOT_REALIZED_DATE,
+       V_RQM_KPI4_ALL_DATA.DEFERRED_DATE,
+       V_RQM_KPI4_ALL_DATA.INTERRUPTED_DATE,
+       V_RQM_KPI4_ALL_DATA.ANSWER_01 AS FIXPRICE,
+       V_RQM_KPI4_ALL_DATA.ANSWER_03,
+       V_RQM_KPI4_ALL_DATA.ANSWER_05 AS BINDING_PERIOD,
+       V_RQM_KPI4_ALL_DATA.ANSWER_06 AS COSTCENTER,
+       V_RQM_KPI4_ALL_DATA.ANSWER_07,
+       V_RQM_KPI4_ALL_DATA.ANSWER_08,
+       V_RQM_KPI4_ALL_DATA.ANSWER_09,
+       V_RQM_KPI4_ALL_DATA.ANSWER_10,
+       V_RQM_KPI4_ALL_DATA.ANSWER_11 AS TESTCASES,
+       V_RQM_KPI4_ALL_DATA.ANSWER_12 AS FAILED_TESTCASES,
+       V_RQM_KPI4_ALL_DATA.ANSWER_13 AS DELIVERYDATE_TESTCASES,
+       V_RQM_KPI4_ALL_DATA.ANSWER_14 AS DEFECTS_UAT,
+       V_RQM_KPI4_ALL_DATA.ANSWER_15 AS DEFECTS_FAT,
+       V_RQM_KPI4_ALL_DATA.ANSWER_16,
+       V_RQM_KPI4_ALL_DATA.ANSWER_17,
+       V_RQM_KPI4_ALL_DATA.ANSWER_18,
+       V_RQM_KPI4_ALL_DATA.ANSWER_19,
+       V_RQM_KPI4_ALL_DATA.ANSWER_20,
+       V_RQM_KPI4_ALL_DATA.STATUS_GROUPED,
+       V_RQM_KPI4_ALL_DATA.TOTAL_DECISION_TIME_MONTHS,
+       V_RQM_KPI4_ALL_DATA.TICKET_AT_LEAST_ASSIGNED,
+       V_RQM_KPI4_ALL_DATA.BUSINESS_ASSES_TIME_MONTHS,
+       V_RQM_KPI4_ALL_DATA.TICKET_AT_LEAST_CREATED,
+       V_RQM_KPI4_ALL_DATA.IT_ASSESMENT_TIME_MONTHS,
+       V_RQM_KPI4_ALL_DATA.TICKET_AT_LEAST_RFD,
+       V_RQM_KPI4_ALL_DATA.DECISION_TIME_MONTHS,
+       V_RQM_KPI4_ALL_DATA.TOTAL_DEVELOPMENT_TIME_MONTHS,
+       V_RQM_KPI4_ALL_DATA.TICKET_AT_LEAST_RFA,
+       V_RQM_KPI4_ALL_DATA.PROD_SET_TIME_MONTHS,
+       V_RQM_KPI4_ALL_DATA.TICKET_AT_LEAST_DEPLOYED,
+       V_RQM_KPI4_ALL_DATA.TOTAL_DELIVERY_TIME_MONTHS,
+       V_RQM_KPI4_ALL_DATA.IT_ASSES_70_THRESHOLD,
+       V_RQM_KPI4_ALL_DATA.TOTAL_DECISION_70_THRESHOLD,
+       V_RQM_KPI4_ALL_DATA.TOTAL_DEVELOP_70_THRESHOLD,
+       V_RQM_KPI4_ALL_DATA.TOTAL_PROD_SET_70_THRESHOLD,
+       V_RQM_KPI4_ALL_DATA.TOTAL_DELIVERY_70_THRESHOLD,
+       V_RQM_KPI4_ALL_DATA.IT_ASSES_95_FLAG,
+       V_RQM_KPI4_ALL_DATA.IT_ASSES_70_FLAG,
+       V_RQM_KPI4_ALL_DATA.DECISION_95_FLAG,
+       V_RQM_KPI4_ALL_DATA.DECISION_70_FLAG,
+       V_RQM_KPI4_ALL_DATA.DEVELOP_95_FLAG,
+       V_RQM_KPI4_ALL_DATA.DEVELOP_70_FLAG,
+       V_RQM_KPI4_ALL_DATA.PROD_SET_95_FLAG,
+       V_RQM_KPI4_ALL_DATA.PROD_SET_70_FLAG,
+       V_RQM_KPI4_ALL_DATA.DELIVERY_95_FLAG,
+       V_RQM_KPI4_ALL_DATA.DELIVERY_70_FLAG,
+       V_RQM_KPI4_ALL_DATA.DEPLOYED_REQUIRED_DIFF,
+       V_RQM_KPI4_ALL_DATA.DEPLOYED_REQUIRED_DATA,
+       V_RQM_KPI4_ALL_DATA.DEPLOYED_PLANNED_DIFF,
+       V_RQM_KPI4_ALL_DATA.DEPLOYED_PLANNED_DATA,
+       V_RQM_KPI4_ALL_DATA.SLOW_TICKET,
+       V_RQM_KPI4_ALL_DATA.EMERGENCY_TICKET,
+       V_RQM_KPI4_ALL_DATA.CONSULT_TICKET,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_REQ_TYPE_GROUP,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_PRIORITY_GROUP,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_MEASURE_GROUP,
+       V_RQM_KPI4_ALL_DATA.BENEFIT_ONEOFF_HOURS_NUMERIC,
+       V_RQM_KPI4_ALL_DATA.BENEFIT_YEARLY_HOURS_NUMERIC,
+       V_RQM_KPI4_ALL_DATA.ASSESSOR_ESTIM_EFF_HOURS_GRP,
+       V_RQM_KPI4_ALL_DATA.SYSTEMNAME,
+       V_RQM_KPI4_ALL_DATA.MIS_1,
+       V_RQM_KPI4_ALL_DATA.MIS_2,
+       V_RQM_KPI4_ALL_DATA.MIS_3,
+       V_RQM_KPI4_ALL_DATA.SYS_MAINDEPT,
+       V_RQM_KPI4_ALL_DATA.SYS_DEPT,
+       V_RQM_KPI4_ALL_DATA.SYS_DEPTGRP,
+       V_RQM_KPI4_ALL_DATA.SYS_BUILD_MAINDEPT,
+       V_RQM_KPI4_ALL_DATA.SYS_BUILD_DEPT,
+       V_RQM_KPI4_ALL_DATA.SYS_BUILD_DEPTGRP,
+       V_RQM_KPI4_ALL_DATA.MIS_4,
+       V_RQM_KPI4_ALL_DATA.IN_PLAN_RELEASE,
+       V_RQM_KPI4_ALL_DATA.LOAD_DATE,
+       V_RQM_KPI4_ALL_DATA.CREATE_DATE_YEAR,
+       V_RQM_KPI4_ALL_DATA.CREATE_DATE_YEAR_MONTH,
+       V_RQM_KPI4_ALL_DATA.CLOSED_DATE,
+       V_RQM_KPI4_ALL_DATA.CLOSED_DATE_YEAR,
+       V_RQM_KPI4_ALL_DATA.CLOSED_DATE_YEAR_MONTH,
+       V_RQM_KPI4_ALL_DATA.COSTS_TYPE,
+       V_RQM_KPI4_ALL_DATA.COSTS_DATE_YEAR,
+       V_RQM_KPI4_ALL_DATA.COSTS_DATE_YEAR_MONTH,
+       V_RQM_KPI4_ALL_DATA.GRIPPS_TICKET_ID,
+       V_RQM_KPI4_ALL_DATA.WORKFLOWTYP,
+       V_RQM_KPI4_ALL_DATA.GESAMTZEIT_ENTSCHEIDUNG_TAGE,
+       V_RQM_KPI4_ALL_DATA.GESAMTZEIT_ENTSCHEIDUNG_WOCHEN,
+       V_RQM_KPI4_ALL_DATA.ZEIT_FACHLICHE_BEWERTUNG_TAGE,
+       V_RQM_KPI4_ALL_DATA.ZEIT_FACHLICHE_BEWERTUNG_WOCHE,
+       V_RQM_KPI4_ALL_DATA.ZEIT_IT_BEWERTUNG_TAGE,
+       V_RQM_KPI4_ALL_DATA.ZEIT_IT_BEWERTUNG_WOCHEN,
+       V_RQM_KPI4_ALL_DATA.ZEIT_ENTSCHEIDUNG_TAGE,
+       V_RQM_KPI4_ALL_DATA.ZEIT_ENTSCHEIDUNG_WOCHEN,
+       V_RQM_KPI4_ALL_DATA.GESAMTZEIT_ENTWICKLUNG_TAGE,
+       V_RQM_KPI4_ALL_DATA.GESAMTZEIT_ENTWICKLUNG_WOCHEN,
+       V_RQM_KPI4_ALL_DATA.GESAMTZEIT_PRODSETZUNG_TAGE,
+       V_RQM_KPI4_ALL_DATA.GESAMTZEIT_PRODSETZUNG_WOCHEN,
+       V_RQM_KPI4_ALL_DATA.GESAMTZEIT_ERF_BIS_ABN_TAGE,
+       V_RQM_KPI4_ALL_DATA.GESAMTZEIT_ERF_BIS_ABN_WOCHEN,
+       V_RQM_KPI4_ALL_DATA.INITIATOR_MAINDEPT,
+       V_RQM_KPI4_ALL_DATA.INITIATOR_DEPT,
+       V_RQM_KPI4_ALL_DATA.INITIATOR_DEPTGRP
+  FROM V_RQM_KPI4_ALL_DATA V_RQM_KPI4_ALL_DATA
+ WHERE V_RQM_KPI4_ALL_DATA.CREATE_DATE >= TO_DATE('01.10.2013', 'DD.MM.YYYY')
+   AND V_RQM_KPI4_ALL_DATA.CATEGORY_3 = 'CAEE II'
+   AND (V_RQM_KPI4_ALL_DATA.CATEGORY_2 = 'Operation')
+   AND (V_RQM_KPI4_ALL_DATA.STATUS = 'created' OR V_RQM_KPI4_ALL_DATA.STATUS = 'ready for decision' OR
+       V_RQM_KPI4_ALL_DATA.STATUS = 'passed' OR V_RQM_KPI4_ALL_DATA.STATUS = 'assigned' OR
+       V_RQM_KPI4_ALL_DATA.STATUS = 'work in progress' OR
+       V_RQM_KPI4_ALL_DATA.STATUS = 'ready for acceptance' OR
+       V_RQM_KPI4_ALL_DATA.STATUS = 'accepted')
+
+ORA-01031: insufficient privileges
+
+Creating materialized view MV_LOADSTATUS
+========================================
+
+
+CREATE MATERIALIZED VIEW MV_LOADSTATUS
+REFRESH FORCE ON DEMAND
+AS
+SELECT 'Incident MAX Date' AS MAXDATE,MAX(i.last_modified_date) AS Load_Date FROM v_incident_all_data i
+UNION
+SELECT 'Change MAX Date'  AS MAXDATE,MAX(c.last_modified_date) AS Load_Date FROM v_change_all_data c
+UNION
+SELECT 'Kwon Error MAX Date' AS MAXDATE,MAX(k.last_modified_date) AS Load_Date FROM v_known_error k
+UNION
+SELECT 'Problem MAX Date' AS MAXDATE,MAX(p.last_modified_date) AS Load_Date FROM v_problem_all_data p
+
+ORA-01031: insufficient privileges
+
+Creating materialized view MV_ORGANIZATION
+==========================================
+
+
+WHERE V.CONTRACT = 'CAEE II'
+   AND V.ORGANIZATION IN ('ao-caee:ibm', 'ab:ibm', 'mt-caee:ibm')
+
+ORA-00900: invalid SQL statement
+
+Creating materialized view MV_ORGANIZATION3
+===========================================
+
+
+CREATE MATERIALIZED VIEW MV_ORGANIZATION3
+REFRESH FORCE ON DEMAND
+AS
+SELECT DISTINCT v.CONTRACT,
+                v.BUSINESS_CLUSTER,
+                COALESCE(v.RESOLVED_GROUP_SUPP_ORG, v.SUPPORT_ORGANIZATION) AS ORGANIZATION,
+                v.SERVICE,v.INCIDENT_TYPE,p.priority
+  FROM V_KSL_2_11 v
+  CROSS JOIN
+   (
+  SELECT 'Low' AS priority FROM dual
+  UNION
+  SELECT 'Medium' AS priority FROM dual
+  UNION
+  SELECT 'High' AS priority FROM dual
+  UNION
+  SELECT 'Critical' AS priority FROM dual
+  ) p
+
+ORA-00942: table or view does not exist
+
+Creating package P_KSL
+======================
+
+
+Package created
+
+Creating function CUSTOM_HASH
+=============================
+
+
+Function created
+
+Creating procedure DROP_TABLES
+==============================
+
+
+Procedure created
+
+Creating procedure INSERT_UPDATE_KOMMENT
+========================================
+
+
+Warning: Procedure created with compilation errors
+
+Creating package body P_KSL
+===========================
+
+
+Warning: Package body created with compilation errors

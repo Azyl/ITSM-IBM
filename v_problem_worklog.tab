@@ -1,0 +1,13 @@
+create table V_PROBLEM_WORKLOG
+(
+  worklog_id               VARCHAR2(15 CHAR) not null,
+  problem_investigation_id VARCHAR2(15 CHAR),
+  summary                  VARCHAR2(4000 CHAR),
+  notes                    VARCHAR2(4000 CHAR),
+  view_access              VARCHAR2(50 CHAR),
+  worklog_type             VARCHAR2(50 CHAR),
+  last_modified_date       DATE,
+  worklog_date             DATE
+)
+;
+

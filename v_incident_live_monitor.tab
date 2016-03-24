@@ -1,0 +1,28 @@
+create table V_INCIDENT_LIVE_MONITOR
+(
+  incident_number        VARCHAR2(15 CHAR) not null,
+  submit_date            DATE,
+  last_modified_date     DATE,
+  service                VARCHAR2(255 CHAR),
+  assigned_group         VARCHAR2(60 CHAR),
+  owner_group            VARCHAR2(60 CHAR),
+  status                 VARCHAR2(60 CHAR),
+  status_reason          VARCHAR2(60 CHAR),
+  slt_status             VARCHAR2(60 CHAR),
+  incident_type          VARCHAR2(60 CHAR),
+  priority               VARCHAR2(60 CHAR),
+  impact                 VARCHAR2(60 CHAR),
+  urgency                VARCHAR2(60 CHAR),
+  summary                VARCHAR2(100 CHAR),
+  technical_ci           VARCHAR2(60 CHAR),
+  vendor_ticket_number   VARCHAR2(100 CHAR),
+  bmw_business_time      VARCHAR2(100 CHAR),
+  bmw_slt_profile_name   VARCHAR2(100 CHAR),
+  bmw_solutiontimetarget NUMBER(15),
+  reported_source        VARCHAR2(60 CHAR),
+  target_date            DATE,
+  request_number         VARCHAR2(15 CHAR),
+  incident_link          VARCHAR2(1024 CHAR)
+)
+;
+

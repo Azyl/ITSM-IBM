@@ -1,0 +1,36 @@
+PL/SQL Developer Project
+
+[Options]
+AutoConnect=-1
+Username=itsm
+Password=299143694203432543353209453143654215
+Database=192.168.88.13:1521/XE
+ConnectAs=Normal
+Edition=
+Workspace=
+HaltAfterError=-1
+BrowseHistory=0
+FileBrowser=0
+ShowItems=-1
+
+[History]
+Programs=Z:\Users\andreitataru\Desktop\exp
+SQL Scripts=Z:\Users\andreitataru\Downloads\sqlhc
+Report Files=
+Test Scripts=
+Command Scripts=
+Diagram Files=
+
+[BrowserFolders]
+
+
+[Groups]
+
+[Files]
+0,0,PACKAGE BODY,,P_KSL
+0,0,PACKAGE,,P_KSL
+
+[Notes]
+{\rtf1\ansi\ansicpg1252\uc1\deff0\deflang1033\deflangfe1033{\fonttbl{\f0 Tahoma;}}
+\f0{\colortbl;}{\*\generator Wine Riched20 2.0.????;}\pard\sl-240\slmult1\li0\fi0\ri0\sa0\sb0\s-1\cfpat0\cbpat0
+\par}

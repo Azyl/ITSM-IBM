@@ -1,0 +1,14 @@
+create table URT_CELL_PARAMETER
+(
+  id           NUMBER not null,
+  name         VARCHAR2(20) not null,
+  query        VARCHAR2(4000) not null,
+  id_subreport NUMBER not null
+)
+;
+alter table URT_CELL_PARAMETER
+  add constraint URT_CELL_PARAMETER_PK primary key (ID);
+alter table URT_CELL_PARAMETER
+  add constraint CELL_PARAMETER_SUBREPORT foreign key (ID_SUBREPORT)
+  references URT_SUBREPORT (ID);
+
