@@ -650,43 +650,10 @@ SELECT M.CONTRACT,
         
         
         
-        ) DATA,
-       (SELECT 'KSL 2' AS KSL, 95 AS ST, 98 AS HT
-          FROM DUAL
-        UNION
-        SELECT 'KSL 3' AS KSL, 95 AS ST, 98 AS HT
-          FROM DUAL
-        UNION
-        SELECT 'KSL 4' AS KSL, 90 AS ST, 95 AS HT
-          FROM DUAL
-        UNION
-        SELECT 'KSL 5' AS KSL, 90 AS ST, 95 AS HT
-          FROM DUAL
-        UNION
-        SELECT 'KSL 6' AS KSL, 95 AS ST, 98 AS HT
-          FROM DUAL
-        UNION
-        SELECT 'KSL 7' AS KSL, 95 AS ST, 98 AS HT
-          FROM DUAL
-        UNION
-        SELECT 'KSL 8' AS KSL, 90 AS ST, 95 AS HT
-          FROM DUAL
-        UNION
-        SELECT 'KSL 9' AS KSL, 90 AS ST, 95 AS HT
-          FROM DUAL
-        UNION
-        SELECT 'KSL 10' AS KSL, 90 AS ST, 95 AS HT
-          FROM DUAL
-        UNION
-        SELECT 'KSL 11' AS KSL, 98.5 AS ST, 99 AS HT
-          FROM DUAL
-        UNION
-        SELECT 'KSL 12' AS KSL, 90 AS ST, 95 AS HT
-          FROM DUAL
-        
-        ) KSL
+        ) DATA,      
+        t_contract_k_target KSL  
 
- WHERE DATA.KSL = KSL.KSL
+ WHERE DATA.KSL = KSL.K
  ) q
  --WHERE q.business_cluster=P_BUSINESS_CLUSTER
 GROUP BY q.contract, q.business_cluster,q.closed_date;
@@ -712,12 +679,14 @@ GROUP BY q.contract, q.business_cluster,q.closed_date;
        KSL.ST,
        KSL.HT,
        CASE
+         WHEN DATA."%"='n/a %' THEN 1
          WHEN RTRIM(DATA."%", '% ') >= KSL.HT THEN
           1
          ELSE
           0
        END AS PASSED,
        CASE
+         WHEN DATA."%"='n/a %' THEN 'G'
          WHEN RTRIM(DATA."%", '% ') >= KSL.HT THEN
           'G'
          WHEN RTRIM(DATA."%", '% ') >= KSL.ST AND RTRIM(DATA."%", '% ') < KSL.HT THEN
@@ -776,7 +745,7 @@ GROUP BY q.contract, q.business_cluster,q.closed_date;
                          COALESCE(A.MISSED, 0) AS MISSED,
                          COALESCE(A.ACHIEVED, 0) AS ACHIEVED,
                          COALESCE(A.SERVICED, 0) AS SERVICED,
-                         COALESCE(a."%", '100%') AS "%",
+                         COALESCE(a."%", 'n/a %') AS "%",
                          CASE
                            WHEN M.PRIORITY = 'Low' THEN
                             'KSL 5'
@@ -804,7 +773,7 @@ GROUP BY q.contract, q.business_cluster,q.closed_date;
                   --KSL 2-5
                   UNION ALL
                   
-                  SELECT  Z.CONTRACT,
+                /*  SELECT  Z.CONTRACT,
                          Z.BUSINESS_CLUSTER,
                         -- Z.SERVICE,
                          Z.CLOSED_DATE,
@@ -856,7 +825,88 @@ GROUP BY q.contract, q.business_cluster,q.closed_date;
                                   COALESCE(A.MISSED, 0) AS MISSED,
                                   COALESCE(A.ACHIEVED, 0) AS ACHIEVED,
                                   COALESCE(A.SERVICED, 0) AS SERVICED,
-                                  COALESCE(a."%", '100%') AS "%",
+                                  COALESCE(a."%", 'n/a %') AS "%",
+                                  CASE
+                                    WHEN M.PRIORITY = 'Low' THEN
+                                     'KSL 9'
+                                    WHEN M.PRIORITY = 'Medium' THEN
+                                     'KSL 8'
+                                    WHEN M.PRIORITY = 'High' THEN
+                                     'KSL 7'
+                                    WHEN M.PRIORITY = 'Critical' THEN
+                                     'KSL 6'
+                                  END AS KSL
+                             FROM (SELECT DISTINCT n.contract,n.business_cluster,n.closed_date,n.priority FROM MV_ORGANIZATION n) M
+--                             
+                             LEFT OUTER JOIN A
+                               ON (M.CONTRACT = A.CONTRACT AND M.BUSINESS_CLUSTER = A.BUSINESS_CLUSTER 
+                                  --AND M.SERVICE = A.SERVICE 
+                                  --AND M.INCIDENT_TYPE = A.INCIDENT_TYPE 
+                                 AND M.PRIORITY = A.PRIORITY 
+                                  AND M.CLOSED_DATE = A.CLOSED_DATE)
+                           
+                            ) Z
+                           
+                            WHERE  
+                               Z.BUSINESS_CLUSTER = P_BUSINESS_CLUSTER
+                              AND Z.CLOSED_DATE = P_CLOSED_DATE
+                           
+                            GROUP BY Z.CONTRACT,
+                                     Z.BUSINESS_CLUSTER,
+                                     --Z.ORGANIZATION,
+                                   --  Z.SERVICE,
+                                     Z.PRIORITY,
+                                     Z.CLOSED_DATE,
+                                     Z.KSL*/
+
+  SELECT  Z.CONTRACT,
+                         Z.BUSINESS_CLUSTER,
+                        -- Z.SERVICE,
+                         Z.CLOSED_DATE,
+                         'Infrastructure Event and Infrastructure Restoration' AS INCIDENT_TYPE,
+                         Z.PRIORITY,
+                         SUM(Z.MISSED) AS MISSED,
+                         SUM(Z.ACHIEVED) AS ACHIEVED,
+                         SUM(Z.SERVICED) AS SERVICED,
+                         DECODE(sum(Z.SERVICED),0,'n/a %',ROUND((DECODE(SUM(Z.ACHIEVED),0,SUM(Z.SERVICED),SUM(Z.ACHIEVED))/SUM(Z.SERVICED))*100,3) || '% ') AS "%", 
+                         Z.KSL
+                  
+                    FROM (WITH A AS (SELECT CONTRACT,
+                                            BUSINESS_CLUSTER,
+                                           -- SERVICE,
+                                            TO_CHAR("CLOSED_DATE", 'YYYY_MM') AS "CLOSED_DATE",
+                                            INCIDENT_TYPE,
+                                            PRIORITY,
+                                            ABS(COUNT(*) - COALESCE(SUM(SOLUTION_TIME_ACHIEVED_FLAG), 0)) AS "MISSED",
+                                            SUM(SOLUTION_TIME_ACHIEVED_FLAG) AS ACHIEVED,
+                                            COUNT(*) AS SERVICED,
+                                            
+                                            ROUND(DECODE(SUM(SOLUTION_TIME_ACHIEVED_FLAG),
+                                                         0,
+                                                         COUNT(*),
+                                                         SUM(SOLUTION_TIME_ACHIEVED_FLAG)) / (COUNT(*)),
+                                                  3) * 100 || '% ' AS "%"
+                                     
+                                       FROM V_KSL_2_11
+                                     
+                                      WHERE
+                                     
+                                      STATUS = 'Closed'
+                                  AND COC_STATUS = 'Current'
+                                  AND incident_type IN ('Infrastructure Event', 'Infrastructure Restoration')
+                                     
+                                      GROUP BY CONTRACT,
+                                               BUSINESS_CLUSTER,
+                                             --  SERVICE,
+                                               TO_CHAR("CLOSED_DATE", 'YYYY_MM'),
+                                               INCIDENT_TYPE,
+                                               PRIORITY)
+                         
+                           SELECT M.*,
+                                  COALESCE(A.MISSED, 0) AS MISSED,
+                                  COALESCE(A.ACHIEVED, 0) AS ACHIEVED,
+                                  COALESCE(A.SERVICED, 0) AS SERVICED,
+                                  COALESCE(a."%", 'n/a %') AS "%",
                                   CASE
                                     WHEN M.PRIORITY = 'Low' THEN
                                      'KSL 9'
@@ -889,7 +939,10 @@ GROUP BY q.contract, q.business_cluster,q.closed_date;
                                      Z.PRIORITY,
                                      Z.CLOSED_DATE,
                                      Z.KSL
+
                            
+
+
                            --ORDER BY Z.CONTRACT, Z.BUSINESS_CLUSTER, Z.SERVICE, Z.PRIORITY
                            --ksl 6-9
                            UNION ALL
@@ -952,7 +1005,7 @@ GROUP BY q.contract, q.business_cluster,q.closed_date;
                                            COALESCE(A.MISSED, 0) AS MISSED,
                                            COALESCE(A.ACHIEVED, 0) AS ACHIEVED,
                                            COALESCE(A.SERVICED, 0) AS SERVICED,
-                                           COALESCE(a."%", '100%') AS "%",
+                                           COALESCE(a."%", 'n/a %') AS "%",
                                            'KSL 10' AS KSL
                                       FROM (SELECT DISTINCT n.contract,n.business_cluster,n.closed_date,n.incident_type,n.priority FROM MV_ORGANIZATION n) M
                                       LEFT OUTER JOIN A
@@ -979,7 +1032,7 @@ GROUP BY q.contract, q.business_cluster,q.closed_date;
                                     --ksl 10
                                     UNION ALL
                   
-                                          SELECT Z.CONTRACT,
+                             /*             SELECT Z.CONTRACT,
                                            Z.BUSINESS_CLUSTER,
                                           -- Z.SERVICE,
                                            Z.CLOSED_DATE,
@@ -1072,7 +1125,78 @@ GROUP BY q.contract, q.business_cluster,q.closed_date;
                                                        Z.KSL               
                                            
                                              --  ORDER BY Z.CONTRACT, Z.BUSINESS_CLUSTER, Z.SERVICE
-                                             --KSL 12
+                                             --KSL 12*/
+                             SELECT Z.CONTRACT,
+                                           Z.BUSINESS_CLUSTER,
+                                          -- Z.SERVICE,
+                                           Z.CLOSED_DATE,
+                                           'Problem investigation' AS INCIDENT_TYPE,
+                                           Z.PRIORITY AS PRIORITY,
+                                           Z.MISSED AS MISSED,
+                                           Z.ACHIEVED AS ACHIEVED,
+                                           Z.SERVICED AS SERVICED,
+                                           Z."%" AS "%",
+                                           Z.KSL
+                                    
+                                      FROM (WITH A AS (SELECT CONTRACT,
+                                                              BUSINESS_CLUSTER,
+                                                             -- SERVICE,
+                                                              COALESCE(COMPLETED_DATE_YEAR_MONTH,
+                                                                       TO_CHAR(CLOSED_DATE, 'YYYY_MM')) AS CLOSED_DATE,
+                                                              --  INCIDENT_TYPE,
+                                                              PRIORITY,
+                                                              ABS(COUNT(*) - COALESCE(SUM(INVT_TARGET_ACHIEVED_FLAG),
+                                                                                      0)) AS "MISSED",
+                                                              SUM(INVT_TARGET_ACHIEVED_FLAG) AS ACHIEVED,
+                                                              COUNT(*) AS SERVICED,
+                                                              
+                                                              ROUND(DECODE(SUM(INVT_TARGET_ACHIEVED_FLAG),
+                                                                           0,
+                                                                           COUNT(*),
+                                                                           SUM(INVT_TARGET_ACHIEVED_FLAG)) /
+                                                                    (COUNT(*)),
+                                                                    3) * 100 || '% ' AS "%"
+                                                       
+                                                         FROM V_KSL_12
+                                                       
+                                                        WHERE
+                                                       
+                                                        STATUS IN ('Closed', 'Completed')
+                                                    AND COC_STATUS = 'Current'
+                                                       
+                                                        GROUP BY CONTRACT,
+                                                                 BUSINESS_CLUSTER,
+                                                                -- SERVICE,
+                                                                 COALESCE(COMPLETED_DATE_YEAR_MONTH,
+                                                                          TO_CHAR(CLOSED_DATE, 'YYYY_MM')),
+                                                                 -- INCIDENT_TYPE,
+                                                                 PRIORITY)
+                                           
+                                             SELECT M.*,
+                                                    COALESCE(A.MISSED, 0) AS MISSED,
+                                                    COALESCE(A.ACHIEVED, 0) AS ACHIEVED,
+                                                    COALESCE(A.SERVICED, 0) AS SERVICED,
+                                                    COALESCE(a."%", 'n/a %') AS "%",
+                                                    'KSL 12' AS KSL
+                                               FROM (SELECT DISTINCT n.contract,n.business_cluster,n.closed_date,n.priority FROM MV_ORGANIZATION n) M
+                                               LEFT OUTER JOIN A
+                                                 ON (M.CONTRACT = A.CONTRACT AND
+                                                    M.BUSINESS_CLUSTER = A.BUSINESS_CLUSTER 
+                                                    --M.SERVICE = A.SERVICE
+                                                    --AND M.INCIDENT_TYPE = A.INCIDENT_TYPE 
+                                                    AND M.PRIORITY = A.PRIORITY 
+                                                   AND M.CLOSED_DATE = A.CLOSED_DATE
+                                                    
+                                                    )) Z
+                                             
+                                              WHERE
+
+                                              Z.BUSINESS_CLUSTER = P_BUSINESS_CLUSTER
+                                              AND Z.CLOSED_DATE = P_CLOSED_DATE
+                                          AND Z.PRIORITY = 'Critical'
+                                             
+                                             
+                                             
                                              UNION ALL
                                              
                                SELECT z.CONTRACT,
