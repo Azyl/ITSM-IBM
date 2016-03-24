@@ -940,20 +940,6 @@ GROUP BY q.contract, q.business_cluster,q.closed_date;
      RETURN;
      END KSL_11_T;
 
-
-/*FUNCTION ks_2 (P_BUSINESS_CLUSTER VARCHAR2, P_CLOSED_DATE VARCHAR2) RETURN T_TABLE_OVER PIPELINED
-  IS
-  rec T_COL_OVER;
-  BEGIN
-    
-  
-  
-    PIPE ROW(rec);
-    RETURN;
-    
-  END ks_2;*/
-
-
  FUNCTION Overview_T (P_BUSINESS_CLUSTER VARCHAR2, P_CLOSED_DATE VARCHAR2) RETURN T_TABLE_OVER PIPELINED
      IS
      
@@ -1672,7 +1658,7 @@ SELECT
        coalesce(V.MISSED,0) AS missed,
        coalesce(V.ACHIEVED,0) AS achieved,
        coalesce(V.SERVICED,0) AS serviced,
-       coalesce(v."%",'n/a %') AS "%",
+       coalesce(v."%",'100% ') AS "%",
        CASE m.PRIORITY
          WHEN 'Critical' THEN
           'KM 4'
@@ -1707,7 +1693,7 @@ AND M.CLOSED_DATE = P_CLOSED_DATE
        0 AS missed,
        0 AS achieved,
        coalesce(V.SERVICED,0) AS serviced,
-       COALESCE(DECODE(v.serviced,0,'n/a %',v.serviced),'n/a %') AS "%",
+       COALESCE(DECODE(v.serviced,0,'100 %',v.serviced),'100% ') AS "%",
        'KM 9' AS "KLS"
   FROM 
   (SELECT DISTINCT n.contract,n.business_cluster,n.closed_date FROM mv_organization n) m LEFT JOIN
