@@ -48,7 +48,7 @@ CREATE OR REPLACE PACKAGE P_KSL IS
     
     "KSL 2"          VARCHAR2(200),
     "KSL 2_MISSED"   NUMBER,
-    "KSL 2_OPENED"   NUMBER,
+    "KSL 2_ACHIEVED"   NUMBER,
     "KSL 2_SERVICED" NUMBER,
     "KSL 2_ST"       NUMBER,
     "KSL 2_HT"       NUMBER,
@@ -57,7 +57,7 @@ CREATE OR REPLACE PACKAGE P_KSL IS
     
     "KSL 3"          VARCHAR2(200),
     "KSL 3_MISSED"   NUMBER,
-    "KSL 3_OPENED"   NUMBER,
+    "KSL 3_ACHIEVED"   NUMBER,
     "KSL 3_SERVICED" NUMBER,
     "KSL 3_ST"       NUMBER,
     "KSL 3_HT"       NUMBER,
@@ -66,7 +66,7 @@ CREATE OR REPLACE PACKAGE P_KSL IS
     
     "KSL 4"          VARCHAR2(200),
     "KSL 4_MISSED"   NUMBER,
-    "KSL 4_OPENED"   NUMBER,
+    "KSL 4_ACHIEVED"   NUMBER,
     "KSL 4_SERVICED" NUMBER,
     "KSL 4_ST"       NUMBER,
     "KSL 4_HT"       NUMBER,
@@ -75,7 +75,7 @@ CREATE OR REPLACE PACKAGE P_KSL IS
     
     "KSL 5"          VARCHAR2(200),
     "KSL 5_MISSED"   NUMBER,
-    "KSL 5_OPENED"   NUMBER,
+    "KSL 5_ACHIEVED"   NUMBER,
     "KSL 5_SERVICED" NUMBER,
     "KSL 5_ST"       NUMBER,
     "KSL 5_HT"       NUMBER,
@@ -84,7 +84,7 @@ CREATE OR REPLACE PACKAGE P_KSL IS
     
     "KSL 6"          VARCHAR2(200),
     "KSL 6_MISSED"   NUMBER,
-    "KSL 6_OPENED"   NUMBER,
+    "KSL 6_ACHIEVED"   NUMBER,
     "KSL 6_SERVICED" NUMBER,
     "KSL 6_ST"       NUMBER,
     "KSL 6_HT"       NUMBER,
@@ -93,7 +93,7 @@ CREATE OR REPLACE PACKAGE P_KSL IS
     
     "KSL 7"          VARCHAR2(200),
     "KSL 7_MISSED"   NUMBER,
-    "KSL 7_OPENED"   NUMBER,
+    "KSL 7_ACHIEVED"   NUMBER,
     "KSL 7_SERVICED" NUMBER,
     "KSL 7_ST"       NUMBER,
     "KSL 7_HT"       NUMBER,
@@ -102,7 +102,7 @@ CREATE OR REPLACE PACKAGE P_KSL IS
     
     "KSL 8"          VARCHAR2(200),
     "KSL 8_MISSED"   NUMBER,
-    "KSL 8_OPENED"   NUMBER,
+    "KSL 8_ACHIEVED"   NUMBER,
     "KSL 8_SERVICED" NUMBER,
     "KSL 8_ST"       NUMBER,
     "KSL 8_HT"       NUMBER,
@@ -111,7 +111,7 @@ CREATE OR REPLACE PACKAGE P_KSL IS
     
     "KSL 9"          VARCHAR2(200),
     "KSL 9_MISSED"   NUMBER,
-    "KSL 9_OPENED"   NUMBER,
+    "KSL 9_ACHIEVED"   NUMBER,
     "KSL 9_SERVICED" NUMBER,
     "KSL 9_ST"       NUMBER,
     "KSL 9_HT"       NUMBER,
@@ -120,7 +120,7 @@ CREATE OR REPLACE PACKAGE P_KSL IS
     
     "KSL 10"                VARCHAR2(200),
     "KSL 10_MISSED"         NUMBER,
-    "KSL 10_OPENED"         NUMBER,
+    "KSL 10_ACHIEVED"         NUMBER,
     "KSL 10_SERVICED"       NUMBER,
     "KSL 10_ST"             NUMBER,
     "KSL 10_HT"             NUMBER,
@@ -129,7 +129,7 @@ CREATE OR REPLACE PACKAGE P_KSL IS
     
     "KSL 11"          VARCHAR2(200),
     "KSL 11_MISSED"   NUMBER,
-    "KSL 11_OPENED"   NUMBER,
+    "KSL 11_ACHIEVED"   NUMBER,
     "KSL 11_SERVICED" NUMBER,
     "KSL 11_ST"       NUMBER,
     "KSL 11_HT"       NUMBER,
@@ -138,7 +138,7 @@ CREATE OR REPLACE PACKAGE P_KSL IS
     
     "KSL 12"          VARCHAR2(200),
     "KSL 12_MISSED"   NUMBER,
-    "KSL 12_OPENED"   NUMBER,
+    "KSL 12_ACHIEVED"   NUMBER,
     "KSL 12_SERVICED" NUMBER,
     "KSL 12_ST"       NUMBER,
     "KSL 12_HT"       NUMBER,
@@ -147,7 +147,7 @@ CREATE OR REPLACE PACKAGE P_KSL IS
     
     "KM 3"          VARCHAR2(200),
     "KM 3_MISSED"   NUMBER,
-    "KM 3_OPENED"   NUMBER,
+    "KM 3_ACHIEVED"   NUMBER,
     "KM 3_SERVICED" NUMBER,
     "KM 3_ST"       NUMBER,
     "KM 3_HT"       NUMBER,
@@ -156,7 +156,7 @@ CREATE OR REPLACE PACKAGE P_KSL IS
     
     "KM 4"          VARCHAR2(200),
     "KM 4_MISSED"   NUMBER,
-    "KM 4_OPENED"   NUMBER,
+    "KM 4_ACHIEVED"   NUMBER,
     "KM 4_SERVICED" NUMBER,
     "KM 4_ST"       NUMBER,
     "KM 4_HT"       NUMBER,
@@ -165,7 +165,7 @@ CREATE OR REPLACE PACKAGE P_KSL IS
     
     "KM 5"          VARCHAR2(200),
     "KM 5_MISSED"   NUMBER,
-    "KM 5_OPENED"   NUMBER,
+    "KM 5_ACHIEVED"   NUMBER,
     "KM 5_SERVICED" NUMBER,
     "KM 5_ST"       NUMBER,
     "KM 5_HT"       NUMBER,
@@ -174,7 +174,7 @@ CREATE OR REPLACE PACKAGE P_KSL IS
     
     "KM 6"          VARCHAR2(200),
     "KM 6_MISSED"   NUMBER,
-    "KM 6_OPENED"   NUMBER,
+    "KM 6_ACHIEVED"   NUMBER,
     "KM 6_SERVICED" NUMBER,
     "KM 6_ST"       NUMBER,
     "KM 6_HT"       NUMBER,
@@ -183,7 +183,7 @@ CREATE OR REPLACE PACKAGE P_KSL IS
     
     "KM 7"          VARCHAR2(200),
     "KM 7_MISSED"   NUMBER,
-    "KM 7_OPENED"   NUMBER,
+    "KM 7_ACHIEVED"   NUMBER,
     "KM 7_SERVICED" NUMBER,
     "KM 7_ST"       NUMBER,
     "KM 7_HT"       NUMBER,
@@ -192,7 +192,7 @@ CREATE OR REPLACE PACKAGE P_KSL IS
     
     "KM 9"                VARCHAR2(200),
     "KM 9_MISSED"         NUMBER,
-    "KM 9_OPENED"         NUMBER,
+    "KM 9_ACHIEVED"         NUMBER,
     "KM 9_SERVICED"NUMBER,
     "KM 9_ST"             NUMBER,
     "KM 9_HT"             NUMBER,
@@ -201,7 +201,7 @@ CREATE OR REPLACE PACKAGE P_KSL IS
     
     "KM 11"          VARCHAR2(200),
     "KM 11_MISSED"   NUMBER,
-    "KM 11_OPENED"   NUMBER,
+    "KM 11_ACHIEVED"   NUMBER,
     "KM 11_SERVICED" NUMBER,
     "KM 11_ST"       NUMBER,
     "KM 11_HT"       NUMBER,
@@ -210,7 +210,7 @@ CREATE OR REPLACE PACKAGE P_KSL IS
     
     "KM 12"          VARCHAR2(200),
     "KM 12_MISSED"   NUMBER,
-    "KM 12_OPENED"   NUMBER,
+    "KM 12_ACHIEVED"   NUMBER,
     "KM 12_SERVICED" NUMBER,
     "KM 12_ST"       NUMBER,
     "KM 12_HT"       NUMBER,
@@ -219,7 +219,7 @@ CREATE OR REPLACE PACKAGE P_KSL IS
     
     "KM 13"          VARCHAR2(200),
     "KM 13_MISSED"   NUMBER,
-    "KM 13_OPENED"   NUMBER,
+    "KM 13_ACHIEVED"   NUMBER,
     "KM 13_SERVICED" NUMBER,
     "KM 13_ST"       NUMBER,
     "KM 13_HT"       NUMBER,
@@ -228,7 +228,7 @@ CREATE OR REPLACE PACKAGE P_KSL IS
     
     "KM 14"          VARCHAR2(200),
     "KM 14_MISSED"   NUMBER,
-    "KM 14_OPENED"   NUMBER,
+    "KM 14_ACHIEVED"   NUMBER,
     "KM 14_SERVICED" NUMBER,
     "KM 14_ST"       NUMBER,
     "KM 14_HT"       NUMBER,
@@ -237,7 +237,7 @@ CREATE OR REPLACE PACKAGE P_KSL IS
     
     "KM 15"          VARCHAR2(200),
     "KM 15_MISSED"   NUMBER,
-    "KM 15_OPENED"   NUMBER,
+    "KM 15_ACHIEVED"   NUMBER,
     "KM 15_SERVICED" NUMBER,
     "KM 15_ST"       NUMBER,
     "KM 15_HT"       NUMBER,
@@ -1969,7 +1969,7 @@ END LOOP;
 
   ,MAX(DECODE(ksl,'KSL 2',"%"))          AS "KSL 2"  
   ,MAX(DECODE(ksl,'KSL 2',missed))   AS "KSL 2_MISSED"
-  ,MAX(DECODE(ksl,'KSL 2',opened))      AS "KSL 2_OPENED" 
+  ,MAX(DECODE(ksl,'KSL 2',opened))      AS "KSL 2_ACHIEVED" 
   ,MAX(DECODE(ksl,'KSL 2',serviced))   AS "KSL 2_SERVICED"
   ,MAX(DECODE(ksl,'KSL 2',st))        AS "KSL 2_ST" 
   ,MAX(DECODE(ksl,'KSL 2',ht))       AS "KSL 2_HT"
@@ -1979,7 +1979,7 @@ END LOOP;
  
   ,MAX(DECODE(ksl,'KSL 3',"%"))        AS "KSL 3"  
   ,MAX(DECODE(ksl,'KSL 3',missed))   AS "KSL 3_MISSED"
-  ,MAX(DECODE(ksl,'KSL 3',opened))      AS "KSL 3_OPENED" 
+  ,MAX(DECODE(ksl,'KSL 3',opened))      AS "KSL 3_ACHIEVED" 
   ,MAX(DECODE(ksl,'KSL 3',serviced))   AS "KSL 3_SERVICED"
   ,MAX(DECODE(ksl,'KSL 3',st))        AS "KSL 3_ST" 
   ,MAX(DECODE(ksl,'KSL 3',ht))       AS "KSL 3_HT"
@@ -1988,7 +1988,7 @@ END LOOP;
   
   ,MAX(DECODE(ksl,'KSL 4',"%"))     AS "KSL 4"  
   ,MAX(DECODE(ksl,'KSL 4',missed))   AS "KSL 4_MISSED"
-  ,MAX(DECODE(ksl,'KSL 4',opened))      AS "KSL 4_OPENED" 
+  ,MAX(DECODE(ksl,'KSL 4',opened))      AS "KSL 4_ACHIEVED" 
   ,MAX(DECODE(ksl,'KSL 4',serviced))   AS "KSL 4_SERVICED"
   ,MAX(DECODE(ksl,'KSL 4',st))        AS "KSL 4_ST" 
   ,MAX(DECODE(ksl,'KSL 4',ht))       AS "KSL 4_HT"
@@ -1997,7 +1997,7 @@ END LOOP;
   
   ,MAX(DECODE(ksl,'KSL 5',"%"))     AS "KSL 5"  
   ,MAX(DECODE(ksl,'KSL 5',missed))   AS "KSL 5_MISSED"
-  ,MAX(DECODE(ksl,'KSL 5',opened))      AS "KSL 5_OPENED" 
+  ,MAX(DECODE(ksl,'KSL 5',opened))      AS "KSL 5_ACHIEVED" 
   ,MAX(DECODE(ksl,'KSL 5',serviced))   AS "KSL 5_SERVICED"
   ,MAX(DECODE(ksl,'KSL 5',st))        AS "KSL 5_ST" 
   ,MAX(DECODE(ksl,'KSL 5',ht))       AS "KSL 5_HT"
@@ -2006,7 +2006,7 @@ END LOOP;
   
   ,MAX(DECODE(ksl,'KSL 6',"%"))     AS "KSL 6"  
   ,MAX(DECODE(ksl,'KSL 6',missed))   AS "KSL 6_MISSED"
-  ,MAX(DECODE(ksl,'KSL 6',opened))      AS "KSL 6_OPENED" 
+  ,MAX(DECODE(ksl,'KSL 6',opened))      AS "KSL 6_ACHIEVED" 
   ,MAX(DECODE(ksl,'KSL 6',serviced))   AS "KSL 6_SERVICED"
   ,MAX(DECODE(ksl,'KSL 6',st))        AS "KSL 6_ST" 
   ,MAX(DECODE(ksl,'KSL 6',ht))       AS "KSL 6_HT"
@@ -2015,7 +2015,7 @@ END LOOP;
   
   ,MAX(DECODE(ksl,'KSL 7',"%"))     AS "KSL 7"  
   ,MAX(DECODE(ksl,'KSL 7',missed))   AS "KSL 7_MISSED"
-  ,MAX(DECODE(ksl,'KSL 7',opened))      AS "KSL 7_OPENED" 
+  ,MAX(DECODE(ksl,'KSL 7',opened))      AS "KSL 7_ACHIEVED" 
   ,MAX(DECODE(ksl,'KSL 7',serviced))   AS "KSL 7_SERVICED"
   ,MAX(DECODE(ksl,'KSL 7',st))        AS "KSL 7_ST" 
   ,MAX(DECODE(ksl,'KSL 7',ht))       AS "KSL 7_HT"
@@ -2024,7 +2024,7 @@ END LOOP;
 
   ,MAX(DECODE(ksl,'KSL 8',"%"))       AS "KSL 8"  
   ,MAX(DECODE(ksl,'KSL 8',missed))   AS "KSL 8_MISSED"
-  ,MAX(DECODE(ksl,'KSL 8',opened))      AS "KSL 8_OPENED" 
+  ,MAX(DECODE(ksl,'KSL 8',opened))      AS "KSL 8_ACHIEVED" 
   ,MAX(DECODE(ksl,'KSL 8',serviced))   AS "KSL 8_SERVICED"
   ,MAX(DECODE(ksl,'KSL 8',st))        AS "KSL 8_ST" 
   ,MAX(DECODE(ksl,'KSL 8',ht))       AS "KSL 8_HT"
@@ -2033,7 +2033,7 @@ END LOOP;
 
   ,MAX(DECODE(ksl,'KSL 9',"%"))       AS "KSL 9"  
   ,MAX(DECODE(ksl,'KSL 9',missed))   AS "KSL 9_MISSED"
-  ,MAX(DECODE(ksl,'KSL 9',opened))      AS "KSL 9_OPENED" 
+  ,MAX(DECODE(ksl,'KSL 9',opened))      AS "KSL 9_ACHIEVED" 
   ,MAX(DECODE(ksl,'KSL 9',serviced))   AS "KSL 9_SERVICED"
   ,MAX(DECODE(ksl,'KSL 9',st))        AS "KSL 9_ST" 
   ,MAX(DECODE(ksl,'KSL 9',ht))       AS "KSL 9_HT"
@@ -2042,7 +2042,7 @@ END LOOP;
   
   ,MAX(DECODE(ksl,'KSL 10',"%"))        AS "KSL 10"   
   ,MAX(DECODE(ksl,'KSL 10',missed))      AS "KSL 10_MISSED"
-  ,MAX(DECODE(ksl,'KSL 10',opened))      AS "KSL 10_OPENED"  
+  ,MAX(DECODE(ksl,'KSL 10',opened))      AS "KSL 10_ACHIEVED"  
   ,MAX(DECODE(ksl,'KSL 10',serviced))      AS "KSL 10_SERVICED"
   ,MAX(DECODE(ksl,'KSL 10',st))        AS "KSL 10_ST"  
   ,MAX(DECODE(ksl,'KSL 10',ht))        AS "KSL 10_HT"
@@ -2051,7 +2051,7 @@ END LOOP;
  
   ,MAX(DECODE(ksl,'KSL 11',"%"))          AS "KSL 11"   
   ,MAX(DECODE(ksl,'KSL 11',missed))      AS "KSL 11_MISSED"
-  ,MAX(DECODE(ksl,'KSL 11',opened))      AS "KSL 11_OPENED"  
+  ,MAX(DECODE(ksl,'KSL 11',opened))      AS "KSL 11_ACHIEVED"  
   ,MAX(DECODE(ksl,'KSL 11',serviced))      AS "KSL 11_SERVICED"
   ,MAX(DECODE(ksl,'KSL 11',st))        AS "KSL 11_ST"  
   ,MAX(DECODE(ksl,'KSL 11',ht))        AS "KSL 11_HT"
@@ -2060,7 +2060,7 @@ END LOOP;
   
   ,MAX(DECODE(ksl,'KSL 12',"%"))     AS "KSL 12"   
   ,MAX(DECODE(ksl,'KSL 12',missed))      AS "KSL 12_MISSED"
-  ,MAX(DECODE(ksl,'KSL 12',opened))      AS "KSL 12_OPENED"  
+  ,MAX(DECODE(ksl,'KSL 12',opened))      AS "KSL 12_ACHIEVED"  
   ,MAX(DECODE(ksl,'KSL 12',serviced))      AS "KSL 12_SERVICED"
   ,MAX(DECODE(ksl,'KSL 12',st))        AS "KSL 12_ST"  
   ,MAX(DECODE(ksl,'KSL 12',ht))        AS "KSL 12_HT"
@@ -2069,7 +2069,7 @@ END LOOP;
 
   ,MAX(DECODE(ksl,'KM 3',"%"))          AS "KM 3" 
   ,MAX(DECODE(ksl,'KM 3',missed))        AS "KM 3_MISSED"
-  ,MAX(DECODE(ksl,'KM 3',opened))          AS "KM 3_OPENED"    
+  ,MAX(DECODE(ksl,'KM 3',opened))          AS "KM 3_ACHIEVED"    
   ,MAX(DECODE(ksl,'KM 3',serviced))    AS "KM 3_SERVICED"
   ,MAX(DECODE(ksl,'KM 3',st))            AS "KM 3_ST"    
   ,MAX(DECODE(ksl,'KM 3',ht))              AS "KM 3_HT"
@@ -2078,7 +2078,7 @@ END LOOP;
   
   ,MAX(DECODE(ksl,'KM 4',"%"))          AS "KM 4" 
   ,MAX(DECODE(ksl,'KM 4',missed))        AS "KM 4_MISSED"
-  ,MAX(DECODE(ksl,'KM 4',opened))          AS "KM 4_OPENED"    
+  ,MAX(DECODE(ksl,'KM 4',opened))          AS "KM 4_ACHIEVED"    
   ,MAX(DECODE(ksl,'KM 4',serviced))    AS "KM 4_SERVICED"
   ,MAX(DECODE(ksl,'KM 4',st))            AS "KM 4_ST"    
   ,MAX(DECODE(ksl,'KM 4',ht))              AS "KM 4_HT"
@@ -2087,7 +2087,7 @@ END LOOP;
   
   ,MAX(DECODE(ksl,'KM 5',"%"))          AS "KM 5" 
   ,MAX(DECODE(ksl,'KM 5',missed))        AS "KM 5_MISSED"
-  ,MAX(DECODE(ksl,'KM 5',opened))          AS "KM 5_OPENED"    
+  ,MAX(DECODE(ksl,'KM 5',opened))          AS "KM 5_ACHIEVED"    
   ,MAX(DECODE(ksl,'KM 5',serviced))    AS "KM 5_SERVICED"
   ,MAX(DECODE(ksl,'KM 5',st))            AS "KM 5_ST"    
   ,MAX(DECODE(ksl,'KM 5',ht))              AS "KM 5_HT"
@@ -2096,7 +2096,7 @@ END LOOP;
   
   ,MAX(DECODE(ksl,'KM 6',"%"))          AS "KM 6" 
   ,MAX(DECODE(ksl,'KM 6',missed))        AS "KM 6_MISSED"
-  ,MAX(DECODE(ksl,'KM 6',opened))          AS "KM 6_OPENED"    
+  ,MAX(DECODE(ksl,'KM 6',opened))          AS "KM 6_ACHIEVED"    
   ,MAX(DECODE(ksl,'KM 6',serviced))    AS "KM 6_SERVICED"
   ,MAX(DECODE(ksl,'KM 6',st))            AS "KM 6_ST"    
   ,MAX(DECODE(ksl,'KM 6',ht))              AS "KM 6_HT"
@@ -2105,7 +2105,7 @@ END LOOP;
   
   ,MAX(DECODE(ksl,'KM 7',"%"))     AS "KM 7" 
   ,MAX(DECODE(ksl,'KM 7',missed))        AS "KM 7_MISSED"
-  ,MAX(DECODE(ksl,'KM 7',opened))          AS "KM 7_OPENED"    
+  ,MAX(DECODE(ksl,'KM 7',opened))          AS "KM 7_ACHIEVED"    
   ,MAX(DECODE(ksl,'KM 7',serviced))    AS "KM 7_SERVICED"
   ,MAX(DECODE(ksl,'KM 7',st))            AS "KM 7_ST"    
   ,MAX(DECODE(ksl,'KM 7',ht))              AS "KM 7_HT"
@@ -2114,7 +2114,7 @@ END LOOP;
   
   ,MAX(DECODE(ksl,'KM 9',"%"))     AS "KM 9" 
   ,MAX(DECODE(ksl,'KM 9',missed))        AS "KM 9_MISSED"
-  ,MAX(DECODE(ksl,'KM 9',opened))          AS "KM 9_OPENED"    
+  ,MAX(DECODE(ksl,'KM 9',opened))          AS "KM 9_ACHIEVED"    
   ,MAX(DECODE(ksl,'KM 9',serviced))    AS "KM 9_SERVICED"
   ,MAX(DECODE(ksl,'KM 9',st))            AS "KM 9_ST"    
   ,MAX(DECODE(ksl,'KM 9',ht))              AS "KM 9_HT"
@@ -2123,7 +2123,7 @@ END LOOP;
 
   ,MAX(DECODE(ksl,'KM 11',"%"))          AS "KM 11"  
   ,MAX(DECODE(ksl,'KM 11',missed))   AS "KM 11_MISSED"
-  ,MAX(DECODE(ksl,'KM 11',opened))      AS "KM 11_OPENED" 
+  ,MAX(DECODE(ksl,'KM 11',opened))      AS "KM 11_ACHIEVED" 
   ,MAX(DECODE(ksl,'KM 11',serviced))   AS "KM 11_SERVICED"
   ,MAX(DECODE(ksl,'KM 11',st))        AS "KM 11_ST" 
   ,MAX(DECODE(ksl,'KM 11',ht))       AS "KM 11_HT"
@@ -2132,7 +2132,7 @@ END LOOP;
   
   ,MAX(DECODE(ksl,'KM 12',"%"))     AS "KM 12"  
   ,MAX(DECODE(ksl,'KM 12',missed))   AS "KM 12_MISSED"
-  ,MAX(DECODE(ksl,'KM 12',opened))      AS "KM 12_OPENED" 
+  ,MAX(DECODE(ksl,'KM 12',opened))      AS "KM 12_ACHIEVED" 
   ,MAX(DECODE(ksl,'KM 12',serviced))   AS "KM 12_SERVICED"
   ,MAX(DECODE(ksl,'KM 12',st))        AS "KM 12_ST" 
   ,MAX(DECODE(ksl,'KM 12',ht))       AS "KM 12_HT"
@@ -2141,7 +2141,7 @@ END LOOP;
 
   ,MAX(DECODE(ksl,'KM 13',"%"))       AS "KM 13"  
   ,MAX(DECODE(ksl,'KM 13',missed))   AS "KM 13_MISSED"
-  ,MAX(DECODE(ksl,'KM 13',opened))      AS "KM 13_OPENED" 
+  ,MAX(DECODE(ksl,'KM 13',opened))      AS "KM 13_ACHIEVED" 
   ,MAX(DECODE(ksl,'KM 13',serviced))   AS "KM 13_SERVICED"
   ,MAX(DECODE(ksl,'KM 13',st))        AS "KM 13_ST" 
   ,MAX(DECODE(ksl,'KM 13',ht))       AS "KM 13_HT"
@@ -2150,7 +2150,7 @@ END LOOP;
   
   ,MAX(DECODE(ksl,'KM 14',"%"))        AS "KM 14"  
   ,MAX(DECODE(ksl,'KM 14',missed))   AS "KM 14_MISSED"
-  ,MAX(DECODE(ksl,'KM 14',opened))      AS "KM 14_OPENED" 
+  ,MAX(DECODE(ksl,'KM 14',opened))      AS "KM 14_ACHIEVED" 
   ,MAX(DECODE(ksl,'KM 14',serviced))   AS "KM 14_SERVICED"
   ,MAX(DECODE(ksl,'KM 14',st))        AS "KM 14_ST" 
   ,MAX(DECODE(ksl,'KM 14',ht))       AS "KM 14_HT"
@@ -2159,7 +2159,7 @@ END LOOP;
   
   ,MAX(DECODE(ksl,'KM 15',"%"))     AS "KM 15"  
   ,MAX(DECODE(ksl,'KM 15',missed))   AS "KM 15_MISSED"
-  ,MAX(DECODE(ksl,'KM 15',opened))      AS "KM 15_OPENED" 
+  ,MAX(DECODE(ksl,'KM 15',opened))      AS "KM 15_ACHIEVED" 
   ,MAX(DECODE(ksl,'KM 15',serviced))   AS "KM 15_SERVICED"
   ,MAX(DECODE(ksl,'KM 15',st))        AS "KM 15_ST" 
   ,MAX(DECODE(ksl,'KM 15',ht))       AS "KM 15_HT"
