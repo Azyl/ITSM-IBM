@@ -1,8 +1,8 @@
-/* Formatted on 31/03/16 17:11:28 (QP5 v5.287) */
+/* Formatted on 01/04/16 11:56:26 (QP5 v5.287) */
 CREATE OR REPLACE PACKAGE BODY ITSM.P_KSL
 IS
    -- Private type declarations
-   
+
    --test
 
    -- Private constant declarations
@@ -41,12 +41,13 @@ IS
       PROCENT        VARCHAR2 (100);
    BEGIN
         SELECT                                                     --CONTRACT,
-                                                           --BUSINESS_CLUSTER,
+               --BUSINESS_CLUSTER,
                                                                     --SERVICE,
-                         --TO_CHAR("CLOSED_DATE", 'YYYY_MM') AS "CLOSED_DATE",
-                                                              --INCIDENT_TYPE,
+--TO_CHAR("CLOSED_DATE", 'YYYY_MM') AS "CLOSED_DATE",
+--INCIDENT_TYPE,
                                                                    --PRIORITY,
-               ABS (COUNT (*) - COALESCE (SUM (SOLUTION_TIME_ACHIEVED_FLAG), 0))
+               ABS (
+                  COUNT (*) - COALESCE (SUM (SOLUTION_TIME_ACHIEVED_FLAG), 0))
                   AS "MISSED",
                SUM (SOLUTION_TIME_ACHIEVED_FLAG) AS ACHIEVED,
                COUNT (*) AS SERVICED,
@@ -93,12 +94,13 @@ IS
       PROCENT        VARCHAR2 (100);
    BEGIN
         SELECT                                                     --CONTRACT,
-                                                           --BUSINESS_CLUSTER,
+               --BUSINESS_CLUSTER,
                                                                     --SERVICE,
-                         --TO_CHAR("CLOSED_DATE", 'YYYY_MM') AS "CLOSED_DATE",
-                                                              --INCIDENT_TYPE,
+--TO_CHAR("CLOSED_DATE", 'YYYY_MM') AS "CLOSED_DATE",
+--INCIDENT_TYPE,
                                                                    --PRIORITY,
-               ABS (COUNT (*) - COALESCE (SUM (SOLUTION_TIME_ACHIEVED_FLAG), 0))
+               ABS (
+                  COUNT (*) - COALESCE (SUM (SOLUTION_TIME_ACHIEVED_FLAG), 0))
                   AS "MISSED",
                SUM (SOLUTION_TIME_ACHIEVED_FLAG) AS ACHIEVED,
                COUNT (*) AS SERVICED,
@@ -875,7 +877,8 @@ IS
                                               'KM 4',
                                               'KM 5',
                                               'KM 6',
-                                              'KM 7')
+                                              'KM 7',
+                                              'KM 9')
                             AND RTRIM (DATA."%", '% ') >= KSL.HT
                        THEN
                           'G'
@@ -884,7 +887,8 @@ IS
                                                   'KM 4',
                                                   'KM 5',
                                                   'KM 6',
-                                                  'KM 7')
+                                                  'KM 7',
+                                                  'KM 9')
                                 AND RTRIM (DATA."%", '% ') >= KSL.ST
                                 AND RTRIM (DATA."%", '% ') < KSL.HT)
                             OR (    KSL.K NOT IN ('KSL 11',
@@ -892,7 +896,9 @@ IS
                                                   'KM 4',
                                                   'KM 5',
                                                   'KM 6',
-                                                  'KM 7')
+                                                  'KM 7',
+                                                  'KM 9')
+                                --AND DATA.serviced <> 1
                                 AND DATA.serviced - DATA.achieved = 1
                                 AND RTRIM (DATA."%", '% ') < KSL.HT)
                        THEN
@@ -902,10 +908,24 @@ IS
                                               'KM 4',
                                               'KM 5',
                                               'KM 6',
-                                              'KM 7')
+                                              'KM 7',
+                                              'KM 9')
                             AND RTRIM (DATA."%", '% ') < KSL.HT
                        THEN
                           'R'
+                       WHEN     KSL.K = 'KM 9'
+                            AND RTRIM (DATA."%", '% ') > KSL.HT
+                       THEN
+                          'R'
+                       WHEN     KSL.K = 'KM 9'
+                            AND RTRIM (DATA."%", '% ') > KSL.ST
+                            AND RTRIM (DATA."%", '% ') <= KSL.HT
+                       THEN
+                          'Y'
+                       WHEN     KSL.K = 'KM 9'
+                            AND RTRIM (DATA."%", '% ') <= KSL.ST
+                       THEN
+                          'G'
                        ELSE
                           'O'
                     END
