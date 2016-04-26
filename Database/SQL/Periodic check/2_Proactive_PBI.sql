@@ -1,4 +1,5 @@
 /* Formatted on 26/04/16 18:10:16 (QP5 v5.287) */
+select distinct * from (
 SELECT TO_CHAR (V_PROBLEM_ALL_DATA.SUBMIT_DATE, 'YYYY') AS submit_date_year,
        TO_CHAR (V_PROBLEM_ALL_DATA.SUBMIT_DATE, 'MON') AS submit_date,
        decode(to_char(V_PROBLEM_ALL_DATA.SUBMIT_DATE,'YYYY_MM'),to_char(sysdate,'YYYY_MM'),V_QUAL_CONFIG_ITSM_SERVICE.MIS_5_NS) AS BUSINESS_CLUSTER,
@@ -25,4 +26,7 @@ SELECT TO_CHAR (V_PROBLEM_ALL_DATA.SUBMIT_DATE, 'YYYY') AS submit_date_year,
                  FROM v_problem_worklog
                 WHERE UPPER (summary) LIKE '%PROA%')
       -- and V_PROBLEM_ALL_DATA.SUBMIT_DATE >= TRUNC(SYSDATE,'MM')
-order by 1,V_PROBLEM_ALL_DATA.SUBMIT_DATE
+--order by to_number(TO_CHAR(V_PROBLEM_ALL_DATA.SUBMIT_DATE, 'YYYY')) desc
+--order by 1,to_date(submit_date_year||submit_date,'YYYYMON'),3 nulls first
+)
+order by 1,to_date(submit_date,'MON');
